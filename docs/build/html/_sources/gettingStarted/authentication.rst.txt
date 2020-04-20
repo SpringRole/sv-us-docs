@@ -337,3 +337,232 @@ Once the payment is done sucessfully the email is sent out to the candidate.
 **Query Parameters**
 	
 	* id (string): Reference id retreived in invite employee API.
+
+Get Candidate
+-------------
+
+AIM of this API is used to get employee details.
+
+.. note::
+	 This API should only be used after getting the packages in previous API.
+
+**Path** : /company/employee
+
+**Method** : GET
+
+**Example Request**
+ 	.. code::
+		
+		curl --location --request GET 'http://localhost:3080/company/employee?id
+		=5d9f192f-446d-4576-926c-289863d6dbf6' \
+		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFqaXRlc2gudGl3YXJpQHNwcmluZ3JvbGUuY29tIiwiZG9tYWluIjoic3ByaW5ncm9sZS5jb20iLCJleHBpcmVzIjoxNTg3Mzk1Mjg0OTM5fQ.121Niu--6hEtBJ35_-1Plug96oYY63kG8mVPcQPX-7E' \
+
+
+**Example Response**
+	.. code::
+
+		{
+		    "success": true,
+		    "successMsg": "packages retrived successfully",
+		    "data": {
+		        "employee": {
+		            "id": "5d9f192f-446d-4576-926c-289863d6dbf6",
+		            "access_id": "ca4be4ab-c256-4377-a9fa-9e60538ae6d3",
+		            "email": "fuspuzumlu@desoz.com",
+		            "first_name": "abc",
+		            "middle_name": "",
+		            "last_name": "xyz",
+		            "name_verified": null,
+		            "created_at": "2019-07-25T13:15:19.000Z",
+		            "updated_at": "2020-03-30T14:32:24.000Z",
+		            "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
+		            "payment_id": "fff773ce-7c8c-48b1-8476-bceb88f5dd62",
+		            "email_sent": true,
+		            "payment": false,
+		            "status": "VERIFIED",
+		            "flow_completed": true,
+		            "CompanyCreatedBy": "ajitesh.tiwari@springrole.com",
+		            "EmployeeLimitId": "574077a2-1800-4e5e-bec8-cb51adf42848",
+		            "kbaqna": {
+		                "id": "d7131f0a-e716-41d4-bbcd-fd8a419bd938",
+		                "access_id": "ca4be4ab-c256-4377-a9fa-9e60538ae6d3",
+		                "email": "fuspuzumlu@desoz.com",
+		                "questions_flag": 1,
+		                "kba_enabled": 1,
+		                "question_count": "4",
+		                "correct_answers": "1",
+		                "verified": false,
+		                "created_at": "2019-07-25T13:21:00.000Z",
+		                "updated_at": "2019-08-05T08:35:33.000Z",
+		                "IDMSessionId": "64ee9ce28fd84f43",
+		                "EmployeeEmail": "fuspuzumlu@desoz.com"
+		            },
+		            "Employements": [
+		                {
+		                    "id": "3cefb130-0d34-4859-ad95-ae5f7c42bcc7",
+		                    "email": "fuspuzumlu@desoz.com",
+		                    "access_id": null,
+		                    "employer_name": "SpringRole",
+		                    "employer_name_verified": 0,
+		                    "employer_phone": "1-",
+		                    "employer_phone_verified": null,
+		                    "employer_address": "Hosur Road",
+		                    "employer_address_verified": 0,
+		                    "employer_town": "Bengaluru",
+		                    "employer_town_verified": 0,
+		                    "state": "KA",
+		                    "state_verified": null,
+		                    "zipcode": "560029",
+		                    "zipcode_verified": null,
+		                    "employer_country": "India",
+		                    "employer_country_verified": 0,
+		                    "job_title": "Job",
+		                    "job_title_verified": 0,
+		                    "start_date": "01-01-2000",
+		                    "start_date_verified": 0,
+		                    "end_date": "01-01-2000",
+		                    "end_date_verified": 0,
+		                    "supervisor_name": "Name",
+		                    "supervisor_contact": null,
+		                    "current_employment": null,
+		                    "current_employment_verified": 0,
+		                    "contract_type": null,
+		                    "contract_type_verified": "0",
+		                    "source": null,
+		                    "created_at": "2019-08-01T12:40:47.000Z",
+		                    "updated_at": "2019-09-11T11:56:27.000Z",
+		                    "job_type": "full time employee",
+		                    "reason_for_leaving": null,
+		                    "status": 2,
+		                    "super_admin_status": 1,
+		                    "consent": null
+		                }
+		            ],
+		            "Education": [
+		                {
+		                    "id": "a3cb1983-e69f-4053-a494-3fce7323bf66",
+		                    "email": "fuspuzumlu@desoz.com",
+		                    "access_id": null,
+		                    "employee_alias_name": null,
+		                    "employee_alias_name_verified": null,
+		                    "school_name": "CMS",
+		                    "school_name_verified": null,
+		                    "school_campus": "CMS",
+		                    "school_campus_verified": null,
+		                    "phone": null,
+		                    "phone_verified": null,
+		                    "address": null,
+		                    "address_verified": null,
+		                    "town": null,
+		                    "town_verified": null,
+		                    "city": "Lucknow",
+		                    "city_verified": null,
+		                    "state": "UP",
+		                    "state_verified": null,
+		                    "zipcode": null,
+		                    "zipcode_verified": null,
+		                    "country": "India",
+		                    "country_verified": null,
+		                    "start_date": "01-01-2000",
+		                    "start_date_verified": null,
+		                    "end_date": "01-01-2000",
+		                    "end_date_verified": null,
+		                    "degree": "Degree",
+		                    "degree_verified": null,
+		                    "major": null,
+		                    "major_verified": null,
+		                    "school_type": "University",
+		                    "source": null,
+		                    "created_at": "2019-08-01T13:20:23.000Z",
+		                    "updated_at": "2020-03-30T14:32:22.000Z",
+		                    "currently_attending": 0,
+		                    "completed_successfully": 1,
+		                    "status": 2,
+		                    "super_admin_status": 1
+		                }
+		            ],
+		            "EmployeeLimit": {
+		                "id": "574077a2-1800-4e5e-bec8-cb51adf42848",
+		                "employement": 2,
+		                "education": 1,
+		                "professional_license": 1,
+		                "civil_court": 0,
+		                "driving_license": 0,
+		                "package_id": null,
+		                "created_at": "2019-07-25T13:15:19.000Z",
+		                "updated_at": "2019-07-25T13:15:19.000Z",
+		                "EmployeeInviteGroupId": "6d3eae64-32b8-42d4-9f87-86b746afabd2",
+		                "EmployeeInviteGroup": {
+		                    "id": "6d3eae64-32b8-42d4-9f87-86b746afabd2",
+		                    "package": "gold",
+		                    "active": false,
+		                    "created_at": "2019-07-25T13:15:17.000Z",
+		                    "updated_at": "2019-07-26T12:45:14.000Z",
+		                    "CompanyCreatedBy": "ajitesh.tiwari@springrole.com",
+		                    "PackageId": "2"
+		                }
+		            },
+		            "EmployeeDetail": {
+		                "id": "29e8611d-1072-447f-914b-c38c19648138",
+		                "access_id": "ca4be4ab-c256-4377-a9fa-9e60538ae6d3",
+		                "address": "17 2nd Street, Suite 201",
+		                "address_verified": null,
+		                "driving_number": null,
+		                "driving_number_verified": null,
+		                "city": " Santa Monica,",
+		                "city_verified": null,
+		                "state": "CA",
+		                "state_verified": null,
+		                "zipcode": "90401",
+		                "zipcode_verified": null,
+		                "country": null,
+		                "country_verified": null,
+		                "birthdate": "29-05-1994",
+		                "birthdate_verified": null,
+		                "phone": "1-9179139020",
+		                "phone_verified": null,
+		                "ssn": "3485",
+		                "ssn_verified": null,
+		                "created_at": "2019-07-25T13:20:20.000Z",
+		                "updated_at": "2019-07-25T13:20:20.000Z",
+		                "EmployeeEmail": "fuspuzumlu@desoz.com"
+		            },
+		            "EmployeeVerification": {
+		                "id": "0a392e86-6973-46d9-a6a1-a7124c5efce1",
+		                "s3_gov_id": "https://spring-verify-us.s3.amazonaws.com/employee-id/fuspuzumlu%40desoz.com/passport.jpg",
+		                "s3_gov_id_back": null,
+		                "s3_gov_id_match": false,
+		                "s3_web_img": null,
+		                "s3_passport_verified": 1,
+		                "s3_dl_verified": null,
+		                "verification_type": "id",
+		                "address": null,
+		                "address_verified": null,
+		                "city": null,
+		                "city_verified": null,
+		                "state": null,
+		                "state_verified": null,
+		                "zipcode": null,
+		                "zipcode_verified": null,
+		                "country": null,
+		                "country_verified": null,
+		                "birthdate": null,
+		                "birthdate_verified": null,
+		                "criminal_verified": null,
+		                "created_at": "2019-07-25T13:20:55.000Z",
+		                "updated_at": "2019-08-01T10:06:48.000Z",
+		                "is_report_checked": true,
+		                "summary_of_rights_accepted": true,
+		                "background_check_disclosure_accepted": true,
+		                "id_manual_review": null,
+		                "super_admin_status": null,
+		                "EmployeeEmail": "fuspuzumlu@desoz.com"
+		            }
+		        },
+		        "review": []
+		    }
+		}
+
+**Query Parameters**
+	
+	* employeeId (uuid): Contains the id of the employee.

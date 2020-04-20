@@ -94,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#get-packages">Get Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#invite-candidates">Invite Candidates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#payment-for-invites">Payment For Invites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-candidate">Get Candidate</a></li>
 </ul>
 </li>
 </ul>
@@ -499,6 +500,236 @@ Once the payment is done sucessfully the email is sent out to the candidate.</p>
 <blockquote>
 <div><ul class="simple">
 <li>id (string): Reference id retreived in invite employee API.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="get-candidate">
+<h2>Get Candidate<a class="headerlink" href="#get-candidate" title="Permalink to this headline">¶</a></h2>
+<p>AIM of this API is used to get employee details.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This API should only be used after getting the packages in previous API.</p>
+</div>
+<p><strong>Path</strong> : /company/employee</p>
+<p><strong>Method</strong> : GET</p>
+<dl class="docutils">
+<dt><strong>Example Request</strong></dt>
+<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">GET</span> <span class="s1">&#39;http://localhost:3080/company/employee?id</span>
+<span class="o">=</span><span class="mi">5</span><span class="n">d9f192f</span><span class="o">-</span><span class="mi">446</span><span class="n">d</span><span class="o">-</span><span class="mi">4576</span><span class="o">-</span><span class="mi">926</span><span class="n">c</span><span class="o">-</span><span class="mi">289863</span><span class="n">d6dbf6</span><span class="s1">&#39; </span><span class="se">\</span>
+<span class="s1">--header &#39;</span><span class="n">Authorization</span><span class="p">:</span> <span class="n">Bearer</span> <span class="n">eyJhbGciOiJIUzI1NiJ9</span><span class="o">.</span><span class="n">eyJlbWFpbCI6ImFqaXRlc2gudGl3YXJpQHNwcmluZ3JvbGUuY29tIiwiZG9tYWluIjoic3ByaW5ncm9sZS5jb20iLCJleHBpcmVzIjoxNTg3Mzk1Mjg0OTM5fQ</span><span class="o">.</span><span class="mi">121</span><span class="n">Niu</span><span class="o">--</span><span class="mi">6</span><span class="n">hEtBJ35_</span><span class="o">-</span><span class="mi">1</span><span class="n">Plug96oYY63kG8mVPcQPX</span><span class="o">-</span><span class="mi">7</span><span class="n">E</span><span class="s1">&#39; </span><span class="se">\</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Example Response</strong></dt>
+<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;successMsg&quot;</span><span class="p">:</span> <span class="s2">&quot;packages retrived successfully&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;employee&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;5d9f192f-446d-4576-926c-289863d6dbf6&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;access_id&quot;</span><span class="p">:</span> <span class="s2">&quot;ca4be4ab-c256-4377-a9fa-9e60538ae6d3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;fuspuzumlu@desoz.com&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;first_name&quot;</span><span class="p">:</span> <span class="s2">&quot;abc&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;middle_name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;last_name&quot;</span><span class="p">:</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+            <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:15:19.000Z&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-30T14:32:24.000Z&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;employer_id&quot;</span><span class="p">:</span> <span class="s2">&quot;1d4fb8ba-09ac-412c-aa62-58970b4d7472&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;payment_id&quot;</span><span class="p">:</span> <span class="s2">&quot;fff773ce-7c8c-48b1-8476-bceb88f5dd62&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;email_sent&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;payment&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;VERIFIED&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;flow_completed&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;CompanyCreatedBy&quot;</span><span class="p">:</span> <span class="s2">&quot;ajitesh.tiwari@springrole.com&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;EmployeeLimitId&quot;</span><span class="p">:</span> <span class="s2">&quot;574077a2-1800-4e5e-bec8-cb51adf42848&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kbaqna&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;d7131f0a-e716-41d4-bbcd-fd8a419bd938&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;access_id&quot;</span><span class="p">:</span> <span class="s2">&quot;ca4be4ab-c256-4377-a9fa-9e60538ae6d3&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;fuspuzumlu@desoz.com&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;questions_flag&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;kba_enabled&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;question_count&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;correct_answers&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;verified&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:21:00.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-08-05T08:35:33.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;IDMSessionId&quot;</span><span class="p">:</span> <span class="s2">&quot;64ee9ce28fd84f43&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;EmployeeEmail&quot;</span><span class="p">:</span> <span class="s2">&quot;fuspuzumlu@desoz.com&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Employements&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;3cefb130-0d34-4859-ad95-ae5f7c42bcc7&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;fuspuzumlu@desoz.com&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;access_id&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_name&quot;</span><span class="p">:</span> <span class="s2">&quot;SpringRole&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_name_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_phone&quot;</span><span class="p">:</span> <span class="s2">&quot;1-&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_phone_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_address&quot;</span><span class="p">:</span> <span class="s2">&quot;Hosur Road&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_address_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_town&quot;</span><span class="p">:</span> <span class="s2">&quot;Bengaluru&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_town_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;KA&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;state_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;zipcode&quot;</span><span class="p">:</span> <span class="s2">&quot;560029&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;zipcode_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_country&quot;</span><span class="p">:</span> <span class="s2">&quot;India&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;employer_country_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;job_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Job&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;job_title_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;start_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01-01-2000&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;start_date_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01-01-2000&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;end_date_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;supervisor_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;supervisor_contact&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;current_employment&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;current_employment_verified&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;contract_type&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;contract_type_verified&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-08-01T12:40:47.000Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-09-11T11:56:27.000Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;job_type&quot;</span><span class="p">:</span> <span class="s2">&quot;full time employee&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;reason_for_leaving&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;super_admin_status&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;consent&quot;</span><span class="p">:</span> <span class="n">null</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;Education&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a3cb1983-e69f-4053-a494-3fce7323bf66&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;fuspuzumlu@desoz.com&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;access_id&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;employee_alias_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;employee_alias_name_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;school_name&quot;</span><span class="p">:</span> <span class="s2">&quot;CMS&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;school_name_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;school_campus&quot;</span><span class="p">:</span> <span class="s2">&quot;CMS&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;school_campus_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;phone&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;phone_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;address_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;town&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;town_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;Lucknow&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;city_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;state_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;zipcode&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;zipcode_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;India&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;country_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;start_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01-01-2000&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;start_date_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01-01-2000&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;end_date_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;degree&quot;</span><span class="p">:</span> <span class="s2">&quot;Degree&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;degree_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;major&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;major_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;school_type&quot;</span><span class="p">:</span> <span class="s2">&quot;University&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                    <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-08-01T13:20:23.000Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-30T14:32:22.000Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;currently_attending&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;completed_successfully&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">&quot;super_admin_status&quot;</span><span class="p">:</span> <span class="mi">1</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;EmployeeLimit&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;574077a2-1800-4e5e-bec8-cb51adf42848&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;employement&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;education&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;professional_license&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;civil_court&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;driving_license&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;package_id&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:15:19.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:15:19.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;EmployeeInviteGroupId&quot;</span><span class="p">:</span> <span class="s2">&quot;6d3eae64-32b8-42d4-9f87-86b746afabd2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;EmployeeInviteGroup&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6d3eae64-32b8-42d4-9f87-86b746afabd2&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;package&quot;</span><span class="p">:</span> <span class="s2">&quot;gold&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;active&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                    <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:15:17.000Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-26T12:45:14.000Z&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;CompanyCreatedBy&quot;</span><span class="p">:</span> <span class="s2">&quot;ajitesh.tiwari@springrole.com&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;PackageId&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;EmployeeDetail&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;29e8611d-1072-447f-914b-c38c19648138&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;access_id&quot;</span><span class="p">:</span> <span class="s2">&quot;ca4be4ab-c256-4377-a9fa-9e60538ae6d3&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;17 2nd Street, Suite 201&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;address_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;driving_number&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;driving_number_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot; Santa Monica,&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;city_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;CA&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;state_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;zipcode&quot;</span><span class="p">:</span> <span class="s2">&quot;90401&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;zipcode_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;country_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;birthdate&quot;</span><span class="p">:</span> <span class="s2">&quot;29-05-1994&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;birthdate_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;phone&quot;</span><span class="p">:</span> <span class="s2">&quot;1-9179139020&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;phone_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;ssn&quot;</span><span class="p">:</span> <span class="s2">&quot;3485&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ssn_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:20:20.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:20:20.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;EmployeeEmail&quot;</span><span class="p">:</span> <span class="s2">&quot;fuspuzumlu@desoz.com&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;EmployeeVerification&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;0a392e86-6973-46d9-a6a1-a7124c5efce1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3_gov_id&quot;</span><span class="p">:</span> <span class="s2">&quot;https://spring-verify-us.s3.amazonaws.com/employee-id/fuspuzumlu</span><span class="si">%40d</span><span class="s2">esoz.com/passport.jpg&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3_gov_id_back&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;s3_gov_id_match&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">&quot;s3_web_img&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;s3_passport_verified&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;s3_dl_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;verification_type&quot;</span><span class="p">:</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;address_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;city_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;state_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;zipcode&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;zipcode_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;country_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;birthdate&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;birthdate_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;criminal_verified&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-25T13:20:55.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-08-01T10:06:48.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;is_report_checked&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                <span class="s2">&quot;summary_of_rights_accepted&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                <span class="s2">&quot;background_check_disclosure_accepted&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                <span class="s2">&quot;id_manual_review&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;super_admin_status&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;EmployeeEmail&quot;</span><span class="p">:</span> <span class="s2">&quot;fuspuzumlu@desoz.com&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;review&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Query Parameters</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>employeeId (uuid): Contains the id of the employee.</li>
 </ul>
 </div></blockquote>
 </div>
