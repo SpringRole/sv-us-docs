@@ -308,16 +308,88 @@ This API is used to get the currently available packages and prices.
 curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-        "emailList":["xifehoc349@link3mail.com"],
-        "package":"gold",
-        "addOns":{
-        "employement":1,
-        "education":1,
-        "license":1,
-        "drivingLicense":1,
-        "civilCourt":1
+    "package": "bronze",
+    "emailList": ["johndoe@dmail.com"],
+    "addOns": {
+        "employement": 0,
+        "education": 0,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": false
     },
-    "couponCode":"couponAvailableIfAny"
+    "couponCode":""
+}'
+
+curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "emailList":["johndoe@dmail.com"],
+    "package":"silver",
+    "addOns": {
+        "employement": 1,
+        "education": 0,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": false
+    },
+    "couponCode":""
+}'
+
+
+curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "emailList":["johndoe@dmail.com"],
+    "package":"gold",
+    "addOns": {
+        "employement": 2,
+        "education": 0,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "1",
+        "all_county_criminal_search": false
+    }
+    "couponCode":""
+}'
+
+curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "emailList":["johndoe@dmail.com"],
+    "package":"platinum",
+    "addOns": {
+        "employement": 2,
+        "education": 1,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": true
+    }
+    "couponCode":""
+}'
+
+
+curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "emailList":["johndoe@dmail.com"],
+    "package":"diamond",
+    "addOns": {
+        "employement": 2,
+        "education": 1,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 1,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": true
+    }
+    "couponCode":""
 }'
 ```
 
@@ -415,7 +487,6 @@ This API is used to register your Card with Stripe. Once the API call is success
 curl --location --request POST 'https://api.us.springverify.com/payment/savecard' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
 	"source":"tok_1EkXOa4wweuFtc0nQd0eOOhs"
 }'
@@ -448,6 +519,7 @@ The token received from the previous API has to be saved with SpringVerify.
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/payment/chargeuser' \
         --header 'Content-Type: application/json' \
+        --header 'Authorization: Bearer JWT_TOKEN' \
         --data-raw '{
                 "id": "72586cfc-2b46-468a-8f80-af64de0106e0"
         }'

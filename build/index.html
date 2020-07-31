@@ -710,16 +710,88 @@ Congrats on getting started with SpringVerify!
 <h2 id='invite-candidates'>Invite Candidates</h2><pre class="highlight shell tab-shell"><code>curl --location --request POST <span class="s1">'https://api.us.springverify.com/employee/invite'</span> <span class="se">\</span>
 --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 --data-raw <span class="s1">'{
-        "emailList":["xifehoc349@link3mail.com"],
-        "package":"gold",
-        "addOns":{
-        "employement":1,
-        "education":1,
-        "license":1,
-        "drivingLicense":1,
-        "civilCourt":1
+    "package": "bronze",
+    "emailList": ["johndoe@dmail.com"],
+    "addOns": {
+        "employement": 0,
+        "education": 0,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": false
     },
-    "couponCode":"couponAvailableIfAny"
+    "couponCode":""
+}'</span>
+
+curl --location --request POST <span class="s1">'https://api.us.springverify.com/employee/invite'</span> <span class="se">\</span>
+--header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+--data-raw <span class="s1">'{
+    "emailList":["johndoe@dmail.com"],
+    "package":"silver",
+    "addOns": {
+        "employement": 1,
+        "education": 0,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": false
+    },
+    "couponCode":""
+}'</span>
+
+
+curl --location --request POST <span class="s1">'https://api.us.springverify.com/employee/invite'</span> <span class="se">\</span>
+--header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+--data-raw <span class="s1">'{
+    "emailList":["johndoe@dmail.com"],
+    "package":"gold",
+    "addOns": {
+        "employement": 2,
+        "education": 0,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "1",
+        "all_county_criminal_search": false
+    }
+    "couponCode":""
+}'</span>
+
+curl --location --request POST <span class="s1">'https://api.us.springverify.com/employee/invite'</span> <span class="se">\</span>
+--header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+--data-raw <span class="s1">'{
+    "emailList":["johndoe@dmail.com"],
+    "package":"platinum",
+    "addOns": {
+        "employement": 2,
+        "education": 1,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 0,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": true
+    }
+    "couponCode":""
+}'</span>
+
+
+curl --location --request POST <span class="s1">'https://api.us.springverify.com/employee/invite'</span> <span class="se">\</span>
+--header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+--data-raw <span class="s1">'{
+    "emailList":["johndoe@dmail.com"],
+    "package":"diamond",
+    "addOns": {
+        "employement": 2,
+        "education": 1,
+        "license": 0,
+        "drivingLicense": 0,
+        "civilCourt": 1,
+        "county_criminal_search": "0",
+        "all_county_criminal_search": true
+    }
+    "couponCode":""
 }'</span>
 </code></pre>
 <blockquote>
@@ -841,7 +913,6 @@ Congrats on getting started with SpringVerify!
 <h2 id='save-the-payment-info'>Save the Payment Info</h2><pre class="highlight shell tab-shell"><code>curl --location --request POST <span class="s1">'https://api.us.springverify.com/payment/savecard'</span> <span class="se">\</span>
 --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 --header <span class="s1">'Authorization: Bearer JWT_TOKEN'</span> <span class="se">\</span>
---header <span class="s1">'Content-Type: text/plain'</span> <span class="se">\</span>
 --data-raw <span class="s1">'{
     "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs"
 }'</span>
@@ -867,6 +938,7 @@ Congrats on getting started with SpringVerify!
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='payment-for-invites'>Payment For Invites</h2><pre class="highlight shell tab-shell"><code>curl --location --request POST <span class="s1">'https://api.us.springverify.com/payment/chargeuser'</span> <span class="se">\</span>
         --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+        --header <span class="s1">'Authorization: Bearer JWT_TOKEN'</span> <span class="se">\</span>
         --data-raw <span class="s1">'{
                 "id": "72586cfc-2b46-468a-8f80-af64de0106e0"
         }'</span>
