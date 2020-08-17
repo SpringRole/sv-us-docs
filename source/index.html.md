@@ -36,10 +36,12 @@ Super Admin	| We define Super Admin as springVerify-US team.
 
 **Development** : https://api-stage.us.springverify.com
 
+**Acceptance** : https://api-acceptance.us.springverify.com
+
 **Production** : https://api.us.springverify.com
 
 <aside class="notice">
-Currently we have two types of coupons (open/closed). Please contact springVerify-US team regarding coupon code for your company.
+Currently we have two types of coupons (open/closed). Please contact info@springverify.com regarding coupon code for your company.
 </aside>
 
 ## Authentication
