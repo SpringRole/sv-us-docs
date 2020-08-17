@@ -400,10 +400,12 @@
 <h2 id='environment-urls'>Environment Urls</h2>
 <p><strong>Development</strong> : https://api-stage.us.springverify.com</p>
 
+<p><strong>Acceptance</strong> : https://api-acceptance.us.springverify.com</p>
+
 <p><strong>Production</strong> : https://api.us.springverify.com</p>
 
 <aside class="notice">
-Currently we have two types of coupons (open/closed). Please contact springVerify-US team regarding coupon code for your company.
+Currently we have two types of coupons (open/closed). Please contact info@springverify.com regarding coupon code for your company.
 </aside>
 <h2 id='authentication'>Authentication</h2>
 <p>Authenticating in SpringVerify is done on the bases of JSON Web Tokens. Once registered, you will receive a token which can be used for subsequent API requests. </p>
@@ -488,7 +490,9 @@ You must replace <code>JWT_TOKEN</code> in the examples below with your personal
 </span></code></pre>
 <p>This API is used to register a company ADMIN. Once registered an verification email is sent to the registered email.</p>
 
-<p>Password and Confirm Password fields should be hashed before hand. </p>
+<aside class="notice">
+    Password and Confirm Password fields should be hashed using SHA256 before hand. 
+</aside>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -584,6 +588,10 @@ Congrats on getting started with SpringVerify!
 <p>Aim is to generate a JWT token , which will be used for all further API calls.</p>
 
 <p>Client needs to send JWT token in the header successfully Call other APIs.</p>
+
+<aside class="notice">
+    Password should be hashed using SHA256 before hand. 
+</aside>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -3170,6 +3178,10 @@ Success Response
  -->
 
 <p>After the forementioned checks have been successfully submitted and triggered. Employee can create a password for their profile.</p>
+
+<aside class="notice">
+    Password field should be hashed using SHA256 before hand. 
+</aside>
 <h3 id='url-parameters-26'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -3189,10 +3201,14 @@ Success Response
 --header <span class="s1">'Authorization: Bearer JWT_TOKEN'</span> <span class="se">\</span>
 --header <span class="s1">'Content-Type: text/plain'</span> <span class="se">\</span>
 --data-raw <span class="s1">'{
-    "oldPasswordHash":"yahoo123456789",
-    "newPasswordHash":"yahoo123456"
+    "oldPasswordHash":"100d5fcb45dc552d1a9011e2707b937904f79df410199fcb7a1e2b3c022d9911",
+    "newPasswordHash":"1ajnfas184918491813nasfjh2481879asdajsdajsdjasdjs091301903910391"
 }'</span>
 </code></pre>
+<aside class="notice">
+    `oldPasswordHash` and `newPasswordHash` fields should be hashed using SHA256 before hand. 
+</aside>
+
 <!---
 
 Success Response

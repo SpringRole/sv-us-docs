@@ -36,10 +36,12 @@ Super Admin	| We define Super Admin as springVerify-US team.
 
 **Development** : https://api-stage.us.springverify.com
 
+**Acceptance** : https://api-acceptance.us.springverify.com
+
 **Production** : https://api.us.springverify.com
 
 <aside class="notice">
-Currently we have two types of coupons (open/closed). Please contact springVerify-US team regarding coupon code for your company.
+Currently we have two types of coupons (open/closed). Please contact info@springverify.com regarding coupon code for your company.
 </aside>
 
 ## Authentication
@@ -108,7 +110,9 @@ curl --location --request POST 'https://api.us.springverify.com/signup' \
 
 This API is used to register a company ADMIN. Once registered an verification email is sent to the registered email.
 
-Password and Confirm Password fields should be hashed before hand. 
+<aside class="notice">
+    Password and Confirm Password fields should be hashed using SHA256 before hand. 
+</aside>
 
 ### Query Parameters
 
@@ -179,6 +183,10 @@ curl --location --request POST 'https://api.us.springverify.com/login' \
 Aim is to generate a JWT token , which will be used for all further API calls.
 
 Client needs to send JWT token in the header successfully Call other APIs.
+
+<aside class="notice">
+    Password should be hashed using SHA256 before hand. 
+</aside>
 
 ### URL Parameters
 
@@ -2420,6 +2428,11 @@ Success Response
 
 After the forementioned checks have been successfully submitted and triggered. Employee can create a password for their profile.
 
+<aside class="notice">
+    Password field should be hashed using SHA256 before hand. 
+</aside>
+
+
 ### URL Parameters
 
 Parameter | Type | Description
@@ -2434,11 +2447,14 @@ curl --location --request POST 'https://api.us.springverify.com/employee/resetPa
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-	"oldPasswordHash":"yahoo123456789",
-	"newPasswordHash":"yahoo123456"
+	"oldPasswordHash":"100d5fcb45dc552d1a9011e2707b937904f79df410199fcb7a1e2b3c022d9911",
+	"newPasswordHash":"1ajnfas184918491813nasfjh2481879asdajsdajsdjasdjs091301903910391"
 }'
 ```
 
+<aside class="notice">
+    `oldPasswordHash` and `newPasswordHash` fields should be hashed using SHA256 before hand. 
+</aside>
 
 <!---
 
