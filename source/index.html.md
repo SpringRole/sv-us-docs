@@ -50,6 +50,27 @@ Authenticating in SpringVerify is done on the bases of JSON Web Tokens. Once reg
 You must replace <code>JWT_TOKEN</code> in the examples below with your personal Token.
 </aside>
 
+## Status Mapping
+
+### System Statuses
+
+STATUS | VALUE
+------ | -----
+0| PENDING
+1| VERIFIED
+2| FAILED
+3| MANUAL REVIEW
+
+### Super Admin Statuses
+
+STATUS | VALUE
+------ | -----
+0| PENDING
+1| VERIFIED
+2| FAILED
+3| UNABLE TO VERIFY
+
+
 # Company API Flow
 
 ## SignUp

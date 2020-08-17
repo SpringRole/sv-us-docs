@@ -230,6 +230,9 @@
                   <li>
                     <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
+                  <li>
+                    <a href="#status-mapping" class="toc-h2 toc-link" data-title="Status Mapping">Status Mapping</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -408,6 +411,54 @@ Currently we have two types of coupons (open/closed). Please contact springVerif
 <aside class="notice">
 You must replace <code>JWT_TOKEN</code> in the examples below with your personal Token.
 </aside>
+<h2 id='status-mapping'>Status Mapping</h2><h3 id='system-statuses'>System Statuses</h3>
+<table><thead>
+<tr>
+<th>STATUS</th>
+<th>VALUE</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td>PENDING</td>
+</tr>
+<tr>
+<td>1</td>
+<td>VERIFIED</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MANUAL REVIEW</td>
+</tr>
+</tbody></table>
+<h3 id='super-admin-statuses'>Super Admin Statuses</h3>
+<table><thead>
+<tr>
+<th>STATUS</th>
+<th>VALUE</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td>PENDING</td>
+</tr>
+<tr>
+<td>1</td>
+<td>VERIFIED</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FAILED</td>
+</tr>
+<tr>
+<td>3</td>
+<td>UNABLE TO VERIFY</td>
+</tr>
+</tbody></table>
 <h1 id='company-api-flow'>Company API Flow</h1><h2 id='signup'>SignUp</h2><pre class="highlight shell tab-shell"><code>curl --location --request POST <span class="s1">'https://api.us.springverify.com/signup'</span> <span class="se">\</span>
         --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
         --data-raw <span class="s1">'{
