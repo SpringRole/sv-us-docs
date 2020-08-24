@@ -26,7 +26,7 @@ We have language bindings in cURL. You can view code examples in the dark area t
 ## Defining internal objects
 
 USER ROLES | RESPONSE
---------- | ------- 
+--------- | -------
 Employee|We define employee as an entity which is being verified on the platform.
 User| We define user as an company admin.
 Company| We define company as an entity having group of users (Admins).
@@ -46,7 +46,7 @@ Currently we have two types of coupons (open/closed). Please contact info@spring
 
 ## Authentication
 
-Authenticating in SpringVerify is done on the bases of JSON Web Tokens. Once registered, you will receive a token which can be used for subsequent API requests. 
+Authenticating in SpringVerify is done on the bases of JSON Web Tokens. Once registered, you will receive a token which can be used for subsequent API requests.
 
 <aside class="notice">
 You must replace <code>JWT_TOKEN</code> in the examples below with your personal Token.
@@ -111,7 +111,7 @@ curl --location --request POST 'https://api.us.springverify.com/signup' \
 This API is used to register a company ADMIN. Once registered an verification email is sent to the registered email.
 
 <aside class="notice">
-    Password and Confirm Password fields should be hashed using SHA256 before hand. 
+    Password and Confirm Password fields should be hashed using SHA256 before hand.
 </aside>
 
 ### Query Parameters
@@ -185,7 +185,7 @@ Aim is to generate a JWT token , which will be used for all further API calls.
 Client needs to send JWT token in the header successfully Call other APIs.
 
 <aside class="notice">
-    Password should be hashed using SHA256 before hand. 
+    Password should be hashed using SHA256 before hand.
 </aside>
 
 ### URL Parameters
@@ -550,8 +550,7 @@ curl --location --request POST 'https://api.us.springverify.com/payment/chargeus
         --header 'Content-Type: application/json' \
         --header 'Authorization: Bearer JWT_TOKEN' \
         --data-raw '{
-                "id": "72586cfc-2b46-468a-8f80-af64de0106e0",
-                "send_email": true
+                "id": "72586cfc-2b46-468a-8f80-af64de0106e0"
         }'
 ```
 
@@ -561,29 +560,17 @@ curl --location --request POST 'https://api.us.springverify.com/payment/chargeus
 {
         "success": true,
         "successMsg": "money added successfully",
-        "data": {        
-            "links": [
-                {
-                    "email": "kicih32rwe563@delot23ti.com",
-                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoia2ljaWgzMnJ3ZTU2M0BkZWxvdDIzdGkuY29tIiwiaWF0IjoxNTk4MjY3MDY0LCJleHAiOjE2MDE4NjcwNjR9.cdmBksgyhgNMkk6gjIQxOW0ToYK2yF69LbigsQ86IFg"
-                },
-                {
-                    "email": "sdfasdfwer@asdewwe32fewewas.com",
-                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoic2RmYXNkZndlckBhc2Rld3dlMzJmZXdld2FzLmNvbSIsImlhdCI6MTU5ODI2NzA2NCwiZXhwIjoxNjAxODY3MDY0fQ.Xjd2x2Rp48ACTmOsxaryd13nzer1XXjBrlS3YJzMB6E"
-                }
-            ]
-        }
+        "data": {}
 }
 ```
 
-This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate. When send_email field is set to false this api returns links of candidates in response.
+This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate.
 
 ### URL Parameters
 
 Parameter | Type | Description
 --------- | ------- | -----------
 id|string|Reference id retrieved in invite employee API.
-send_email|Boolean|If false returns form links.
 
 
 ## Get Single Candidate
@@ -863,13 +850,13 @@ The forgot password API will trigger an email, with which password can be reset.
 
 Parameter | Type | Description
 --------- | ------- | -----------
-email| string | Email with which account is registered. 
+email| string | Email with which account is registered.
 
 ************************************************************************
- --> 
+ -->
 
 
- 
+
 ## Upload Company Logo
 
 ```shell
@@ -897,7 +884,7 @@ Set the company logo using this API
 
 Parameter | Type | Description
 --------- | ------- | -----------
-logo| file | Raw File of the logo. 
+logo| file | Raw File of the logo.
 
 ## Get Employees by Company
 
@@ -931,13 +918,13 @@ curl --location --request POST 'https://api.us.springverify.com/company/employee
         "created_at": "2020-05-14T13:54:01.000Z",
         "kbaqna": null,
         "Education": [
-          
+
         ],
         "Employements": [
-          
+
         ],
         "ProfessionalLicenses": [
-          
+
         ],
         "EmployeeVerification": {
           "id": "37fb0a1a-93aa-404c-84a8-16b2c1ca145e",
@@ -989,18 +976,18 @@ curl --location --request POST 'https://api.us.springverify.com/company/employee
 }
 ```
 
-Get a list of employees in a company. 
+Get a list of employees in a company.
 
 
 ### URL Parameters
 
 Parameter | Type | Description
 --------- | ------- | -----------
-limit| integer | Raw File of the logo. 
-offset| integer | Raw File of the logo. 
+limit| integer | Raw File of the logo.
+offset| integer | Raw File of the logo.
 filter | String | Types - ALL, COMPLETED, VERIFIED, PENDING,FAILED
 
- 
+
 ## Get Company Adverse Actions
 
 ```shell
@@ -1117,8 +1104,8 @@ This API is used to fetch Adverse actions. Possible status values - PENDING,NOTI
 
 Parameter | Type | Description
 --------- | ------- | -----------
-limit| integer | Raw File of the logo. 
-offset| integer | Raw File of the logo. 
+limit| integer | Raw File of the logo.
+offset| integer | Raw File of the logo.
 status | string | Current Status of the action.
 
 ## Adverse Action of Single Employee
@@ -1216,7 +1203,7 @@ curl 'https://api.us.springverify.com/api/company/adverseaction/2862fd2f-1a9d-4e
       }
     ],
     "S3Files": [
-      
+
     ]
   }
 }
@@ -1302,22 +1289,24 @@ adverseActionId | string | Adverse Action ID on which status is being updated.
 ## Submit Personal Details
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/PersonalDetails' \
+curl --location --request POST 'https://api.us.springverify.com/employee/personal-details' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-	"firstName":"John",
-	"middleName":"David",
-	"lastName":"Doe",
+	"first_name":"John",
+	"middle_name":"David",
+	"last_name":"Doe",
 	"dob":"12-11-1980",
 	"ssn":"123456789",
 	"email":"johndoe@gmail.com",
-	"address":"Address Line",
+    "house_number": "239",
+    "street_name": "Avea street"
+	"address":"236 Avea street",
 	"city":"Gotham",
 	"state":"CA",
-	"zipCode":"33433",
-	"phone":"+56-999222992"
+	"zip_code":"33433",
+	"phone":"56-999222992"
 }'
 ```
 
@@ -1332,37 +1321,39 @@ curl --location --request POST 'https://api.us.springverify.com/employee/Persona
 }
 ```
 
-This API records the information of the USER whose details will be verified. It is utmost essential that the information provided is absolutely accurate. The email provided here should be same as the one on which verification request was received. 
+This API records the information of the USER whose details will be verified. It is utmost essential that the information provided is absolutely accurate. The email provided here should be same as the one on which verification request was received.
 
 ### URL Parameters
 
 Parameter | Type | Description
 --------- | ------- | -----------
-firstName|string|First name if the employee.
-middleName|string|Middle name if the employee.
-lastName|string|Last name if the employee.
+first_name|string|First name of the employee.
+middle_name|string|Middle name of the employee.
+last_name|string|Last name of the employee.
 dob|string|Date of birth of the employee in DD-MM-YYYY.
 ssn|string|SSN of the employee.
-email|string|email of the employee.
+email|string|Email of the employee.
+house_number|integer|House number of the employee.
+street_name|string|Street name of the employee.
 address|string|Address of the employee.
 city|string|City of the employee.
 state|string|State if the employee.
-zipCode|string|zipCode if the employee.
-phone|string|Phone if the employee.
+zip_code|string|Zip code of the employee.
+phone|string|Phone of the employee.
 
 
 ## Provide Consent
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/consentupdate' \
+curl --location --request POST 'https://api.us.springverify.com/employee/consent' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-	 "summoryOfRights":true,
-     "backgroundCheck":true,
-     "reportChecked":true,
-     "fullName":"John James Doe"
+	 "summary_of_rights":true,
+     "background_check":true,
+     "report_checked":true,
+     "full_name":"John James Doe"
 }'
 ```
 
@@ -1382,16 +1373,16 @@ This API records the consent of the USER whose details will be verified. The nam
 
 Parameter | Type | Description
 --------- | ------- | -----------
-summoryOfRights|boolean|summoryOfRights flag can be true or false.
-backgroundCheck|boolean|backgroundCheck flag can be true or false.
-reportChecked|boolean|reportChecked flag can be true or false.
-fullName|string|Full name if the employee.
+summary_of_rights|boolean|summary_of_rights flag can be true or false.
+background_check|boolean|background_check flag can be true or false.
+report_checked|boolean|report_checked flag can be true or false.
+full_name|string|Full name of the employee.
 
 
 ## Knowledge Based Quiz
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/kbaquestions?email=johndoe@gmail.com' \
+curl --location --request GET 'https://api.us.springverify.com/employee/kba/questions' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
@@ -1400,17 +1391,16 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kbaquest
 ```json
 {
   "success": true,
-  "successMsg": "kba questions retirved successfully",
   "data": {
     "data": {
-      "IDMSessionId": "916bac98cc38defd",
-      "IDMKBAResponse": {
-        "KBAQuestion": [
+      "idm_session_id": "916bac98cc38defd",
+      "idmkba_response": {
+        "kba_question": [
             {
-                "QuestionId": 1,
-                "Question": "Which of the following addresses have you lived at?",
-                "QuestionType": "StreetAddress",
-                "Options": [
+                "question_id": 1,
+                "question": "Which of the following addresses have you lived at?",
+                "question_type": "StreetAddress",
+                "options": [
                     {
                         "id": 1,
                         "option": "1906 N MARIANNA AVE"
@@ -1434,10 +1424,10 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kbaquest
                 ]
             },
             {
-                "QuestionId": 2,
-                "Question": "Which of the following streets have you lived in?",
-                "QuestionType": "StreetName",
-                "Options": [
+                "question_id": 2,
+                "question": "Which of the following streets have you lived in?",
+                "question_type": "StreetName",
+                "options": [
                     {
                         "id": 1,
                         "option": "LINCOYA BAY DR"
@@ -1461,10 +1451,10 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kbaquest
                 ]
             },
             {
-                "QuestionId": 3,
-                "Question": "Which of these cities are you associated with?",
-                "QuestionType": "Cities",
-                "Options": [
+                "question_id": 3,
+                "question": "Which of these cities are you associated with?",
+                "question_type": "Cities",
+                "options": [
                     {
                         "id": 1,
                         "option": ":LONDON"
@@ -1488,10 +1478,10 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kbaquest
                 ]
             },
             {
-                "QuestionId": 4,
-                "Question": "Which of these phone numbers have you ever used previously?",
-                "QuestionType": "PhoneNumbers",
-                "Options": [
+                "question_id": 4,
+                "question": "Which of these phone numbers have you ever used previously?",
+                "question_type": "PhoneNumbers",
+                "options": [
                     {
                         "id": 1,
                         "option": "(917) 914-9870"
@@ -1515,10 +1505,10 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kbaquest
                 ]
             },
             {
-                "QuestionId": 5,
-                "Question": "Which of these businesses are you associated with?",
-                "QuestionType": "Businesses",
-                "Options": [
+                "question_id": 5,
+                "question": "Which of these businesses are you associated with?",
+                "question_type": "Businesses",
+                "options": [
                     {
                         "id": 1,
                         "option": "DELL INC"
@@ -1542,14 +1532,14 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kbaquest
                 ]
             }
         ],
-        "KBAStatus": {
-          "QuestionsAnswered": 0,
-          "NoOfQuestions": 5
+        "kba_status": {
+          "questions_answered": 0,
+          "no_of_questions": 5
         },
-        "IsKbaEnabled": "1"
+        "is_kba_enabled": "1"
       }
     },
-    "attemptNumber": 1,
+    "attempt_number": 1,
     "success": true
   }
 }
@@ -1557,37 +1547,31 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kbaquest
 
 This API is used to fetch a Knowledge based quiz. The users will give their answers to the multiple choice questions and this will score their results.
 
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-email|string|email of the employee.
-
 
 ## Submit KBA Quiz
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/kbaverify' \
+curl --location --request POST 'https://api.us.springverify.com/employee/kba/verify' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
 "qna":[
     {
-      "QuestionId": 1,
-      "AnswerId": 5
+      "question_id": 1,
+      "answer_id": 5
     },{
-      "QuestionId": 2,
-      "AnswerId": 5
+      "question_id": 2,
+      "answer_id": 5
     },{
-      "QuestionId": 3,
-      "AnswerId": 5
+      "question_id": 3,
+      "answer_id": 5
     },{
-      "QuestionId": 4,
-      "AnswerId": 5
+      "question_id": 4,
+      "answer_id": 5
     },{
-      "QuestionId": 5,
-      "AnswerId": 5
+      "question_id": 5,
+      "answer_id": 5
     }
   ]
 }'
@@ -1611,9 +1595,8 @@ curl --location --request POST 'https://api.us.springverify.com/employee/kbaveri
 
 ```json
 {
-  "error": true,
-  "errorCode": "02",
-  "errorMsg": "Your answers didn't seem to be correct, please try uploading IDs."
+  "message": "Your answers didn't seem to be correct, please try uploading IDs.",
+   "stack": "message"
 }
 ```
 
@@ -1624,17 +1607,16 @@ This API is used to submit the answers to the Knowledge based quiz.
 
 Parameter | Type | Description
 --------- | ------- | -----------
-qna|array|Contains the array of questions and their respective answers.
+qna|array|Contains the array of question id and their respective answer id.
 
 
 ## Upload and Verify ID
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/uploadreviewid' \
+curl --location --request POST 'https://api.us.springverify.com/employee/upload/id' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---form 'frontImage=@/path/to/file' \
---form 'backImage=@/path/to/file' \
---form 'type=driving'
+--form 'front=@/path/to/file' \
+--form 'back=@/path/to/file' \
 ```
 
 > Success Response
@@ -1644,7 +1626,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/uploadr
   "success": true,
   "successMsg": "driving license uploaded successfully",
   "data": {
-    
+
   }
 }
 ```
@@ -1666,16 +1648,14 @@ This API records the ID of the user and verifies it authenticity.
 
 Parameter | Type | Description
 --------- | ------- | -----------
-frontImage|image|Front side of the ID.
-backImage|image|Back side of the ID.
-type|string|type of the ID submitted, currently we support Driving License, which has to be passed as `driving`.
-
+front|image|Front side of the ID.
+back|image|Back side of the ID.
 
 
 ## Upload and Verify Passport
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/uploadpassport' \
+curl --location --request POST 'https://api.us.springverify.com/employee/upload/passport' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --form 'front=@/path/to/file'
 ```
@@ -1687,7 +1667,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/uploadp
   "success": true,
   "successMsg": "passport uploaded successfully",
   "data": {
-    
+
   }
 }
 ```
@@ -1724,10 +1704,10 @@ front|image|Front side of the Passport.
 ## Request Manual Review of the ID or Passport
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/putidmanualreview' \
+curl --location --request GET 'https://api.us.springverify.com/employee/id/manual-review' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
-<!--- 
+<!---
 Success Response
 
 ```json
@@ -1746,7 +1726,7 @@ In case both Upload ID and Upload Passport fail twice or less, the ID can be req
 ## Get ID verification tries
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/idtriescount' \
+curl --location --request GET 'https://api.us.springverify.com/employee/id/try-count' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
@@ -1764,7 +1744,7 @@ curl --location --request GET 'https://api.us.springverify.com/employee/idtriesc
 }
 ```
 
-This API will give you the number of Driving License ID , Passport and KBA tries an employee has made. The maximum allowed limit is 2 per method per candidate.   
+This API will give you the number of Driving License ID , Passport and KBA tries an employee has made. The maximum allowed limit is 2 per method per candidate.
 
 
 ## Get Candidate Info
@@ -1989,7 +1969,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employe
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
---data-raw '{	
+--data-raw '{
 	"employerName":"Stark Industries",
 	"employerAddress":"12, Manhattan Street",
 	"employerPhone":"9911991199",
@@ -2020,7 +2000,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employe
 ```json
 ```
  -->
- 
+
 This API will be used to submit the Employment records for the Employee.
 
 ### URL Parameters
@@ -2037,8 +2017,8 @@ country|string|Country of the employer.
 jobTitle|string|Job Title (latest one if multiple)
 startDate|string|Start Date of the Job.
 endDate|string|End Date of the Job.
-supervisorName|string|Supervisor Name 
-currentEmployement|string| Is this Employees current employment. 
+supervisorName|string|Supervisor Name
+currentEmployement|string| Is this Employees current employment.
 jobType|string|Job Type (Contract/Employment)
 reasonForLeaving|string| Reason for leaving the job (optional)
 supervisorContact|string| Active contact of the supervisor
@@ -2079,7 +2059,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employe
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
---data-raw '{	
+--data-raw '{
         "id":"74191de6-2d48-4de4-8191-4472ec8b4c6a",
 	"employerName":"Stark Industries",
 	"employerAddress":"12, Manhattan Street",
@@ -2129,8 +2109,8 @@ country|string|Country of the employer.
 jobTitle|string|Job Title (latest one if multiple)
 startDate|string|Start Date of the Job.
 endDate|string|End Date of the Job.
-supervisorName|string|Supervisor Name 
-currentEmployement|string| Is this Employees current employment. 
+supervisorName|string|Supervisor Name
+currentEmployement|string| Is this Employees current employment.
 jobType|string|Job Type (Contract/Employment)
 reasonForLeaving|string| Reason for leaving the job (optional)
 supervisorContact|string| Active contact of the supervisor
@@ -2159,7 +2139,7 @@ curl --location --request GET 'https://api.us.springverify.com/employee/submitEm
 Once the employment records have been submitted and finalized, Employment Verification can be triggered using this API.
 
 
-## Add Employee's Education 
+## Add Employee's Education
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/employee/education' \
@@ -2172,9 +2152,9 @@ curl --location --request POST 'https://api.us.springverify.com/employee/educati
     "state":"Massachusetts",
     "country":"USA",
     "startDate":"28-12-1991",
-    "endDate":"12-28-1996", 
+    "endDate":"12-28-1996",
     "degree":"Engineering",
-    "currentlyAttending":"0", 
+    "currentlyAttending":"0",
     "completedSuccessfully":"1",
     "major":"Biotech"
 }'
@@ -2207,7 +2187,7 @@ state|string|State in which the school is based.
 country|string|Country in which the school is based.
 startDate|string|Start date of the course.
 endDate|string|End date of the course.
-degree|string|Official degree of the course. 
+degree|string|Official degree of the course.
 currentlyAttending|string| If Currently Attending 1, otherwise 0
 completedSuccessfully|string| If Completed Successfully 1, otherwise 0
 major|string|major if any
@@ -2226,9 +2206,9 @@ curl --location --request POST 'https://api.us.springverify.com/employee/educati
     "state":"Massachusetts",
     "country":"USA",
     "startDate":"28-12-1991",
-    "endDate":"12-28-1996", 
+    "endDate":"12-28-1996",
     "degree":"Engineering",
-    "currentlyAttending":"0", 
+    "currentlyAttending":"0",
     "completedSuccessfully":"1",
     "major":"Biotech"
 }'
@@ -2262,7 +2242,7 @@ state|string|State in which the school is based.
 country|string|Country in which the school is based.
 startDate|string|Start date of the course.
 endDate|string|End date of the course.
-degree|string|Official degree of the course. 
+degree|string|Official degree of the course.
 currentlyAttending|string| If Currently Attending 1, otherwise 0
 completedSuccessfully|string| If Completed Successfully 1, otherwise 0
 major|string| Course Major if any
@@ -2349,7 +2329,7 @@ Success Response
 ```json
 ```
  -->
- 
+
 This API will be used to submit the Professional License records for the Employee.
 
 ### URL Parameters
@@ -2362,7 +2342,7 @@ startDate|string| Valid-From date of the License.
 endDate|string|Valid-To date of the License.
 state|string|State in which the License is valid.
 country|string|Country in which the License is valid.
-licenseOrganization|string| Issuing organization of the license. 
+licenseOrganization|string| Issuing organization of the license.
 
 ## Delete License
 
@@ -2392,7 +2372,7 @@ Parameter | Type | Description
 --------- | ------- | -----------
 id|UUID|UUID of the Professional License Record.
 
-## Trigger Professional License Verification 
+## Trigger Professional License Verification
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/submitLic' \
@@ -2442,7 +2422,7 @@ Success Response
 After the forementioned checks have been successfully submitted and triggered. Employee can create a password for their profile.
 
 <aside class="notice">
-    Password field should be hashed using SHA256 before hand. 
+    Password field should be hashed using SHA256 before hand.
 </aside>
 
 
@@ -2466,7 +2446,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/resetPa
 ```
 
 <aside class="notice">
-    `oldPasswordHash` and `newPasswordHash` fields should be hashed using SHA256 before hand. 
+    `oldPasswordHash` and `newPasswordHash` fields should be hashed using SHA256 before hand.
 </aside>
 
 <!---
@@ -2481,7 +2461,7 @@ Success Response
 ```json
 ```
  -->
- 
+
 
 ### URL Parameters
 
