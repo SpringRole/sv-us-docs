@@ -550,7 +550,8 @@ curl --location --request POST 'https://api.us.springverify.com/payment/chargeus
         --header 'Content-Type: application/json' \
         --header 'Authorization: Bearer JWT_TOKEN' \
         --data-raw '{
-                "id": "72586cfc-2b46-468a-8f80-af64de0106e0"
+                "id": "72586cfc-2b46-468a-8f80-af64de0106e0",
+                "send_email": true
         }'
 ```
 
@@ -560,17 +561,29 @@ curl --location --request POST 'https://api.us.springverify.com/payment/chargeus
 {
         "success": true,
         "successMsg": "money added successfully",
-        "data": {}
+        "data": {        
+            "links": [
+                {
+                    "email": "kicih32rwe563@delot23ti.com",
+                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoia2ljaWgzMnJ3ZTU2M0BkZWxvdDIzdGkuY29tIiwiaWF0IjoxNTk4MjY3MDY0LCJleHAiOjE2MDE4NjcwNjR9.cdmBksgyhgNMkk6gjIQxOW0ToYK2yF69LbigsQ86IFg"
+                },
+                {
+                    "email": "sdfasdfwer@asdewwe32fewewas.com",
+                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoic2RmYXNkZndlckBhc2Rld3dlMzJmZXdld2FzLmNvbSIsImlhdCI6MTU5ODI2NzA2NCwiZXhwIjoxNjAxODY3MDY0fQ.Xjd2x2Rp48ACTmOsxaryd13nzer1XXjBrlS3YJzMB6E"
+                }
+            ]
+        }
 }
 ```
 
-This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate.
+This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate. When send_email field is set to false this api returns links of candidates in response.
 
 ### URL Parameters
 
 Parameter | Type | Description
 --------- | ------- | -----------
 id|string|Reference id retrieved in invite employee API.
+send_email|Boolean|If false returns form links.
 
 
 ## Get Single Candidate
