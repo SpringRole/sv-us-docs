@@ -1315,9 +1315,93 @@ curl --location --request POST 'https://api.us.springverify.com/employee/persona
 
 ```json
 {
-  "success":true,
-  "successMsg":"personal details set successfully",
-  "data":{}
+    "success": true,
+    "data": {
+        "id": "7671647e-c45b-4ae6-95f6-9e86688c54a9",
+        "access_id": "afd930bc-7292-4dbd-a067-c657ee6d5e9d",
+        "email": "johndoe@gmail.com",
+        "password_hash": null,
+        "first_name": "John",
+        "middle_name": "David",
+        "last_name": "Doe",
+        "name_verified": null,
+        "created_at": "2020-08-25T06:31:19.000Z",
+        "updated_at": "2020-08-25T06:39:25.671Z",
+        "employer_id": "1d4fb8ba-09ac-412c-aa62-58070b4d7472",
+        "payment_id": "9f4d3ab8-de23-4038-874d-a01c93ef88fc",
+        "email_sent": true,
+        "payment": false,
+        "status": null,
+        "flow_completed": null,
+        "company_created_by": "zed@max.com",
+        "employee_limit_id": "2e7155b1-947b-4fc7-aca8-7e81d19a7a2e",
+        "employments": [],
+        "education": [],
+        "cic_criminal_records": [],
+        "professional_licenses": [],
+        "employee_detail": {
+            "id": "518acb73-dfb2-4a29-b33e-7a35b0dbfb9b",
+            "access_id": "afd930bc-7292-4dbd-a067-c657ee6d5e9d",
+            "address": "236 Avea street",
+            "address_verified": null,
+            "driving_number": null,
+            "driving_number_verified": null,
+            "city": "Gotham",
+            "city_verified": null,
+            "state": "CA",
+            "state_verified": null,
+            "zipcode": "33433",
+            "zipcode_verified": null,
+            "country": null,
+            "country_verified": null,
+            "birthdate": "12-11-1980",
+            "birthdate_verified": null,
+            "phone": "56-999222992",
+            "phone_verified": null,
+            "ssn": "6789",
+            "ssn_verified": null,
+            "created_at": "2020-08-25T06:39:25.000Z",
+            "updated_at": "2020-08-25T06:39:25.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_verification": null,
+        "employee_limit": {
+            "id": "2e7155b1-947b-4fc7-aca8-7e81d19a7a2e",
+            "employment": 2,
+            "education": 1,
+            "professional_license": 0,
+            "all_county_criminal_search": true,
+            "county_criminal_search": 0,
+            "civil_court": 1,
+            "driving_license": 0,
+            "package_id": null,
+            "created_at": "2020-08-25T06:31:19.000Z",
+            "updated_at": "2020-08-25T06:31:19.000Z",
+            "employee_invite_group_id": "f219ea9b-e028-417f-871c-cec7d542be64",
+            "employee_invite_group": {
+                "id": "f219ea9b-e028-417f-871c-cec7d542be64",
+                "package": "diamond",
+                "active": true,
+                "created_at": "2020-08-25T06:31:19.000Z",
+                "updated_at": "2020-08-25T06:31:19.000Z",
+                "company_created_by": "zed@max.com",
+                "package_id": "5"
+            }
+        },
+        "kbaqna": null,
+        "employee_flow": {
+            "id": 288,
+            "employment_flow": null,
+            "education_flow": null,
+            "professional_license_flow": null,
+            "created_at": "2020-08-25T06:39:23.000Z",
+            "updated_at": "2020-08-25T06:39:23.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "s3_files": [],
+        "criminal_statuses": [],
+        "sjv_criminal_reports": []
+    }
 }
 ```
 
@@ -1337,9 +1421,9 @@ house_number|integer|House number of the employee.
 street_name|string|Street name of the employee.
 address|string|Address of the employee.
 city|string|City of the employee.
-state|string|State if the employee.
+state|string|State of the employee.
 zip_code|string|Zip code of the employee.
-phone|string|Phone of the employee.
+phone|string|Phone number of the employee.
 
 
 ## Provide Consent
