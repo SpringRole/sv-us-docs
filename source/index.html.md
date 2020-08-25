@@ -427,11 +427,17 @@ curl --location --request POST 'https://api.us.springverify.com/employee/invite'
 ```json
 {
     "success": true,
-    "successMsg": "invites sent successfuly",
+    "successMsg": "invites sent successfully",
     "data": {
-        "price": 3950,
-        "id": "d78a273d-b045-4dc7-8325-8fa7b585ff81",
-        "count": 1
+        "price": 750,
+        "id": "3ba136d2-24e7-4e5d-9de4-253fcccbdbd3",
+        "count": 1,
+        "employees": [
+            {
+                "id": "88636bf3-93f7-45e3-a37a-6a352766efbe",
+                "email": "kere234213123t64753@aenmail.net"
+            }
+        ]
     }
 }
 ```
@@ -565,11 +571,13 @@ curl --location --request POST 'https://api.us.springverify.com/payment/chargeus
             "links": [
                 {
                     "email": "kicih32rwe563@delot23ti.com",
-                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoia2ljaWgzMnJ3ZTU2M0BkZWxvdDIzdGkuY29tIiwiaWF0IjoxNTk4MjY3MDY0LCJleHAiOjE2MDE4NjcwNjR9.cdmBksgyhgNMkk6gjIQxOW0ToYK2yF69LbigsQ86IFg"
+                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoia2ljaWgzMnJ3ZTU2M0BkZWxvdDIzdGkuY29tIiwiaWF0IjoxNTk4MjY3MDY0LCJleHAiOjE2MDE4NjcwNjR9.cdmBksgyhgNMkk6gjIQxOW0ToYK2yF69LbigsQ86IFg",
+                    "id": "88636bf3-93f7-45e3-a37a-6a352766efbe"
                 },
                 {
                     "email": "sdfasdfwer@asdewwe32fewewas.com",
-                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoic2RmYXNkZndlckBhc2Rld3dlMzJmZXdld2FzLmNvbSIsImlhdCI6MTU5ODI2NzA2NCwiZXhwIjoxNjAxODY3MDY0fQ.Xjd2x2Rp48ACTmOsxaryd13nzer1XXjBrlS3YJzMB6E"
+                    "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoic2RmYXNkZndlckBhc2Rld3dlMzJmZXdld2FzLmNvbSIsImlhdCI6MTU5ODI2NzA2NCwiZXhwIjoxNjAxODY3MDY0fQ.Xjd2x2Rp48ACTmOsxaryd13nzer1XXjBrlS3YJzMB6E",
+                    "id": "88636bf3-93f7-45e3-a37a-6a352766efbe"
                 }
             ]
         }
