@@ -1446,8 +1446,17 @@ curl --location --request POST 'https://api.us.springverify.com/employee/consent
 ```json
 {
     "success": true,
-    "successMsg": "consent updated successfully",
-    "data": {}
+    "data": {
+        "id": "c068d1da-9615-4b8e-a7a7-5daf624ed8d1",
+        "summary_of_rights_accepted": true,
+        "background_check_disclosure_accepted": true,
+        "is_report_checked": false,
+        "employee_email": "johndoe@gmail.com",
+        "consent_link": "s3 link",
+        "spring_sign_ref_id": "5f4524b817710d0014423b61",
+        "updated_at": "2020-08-25T14:48:27.394Z",
+        "created_at": "2020-08-25T14:48:27.394Z"
+    }
 }
 ```
 
@@ -1474,158 +1483,158 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kba/ques
 
 ```json
 {
-  "success": true,
-  "data": {
+    "success": true,
     "data": {
-      "idm_session_id": "916bac98cc38defd",
-      "idmkba_response": {
-        "kba_question": [
-            {
-                "question_id": 1,
-                "question": "Which of the following addresses have you lived at?",
-                "question_type": "StreetAddress",
-                "options": [
+        "data": {
+            "idm_session_id": "103c7680a327eada",
+            "idmkba_response": {
+                "kba_question": [
                     {
-                        "id": 1,
-                        "option": "1906 N MARIANNA AVE"
+                        "question_id": 1,
+                        "question": "Which of the following addresses have you lived at?",
+                        "question_type": "StreetAddress",
+                        "options": [
+                            {
+                                "id": 1,
+                                "option": "2601 PENNSYLVANIA AVE"
+                            },
+                            {
+                                "id": 2,
+                                "option": "13314 SCOTTS RD"
+                            },
+                            {
+                                "id": 3,
+                                "option": "10931 STONE CANYON RD"
+                            },
+                            {
+                                "id": 4,
+                                "option": "9111 WHITE BLUFF RD"
+                            },
+                            {
+                                "id": 5,
+                                "option": "NONE OF THE ABOVE"
+                            }
+                        ]
                     },
                     {
-                        "id": 2,
-                        "option": "465 BRICKELL AVE"
+                        "question_id": 2,
+                        "question": "Which of the following people is your relative?",
+                        "question_type": "Relatives",
+                        "options": [
+                            {
+                                "id": 1,
+                                "option": "NORBERT WARD"
+                            },
+                            {
+                                "id": 2,
+                                "option": "JOHN WARD"
+                            },
+                            {
+                                "id": 3,
+                                "option": "MARGARET WARD"
+                            },
+                            {
+                                "id": 4,
+                                "option": "PAULA WARD"
+                            },
+                            {
+                                "id": 5,
+                                "option": "NONE OF THE ABOVE"
+                            }
+                        ]
                     },
                     {
-                        "id": 3,
-                        "option": "882 N MONTANA ST"
+                        "question_id": 3,
+                        "question": "Which of the following vehicles have you owned?",
+                        "question_type": "Vehicle",
+                        "options": [
+                            {
+                                "id": 1,
+                                "option": "1984 NISSAN 300ZX"
+                            },
+                            {
+                                "id": 2,
+                                "option": "1997 ISUZU RODEO"
+                            },
+                            {
+                                "id": 3,
+                                "option": "2008 HYUNDAI TIBURON"
+                            },
+                            {
+                                "id": 4,
+                                "option": "1967 LINCOLN CONTINENTAL"
+                            },
+                            {
+                                "id": 5,
+                                "option": "NONE OF THE ABOVE"
+                            }
+                        ]
                     },
                     {
-                        "id": 4,
-                        "option": "1619 E TYROL AVE"
+                        "question_id": 4,
+                        "question": "Which of the following streets have you lived in?",
+                        "question_type": "StreetName",
+                        "options": [
+                            {
+                                "id": 1,
+                                "option": "BANDERO DR"
+                            },
+                            {
+                                "id": 2,
+                                "option": "GALEWOOD DR"
+                            },
+                            {
+                                "id": 3,
+                                "option": "UNION HALL RD"
+                            },
+                            {
+                                "id": 4,
+                                "option": "KNOBHILL DR"
+                            },
+                            {
+                                "id": 5,
+                                "option": "NONE OF THE ABOVE"
+                            }
+                        ]
                     },
                     {
-                        "id": 5,
-                        "option": "NONE OF THE ABOVE"
+                        "question_id": 5,
+                        "question": "Which of these businesses are you associated with?",
+                        "question_type": "Businesses",
+                        "options": [
+                            {
+                                "id": 1,
+                                "option": "TRI-STATE INDUSTRIAL GROUP LLC"
+                            },
+                            {
+                                "id": 2,
+                                "option": "ALL ULTRASOUND SERVICES"
+                            },
+                            {
+                                "id": 3,
+                                "option": "DBC VENTURES LLC"
+                            },
+                            {
+                                "id": 4,
+                                "option": "KARREN CORP"
+                            },
+                            {
+                                "id": 5,
+                                "option": "NONE OF THE ABOVE"
+                            }
+                        ]
                     }
-                ]
-            },
-            {
-                "question_id": 2,
-                "question": "Which of the following streets have you lived in?",
-                "question_type": "StreetName",
-                "options": [
-                    {
-                        "id": 1,
-                        "option": "LINCOYA BAY DR"
-                    },
-                    {
-                        "id": 2,
-                        "option": "20TH ST"
-                    },
-                    {
-                        "id": 3,
-                        "option": "W JOHNNY LYTLE AVE"
-                    },
-                    {
-                        "id": 4,
-                        "option": "RUSHMORE"
-                    },
-                    {
-                        "id": 5,
-                        "option": "NONE OF THE ABOVE"
-                    }
-                ]
-            },
-            {
-                "question_id": 3,
-                "question": "Which of these cities are you associated with?",
-                "question_type": "Cities",
-                "options": [
-                    {
-                        "id": 1,
-                        "option": ":LONDON"
-                    },
-                    {
-                        "id": 2,
-                        "option": "NEW YORK"
-                    },
-                    {
-                        "id": 3,
-                        "option": "SANTA MONICA"
-                    },
-                    {
-                        "id": 4,
-                        "option": "COLORADO"
-                    },
-                    {
-                        "id": 5,
-                        "option": "NONE OF THE ABOVE"
-                    }
-                ]
-            },
-            {
-                "question_id": 4,
-                "question": "Which of these phone numbers have you ever used previously?",
-                "question_type": "PhoneNumbers",
-                "options": [
-                    {
-                        "id": 1,
-                        "option": "(917) 914-9870"
-                    },
-                    {
-                        "id": 2,
-                        "option": "(234) 310-8490"
-                    },
-                    {
-                        "id": 3,
-                        "option": "(843) 514-3543"
-                    },
-                    {
-                        "id": 4,
-                        "option": "(865) 981-0265"
-                    },
-                    {
-                        "id": 5,
-                        "option": "NONE OF THE ABOVE"
-                    }
-                ]
-            },
-            {
-                "question_id": 5,
-                "question": "Which of these businesses are you associated with?",
-                "question_type": "Businesses",
-                "options": [
-                    {
-                        "id": 1,
-                        "option": "DELL INC"
-                    },
-                    {
-                        "id": 2,
-                        "option": "MARIE D APPLYRS"
-                    },
-                    {
-                        "id": 3,
-                        "option": "AMAZON INC"
-                    },
-                    {
-                        "id": 4,
-                        "option": "ACME INC"
-                    },
-                    {
-                        "id": 5,
-                        "option": "NONE OF THE ABOVE"
-                    }
-                ]
+                ],
+                "kba_status": {
+                    "questions_answered": 0,
+                    "no_of_questions": 5
+                },
+                "is_kba_enabled": "1"
             }
-        ],
-        "kba_status": {
-          "questions_answered": 0,
-          "no_of_questions": 5
         },
-        "is_kba_enabled": "1"
-      }
-    },
-    "attempt_number": 1,
-    "success": true
-  }
+        "attempt_number": 1,
+        "success": true
+    }
 }
 ```
 
@@ -1679,8 +1688,8 @@ curl --location --request POST 'https://api.us.springverify.com/employee/kba/ver
 
 ```json
 {
-  "message": "Your answers didn't seem to be correct, please try uploading IDs.",
-   "stack": "message"
+    "message": "Your answers didn't seem to be correct, please try uploading DL or Passport.",
+    "stack": "message"
 }
 ```
 
@@ -1707,11 +1716,12 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 
 ```json
 {
-  "success": true,
-  "successMsg": "driving license uploaded successfully",
-  "data": {
-
-  }
+    "success": true,
+    "data": {
+        "success": true,
+        "attempts": 1,
+        "user_access_code": "6e7d5f15-9456-430d-b9da-9df67a4d9996"
+    }
 }
 ```
 
@@ -1810,7 +1820,7 @@ In case both Upload ID and Upload Passport fail twice or less, the ID can be req
 ## Get ID verification tries
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/id/try-count' \
+curl --location --request GET 'https://api.us.springverify.com/employee/id/try-counts' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
@@ -1818,13 +1828,12 @@ curl --location --request GET 'https://api.us.springverify.com/employee/id/try-c
 
 ```json
 {
-  "success": true,
-  "successMsg": "no of id checks number retrieved successfully",
-  "data": {
-    "DL": 0,
-    "PASSPORT": 0,
-    "KBA": 1
-  }
+    "success": true,
+    "data": {
+        "dl": 1,
+        "passport": 0,
+        "kba": 2
+    }
 }
 ```
 
@@ -2049,41 +2058,63 @@ This API returns all info pertaining to a candidate including all types of verif
 ## Add Candidate Employment
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/employement' \
+curl --location --request POST 'https://api.us.springverify.com/employee/employment' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-	"employerName":"Stark Industries",
-	"employerAddress":"12, Manhattan Street",
-	"employerPhone":"9911991199",
-	"employerTown":"New York",
-	"state":"New York",
-	"zipCode":"129012",
-	"country":"USA",
-	"jobTitle":"Senior Manager",
-	"startDate":"19-11-2000",
-	"endDate":"19-11-2002",
-	"supervisorName": "Nick Fury",
-	"currentEmployement": "0",
-	"jobType": "Contract",
-	"reasonForLeaving": "",
-	"supervisorContact": "nickfury@starkindustries.com"
+	"employer_name": "Stark Industries",
+	"employer_address": "12, Manhattan Street",
+	"employer_phone": "9911991199",
+	"employer_town": "New York",
+	"state": "New York",
+	"zip_code": "129012",
+	"country": "USA",
+	"job_title": "Senior Manager",
+	"start_date": "19-11-2000",
+	"end_date": "19-11-2002",
+	"supervisor_name": "Nick Fury",
+	"current_employement": "0",
+	"job_type": "Contract",
+	"reason_for_leaving": "xyz",
+	"supervisor_contact": "nickfury@starkindustries.com"
 }'
 ```
 
-<!---
-
- Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": {
+        "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7",
+        "email": "johndoe@gmail.com",
+        "employer_name": "Stark Industries",
+        "employer_town": "New York",
+        "employer_country": "USA",
+        "state": "New York",
+        "job_title": "Senior Manager",
+        "start_date": "19-11-2000",
+        "end_date": "19-11-2002",
+        "supervisor_name": "Nick Fury",
+        "job_type": "Contract",
+        "status": "PENDING",
+        "employer_address": "12, Manhattan Street",
+        "employer_phone": "9911991199",
+        "zipcode": "129012",
+        "reason_for_leaving": "xyz",
+        "supervisor_contact": "nickfury@starkindustries.com",
+        "updated_at": "2020-08-25T15:24:03.346Z",
+        "created_at": "2020-08-25T15:24:03.346Z"
+    }
+}
 ```
-
+<!--
 > Error Response
 
 ```json
-```
- -->
+``` -->
+
 
 This API will be used to submit the Employment records for the Employee.
 
@@ -2091,41 +2122,43 @@ This API will be used to submit the Employment records for the Employee.
 
 Parameter | Type | Description
 --------- | ------- | -----------
-employerName|string|Name of the employer.
-employerAddress|string|Address of the employer.
-employerPhone|string|Phone number of the employer.
-employerTown|string|Town of the employer.
+employer_name|string|Name of the employer.
+employer_address|string|Address of the employer.
+employer_phone|string|Phone number of the employer.
+employer_town|string|Town of the employer.
 state|string|State of the employer.
-zipCode|string|Zip Code of the employer.
+zip_code|string|Zip Code of the employer.
 country|string|Country of the employer.
-jobTitle|string|Job Title (latest one if multiple)
-startDate|string|Start Date of the Job.
-endDate|string|End Date of the Job.
-supervisorName|string|Supervisor Name
-currentEmployement|string| Is this Employees current employment.
-jobType|string|Job Type (Contract/Employment)
-reasonForLeaving|string| Reason for leaving the job (optional)
-supervisorContact|string| Active contact of the supervisor
+job_title|string|Job Title (latest one if multiple)
+start_date|string|Start Date of the Job.
+end_date|string|End Date of the Job.
+supervisor_name|string|Supervisor Name
+current_employment|string| Is this Employee's current employment.
+job_type|string|Job Type (Contract/Employment)
+reason_for_leaving|string| Reason for leaving the job (optional)
+supervisor_contact|string| Active contact of the supervisor
 
 ## Delete Employment
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/deleteeducation?id=74191de6-2d48-4de4-8191-4472ec8b4c6a' \
+curl --location --request DELETE 'https://api.us.springverify.com/employee/employment?id=ef9e7612-3789-405a-be37-c7bc1871c1f7' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
-<!---
-
- Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": 1
+}
 ```
 
-> Error Response
+<!-- > Error Response
 
 ```json
-```
- -->
+``` -->
+
 
 This API is used to delete the employment submitted in the previous API before it goes for verification.
 
