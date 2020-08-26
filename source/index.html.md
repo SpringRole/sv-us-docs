@@ -1801,18 +1801,22 @@ front|image|Front side of the Passport.
 curl --location --request GET 'https://api.us.springverify.com/employee/id/manual-review' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
-<!---
-Success Response
+
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": "success"
+}
 ```
 
-> Error Response
+<!-- > Error Response
 
 ```json
-```
+``` -->
 
- -->
+
 
 In case both Upload ID and Upload Passport fail twice or less, the ID can be requested for a manual review, which our Ops Team will look into.
 
@@ -2074,7 +2078,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employm
 	"start_date": "19-11-2000",
 	"end_date": "19-11-2002",
 	"supervisor_name": "Nick Fury",
-	"current_employement": "0",
+	"current_employment": "0",
 	"job_type": "Contract",
 	"reason_for_leaving": "xyz",
 	"supervisor_contact": "nickfury@starkindustries.com"
@@ -2172,36 +2176,80 @@ id|UUID|UUID of the employment record.
 ## Edit Employment
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/employement' \
+curl --location --request POST 'https://api.us.springverify.com/employee/employment' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-        "id":"74191de6-2d48-4de4-8191-4472ec8b4c6a",
-	"employerName":"Stark Industries",
-	"employerAddress":"12, Manhattan Street",
-	"employerPhone":"9911991199",
-	"employerTown":"New York",
-	"state":"New York",
-	"zipCode":"129012",
-	"country":"USA",
-	"jobTitle":"Senior Manager",
-	"startDate":"19-11-2000",
-	"endDate":"19-11-2002",
-	"supervisorName": "Nick Fury",
-	"currentEmployement": "0",
-	"jobType": "Contract",
-	"reasonForLeaving": "",
-	"supervisorContact": "nickfury@starkindustries.com"
+    "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7",
+	"employer_name": "Stark Industries pvt ltd",
+	"employer_address": "12, Manhattan Street",
+	"employer_phone": "9911991199",
+	"employer_town": "New York",
+	"state": "New York",
+	"zip_code": "129012",
+	"country": "USA",
+	"job_title": "Senior Manager",
+	"start_date": "19-11-2000",
+	"end_date": "19-11-2002",
+	"supervisor_name": "Nick Fury",
+	"current_employment": "0",
+	"job_type": "Contract",
+	"reason_for_leaving": "xyz",
+	"supervisor_contact": "nickfury@starkindustries.com"
+}'
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7",
+        "email": "johndoe@gmail.com",
+        "access_id": null,
+        "employer_name": "Stark Industries pvt ltd",
+        "employer_name_verified": null,
+        "employer_phone": "9911991199",
+        "employer_phone_verified": null,
+        "employer_address": "12, Manhattan Street",
+        "employer_address_verified": null,
+        "employer_town": "New York",
+        "employer_town_verified": null,
+        "state": "New York",
+        "state_verified": null,
+        "zipcode": "129012",
+        "zipcode_verified": null,
+        "employer_country": "USA",
+        "employer_country_verified": null,
+        "job_title": "Senior Manager",
+        "job_title_verified": null,
+        "start_date": "19-11-2000",
+        "start_date_verified": null,
+        "end_date": "19-11-2002",
+        "end_date_verified": null,
+        "supervisor_name": "Nick Fury",
+        "supervisor_contact": "nickfury@starkindustries.com",
+        "current_employment": "0",
+        "current_employment_verified": null,
+        "contract_type": null,
+        "contract_type_verified": null,
+        "source": null,
+        "created_at": "2020-08-26T06:24:25.000Z",
+        "updated_at": "2020-08-26T06:26:07.019Z",
+        "job_type": "Full time",
+        "reason_for_leaving": "xyz",
+        "status": "PENDING",
+        "status_new": null,
+        "super_admin_status": null,
+        "super_admin_status_new": null,
+        "consent": null
+    }
 }
 ```
 
 <!---
-
- Success Response
-
-```json
-```
 
 > Error Response
 
@@ -2209,34 +2257,34 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employe
 ```
  -->
 
-This call is similar to add employment, if ID recieved in the Submit Employment response is added, it can be used to edit the employment data.
+This call is similar to add employment, if ID received in the Submit Employment response is added, it can be used to edit the employment data.
 
 ### URL Parameters
 
 Parameter | Type | Description
 --------- | ------- | -----------
 id|UUID|UUID of the employment record.
-employerName|string|Name of the employer.
-employerAddress|string|Address of the employer.
-employerPhone|string|Phone number of the employer.
-employerTown|string|Town of the employer.
+employer_name|string|Name of the employer.
+employer_address|string|Address of the employer.
+employer_phone|string|Phone number of the employer.
+employer_town|string|Town of the employer.
 state|string|State of the employer.
-zipCode|string|Zip Code of the employer.
+zip_code|string|Zip Code of the employer.
 country|string|Country of the employer.
-jobTitle|string|Job Title (latest one if multiple)
-startDate|string|Start Date of the Job.
-endDate|string|End Date of the Job.
-supervisorName|string|Supervisor Name
-currentEmployement|string| Is this Employees current employment.
-jobType|string|Job Type (Contract/Employment)
-reasonForLeaving|string| Reason for leaving the job (optional)
-supervisorContact|string| Active contact of the supervisor
+job_title|string|Job Title (latest one if multiple)
+start_date|string|Start Date of the Job.
+end_date|string|End Date of the Job.
+supervisor_name|string|Supervisor Name
+current_employment|string| Is this Employees current employment.
+job_type|string|Job Type (Contract/Employment)
+reason_for_leaving|string| Reason for leaving the job (optional)
+supervisor_contact|string| Active contact of the supervisor
 
 
 ## Trigger Employment Verification
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/submitEmp' \
+curl --location --request GET 'https://api.us.springverify.com/employee/submit/employment' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
@@ -2262,28 +2310,52 @@ Once the employment records have been submitted and finalized, Employment Verifi
 curl --location --request POST 'https://api.us.springverify.com/employee/education' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "schoolName": "MIT",
-    "schoolType": "University",
-    "schoolCampus": "Boston",
+    "school_name": "MIT",
+    "school_type": "University",
+    "school_campus": "Boston",
+    "address": "Asdasd",
     "city":"Boston",
     "state":"Massachusetts",
+    "zip_code": "126112"
     "country":"USA",
-    "startDate":"28-12-1991",
-    "endDate":"12-28-1996",
+    "start_date":"28-12-1991",
+    "end_date":"12-28-1996",
     "degree":"Engineering",
-    "currentlyAttending":"0",
-    "completedSuccessfully":"1",
+    "currently_attending":"0",
+    "completed_successfully":"1",
     "major":"Biotech"
 }'
 ```
-
-<!---
-
-Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": {
+        "id": "de359912-1223-4338-87c4-0783a0ea495b",
+        "email": "johndoe@gmail.com",
+        "school_name": "MIT",
+        "school_type": "University",
+        "school_campus": "Boston",
+        "address": "Asdasd",
+        "city": "Boston",
+        "country": "USA",
+        "start_date": "28-12-1991",
+        "end_date": "12-28-1996",
+        "degree": "Engineering",
+        "currently_attending": "0",
+        "completed_successfully": "1",
+        "status": "PENDING",
+        "state": "Massachusetts",
+        "major": "Biotech",
+        "zipcode": "126112",
+        "updated_at": "2020-08-26T06:57:12.876Z",
+        "created_at": "2020-08-26T06:57:12.876Z"
+    }
+}
 ```
 
+<!---
 > Error Response
 
 ```json
@@ -2296,17 +2368,19 @@ This API will be used to submit the education records for the Employee.
 
 Parameter | Type | Description
 --------- | ------- | -----------
-schoolName|string|School Name of the Employee.
-schoolType|string|School Type of the Employee.
-schoolCampus|string|School Campus of the Employee.
+school_name|string|School Name of the Employee.
+school_type|string|School Type of the Employee.
+school_campus|string|School Campus of the Employee.
+address|string| Address of the school.
 city|string|City in which the school is based.
 state|string|State in which the school is based.
+zip_code|string| Zip code of the school
 country|string|Country in which the school is based.
-startDate|string|Start date of the course.
-endDate|string|End date of the course.
+start_date|string|Start date of the course.
+end_date|string|End date of the course.
 degree|string|Official degree of the course.
-currentlyAttending|string| If Currently Attending 1, otherwise 0
-completedSuccessfully|string| If Completed Successfully 1, otherwise 0
+currently_attending|string| If Currently Attending 1, otherwise 0
+completed_successfully|string| If Completed Successfully 1, otherwise 0
 major|string|major if any
 
 ## Edit Education Entry
@@ -2315,29 +2389,76 @@ major|string|major if any
 curl --location --request POST 'https://api.us.springverify.com/employee/education' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "id":"74191de6-2d48-4de4-8191-4472ec8b4c6a",
-    "schoolName": "MIT",
-    "schoolType": "University",
-    "schoolCampus": "Boston",
+    "id":"de359912-1223-4338-87c4-0783a0ea495b",
+    "school_name": "MIT",
+    "school_type": "University",
+    "school_campus": "Boston",
+    "address":"New street east block",
     "city":"Boston",
     "state":"Massachusetts",
+    "zip_code": "129012",
     "country":"USA",
-    "startDate":"28-12-1991",
-    "endDate":"12-28-1996",
+    "start_date": "28-12-1991",
+   "end_date": "12-28-1996",
     "degree":"Engineering",
-    "currentlyAttending":"0",
-    "completedSuccessfully":"1",
+    "currently_attending":"0",
+    "completed_successfully":"1",
     "major":"Biotech"
 }'
 ```
 
-<!---
-
-Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": {
+        "id": "18304027-e78a-426c-aae5-db9c677c1704",
+        "email": "johndoe@gmail.com",
+        "access_id": null,
+        "employee_alias_name": null,
+        "employee_alias_name_verified": null,
+        "school_name": "MIT",
+        "school_name_verified": null,
+        "school_campus": "Boston",
+        "school_campus_verified": null,
+        "phone": null,
+        "phone_verified": null,
+        "address": "New street east block",
+        "address_verified": null,
+        "town": null,
+        "town_verified": null,
+        "city": "Boston",
+        "city_verified": null,
+        "state": "Massachusetts",
+        "state_verified": null,
+        "zipcode": "129012",
+        "zipcode_verified": null,
+        "country": "USA",
+        "country_verified": null,
+        "start_date": "28-12-1991",
+        "start_date_verified": null,
+        "end_date": "12-28-1996",
+        "end_date_verified": null,
+        "degree": "Engineering",
+        "degree_verified": null,
+        "major": "Biotech",
+        "major_verified": null,
+        "school_type": "University",
+        "source": null,
+        "created_at": "2020-08-26T07:15:58.000Z",
+        "updated_at": "2020-08-26T07:16:55.604Z",
+        "currently_attending": "0",
+        "completed_successfully": "1",
+        "status": "PENDING",
+        "status_new": null,
+        "super_admin_status": null,
+        "super_admin_status_new": null
+    }
+}
 ```
 
+<!---
 > Error Response
 
 ```json
@@ -2351,32 +2472,38 @@ This API will be used to edit the education records for the Employee. The id par
 Parameter | Type | Description
 --------- | ------- | -----------
 id| UUID | UUID of the education entry.
-schoolName|string|School Name of the Employee.
-schoolType|string|School Type of the Employee.
-schoolCampus|string|School Campus of the Employee.
+school_name|string|School Name of the Employee.
+school_type|string|School Type of the Employee.
+school_campus|string|School Campus of the Employee.
+address|string|Address of the school.
 city|string|City in which the school is based.
 state|string|State in which the school is based.
+zip_code|string|Zip code of the school.
 country|string|Country in which the school is based.
-startDate|string|Start date of the course.
-endDate|string|End date of the course.
+start_date|string|Start date of the course.
+end_date|string|End date of the course.
 degree|string|Official degree of the course.
-currentlyAttending|string| If Currently Attending 1, otherwise 0
-completedSuccessfully|string| If Completed Successfully 1, otherwise 0
+currently_attending|string| If Currently Attending 1, otherwise 0
+completed_successfully|string| If Completed Successfully 1, otherwise 0
 major|string| Course Major if any
 
 ## Delete Education
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/deleteeducation?id=74191de6-2d48-4de4-8191-4472ec8b4c6a' \
+curl --location --request GET 'https://api.us.springverify.com/employee/deleteeducation?id=de359912-1223-4338-87c4-0783a0ea495b' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
-<!---
-
-Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": 1
+}
 ```
+
+<!---
 
 > Error Response
 
@@ -2396,16 +2523,25 @@ id| UUID | UUID of the education entry.
 ## Trigger Education Verification
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/submitEdu' \
+curl --location --request GET 'https://api.us.springverify.com/employee/submit/education' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
-<!---
-
-Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": {
+        "success": true,
+        "status": "Completed",
+        "institution_name_verified": false,
+        "employer_name_verified": false
+    }
+}
 ```
+
+<!---
 
 > Error Response
 
@@ -2416,118 +2552,374 @@ Success Response
 Once the education records have been submitted and finalized, Education Verification can be triggered using this API.
 
 
-## Submit Professional License
-
-```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/license' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
---data-raw '{
-    "licenseTitle":"Falcon 1x",
-    "licenseNumber":"TS101",
-    "startDate":"09-09-2014",
-    "endDate":"10-31-2019",
-    "state":"CA",
-    "country":"USA",
-    "licenseOrganization":"Stark Industries"
-}'
-```
-
-<!---
-
-Success Response
-
-```json
-```
-
-> Error Response
-
-```json
-```
- -->
-
-This API will be used to submit the Professional License records for the Employee.
-
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-licenseTitle|string|Name of the License.
-licenseNumber|string|Serial Number of the License.
-startDate|string| Valid-From date of the License.
-endDate|string|Valid-To date of the License.
-state|string|State in which the License is valid.
-country|string|Country in which the License is valid.
-licenseOrganization|string| Issuing organization of the license.
-
-## Delete License
-
-```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/deletelicense?id=441f71eb-b79a-4b27-8835-7e7dcd9d53a6' \
---header 'Authorization: Bearer JWT_TOKEN'
-```
-
-<!---
-
-Success Response
-
-```json
-```
-
-> Error Response
-
-```json
-```
- -->
-
-This API will be used to delete a single Professional License record for the Employee.
-
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-id|UUID|UUID of the Professional License Record.
-
-## Trigger Professional License Verification
-
-```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/submitLic' \
---header 'Authorization: Bearer JWT_TOKEN'
-```
-
-<!---
-Success Response
-
-```json
-```
-
-> Error Response
-
-```json
-```
- -->
-
-Once the professional license records have been submitted and finalized, professional license verification can be triggered using this API.
-
 ## Create Password
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/createPassword' \
+curl --location --request POST 'https://api.us.springverify.com/employee/create-password' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-	"passwordHash":"yahoo123456789"
+    "token": "JWT_TOKEN"
+	"password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31"
 }'
 ```
 
-<!---
-
-Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": {
+        "id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
+        "access_id": "6e7d5f15-9456-430d-b9da-9df67a4d9996",
+        "email": "johndoe@gmail.com",
+        "password_hash": "yahoo123456789",
+        "first_name": "John",
+        "middle_name": "David",
+        "last_name": "Doe",
+        "name_verified": null,
+        "created_at": "2020-08-25T14:28:47.000Z",
+        "updated_at": "2020-08-26T07:52:04.000Z",
+        "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
+        "payment_id": "6c75e302-ac2a-4efa-9ba9-c5dfc97b941e",
+        "email_sent": true,
+        "payment": false,
+        "status": null,
+        "flow_completed": null,
+        "company_created_by": "zed@max.com",
+        "employee_limit_id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
+        "employments": [
+            {
+                "id": "d0284d0b-eae8-4f0c-a574-66d39ad9d548",
+                "email": "johndoe@gmail.com",
+                "access_id": null,
+                "employer_name": "Stark Industries pvt ltd",
+                "employer_name_verified": null,
+                "employer_phone": "9911991199",
+                "employer_phone_verified": null,
+                "employer_address": "12, Manhattan Street",
+                "employer_address_verified": null,
+                "employer_town": "New York",
+                "employer_town_verified": null,
+                "state": "New York",
+                "state_verified": null,
+                "zipcode": "129012",
+                "zipcode_verified": null,
+                "employer_country": "USA",
+                "employer_country_verified": null,
+                "job_title": "Senior Manager",
+                "job_title_verified": null,
+                "start_date": "19-11-2000",
+                "start_date_verified": null,
+                "end_date": "19-11-2002",
+                "end_date_verified": null,
+                "supervisor_name": "Nick Fury",
+                "supervisor_contact": "nickfury@starkindustries.com",
+                "current_employment": "0",
+                "current_employment_verified": null,
+                "contract_type": null,
+                "contract_type_verified": null,
+                "source": null,
+                "created_at": "2020-08-26T06:24:25.000Z",
+                "updated_at": "2020-08-26T06:26:07.000Z",
+                "job_type": "Full time",
+                "reason_for_leaving": "xyz",
+                "status": 0,
+                "status_new": null,
+                "super_admin_status": null,
+                "super_admin_status_new": null,
+                "consent": null,
+                "adverse_action": null
+            }
+        ],
+        "education": [
+            {
+                "id": "18304027-e78a-426c-aae5-db9c677c1704",
+                "email": "johndoe@gmail.com",
+                "access_id": null,
+                "employee_alias_name": null,
+                "employee_alias_name_verified": null,
+                "school_name": "MIT",
+                "school_name_verified": null,
+                "school_campus": "Boston",
+                "school_campus_verified": null,
+                "phone": null,
+                "phone_verified": null,
+                "address": "New street east block",
+                "address_verified": null,
+                "town": null,
+                "town_verified": null,
+                "city": "Boston",
+                "city_verified": null,
+                "state": "Massachusetts",
+                "state_verified": null,
+                "zipcode": "129012",
+                "zipcode_verified": null,
+                "country": "USA",
+                "country_verified": null,
+                "start_date": "28-12-1991",
+                "start_date_verified": null,
+                "end_date": "12-28-1996",
+                "end_date_verified": null,
+                "degree": "Engineering",
+                "degree_verified": null,
+                "major": "Biotech",
+                "major_verified": null,
+                "school_type": "University",
+                "source": null,
+                "created_at": "2020-08-26T07:15:58.000Z",
+                "updated_at": "2020-08-26T07:16:55.000Z",
+                "currently_attending": 0,
+                "completed_successfully": 1,
+                "status": 0,
+                "status_new": null,
+                "super_admin_status": null,
+                "super_admin_status_new": null,
+                "adverse_action": null
+            }
+        ],
+        "cic_criminal_records": [
+            {
+                "id": "4fb5b9ee-873e-4a7c-b19b-b0ae943f420b",
+                "record_type": null,
+                "reviewed": false,
+                "adverse_action": null
+            },
+            {
+                "id": "f68e75da-a915-4e4c-8159-9e86ca595996",
+                "record_type": null,
+                "reviewed": false,
+                "adverse_action": null
+            }
+        ],
+        "professional_licenses": [],
+        "employee_detail": {
+            "id": "efa4191a-331d-48c3-8e52-8915ed8167be",
+            "access_id": null,
+            "address": "236 Avea street",
+            "address_verified": null,
+            "driving_number": null,
+            "driving_number_verified": null,
+            "city": "Gotham",
+            "city_verified": null,
+            "state": "CA",
+            "state_verified": null,
+            "zipcode": "33433",
+            "zipcode_verified": null,
+            "country": null,
+            "country_verified": null,
+            "birthdate": "12-11-1980",
+            "birthdate_verified": null,
+            "phone": "56-999222992",
+            "phone_verified": null,
+            "ssn": "6789",
+            "ssn_verified": null,
+            "created_at": "2020-08-25T14:32:46.000Z",
+            "updated_at": "2020-08-25T14:32:46.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_verification": {
+            "id": "c068d1da-9615-4b8e-a7a7-5daf624ed8d1",
+            "s3_gov_id": "image link",
+            "s3_gov_id_back": "image link",
+            "s3_gov_id_match": false,
+            "s3_web_img": null,
+            "s3_passport_verified": 1,
+            "passport_status": "VERIFIED",
+            "s3_dl_verified": 1,
+            "dl_status": "VERIFIED",
+            "verification_type": "id",
+            "address": null,
+            "address_verified": null,
+            "city": null,
+            "city_verified": null,
+            "state": null,
+            "state_verified": null,
+            "zipcode": null,
+            "zipcode_verified": null,
+            "country": null,
+            "country_verified": null,
+            "birthdate": null,
+            "birthdate_verified": null,
+            "criminal_verified": null,
+            "global_watchlist_verified": null,
+            "created_at": "2020-08-25T14:48:27.000Z",
+            "updated_at": "2020-08-26T05:01:16.000Z",
+            "is_report_checked": false,
+            "summary_of_rights_accepted": true,
+            "background_check_disclosure_accepted": true,
+            "id_manual_review": null,
+            "super_admin_status": null,
+            "super_admin_status_new": null,
+            "consent_link": "link",
+            "spring_sign_ref_id": "5f4524b817710d0014423b61",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_limit": {
+            "id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
+            "employment": 2,
+            "education": 1,
+            "professional_license": 0,
+            "all_county_criminal_search": true,
+            "county_criminal_search": 0,
+            "civil_court": 1,
+            "driving_license": 0,
+            "package_id": null,
+            "created_at": "2020-08-25T14:28:47.000Z",
+            "updated_at": "2020-08-25T14:28:47.000Z",
+            "employee_invite_group_id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85",
+            "employee_invite_group": {
+                "id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85",
+                "package": "diamond",
+                "active": true,
+                "created_at": "2020-08-25T14:28:47.000Z",
+                "updated_at": "2020-08-25T14:28:47.000Z",
+                "company_created_by": "zed@max.com",
+                "package_id": "5"
+            }
+        },
+        "kbaqna": {
+            "id": "71f4dda4-2949-4f23-97ae-26d158c082a2",
+            "access_id": "6e7d5f15-9456-430d-b9da-9df67a4d9996",
+            "email": "johndoe@gmail.com",
+            "questions_flag": 1,
+            "kba_enabled": 1,
+            "question_count": "5",
+            "correct_answers": "4",
+            "verified": false,
+            "created_at": "2020-08-25T15:06:19.000Z",
+            "updated_at": "2020-08-25T15:11:49.000Z",
+            "idm_session_id": "91b59885191b01f5",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_flow": {
+            "id": 289,
+            "employment_flow": "SUBMITTED",
+            "education_flow": "SUBMITTED",
+            "professional_license_flow": null,
+            "created_at": "2020-08-25T14:32:40.000Z",
+            "updated_at": "2020-08-26T07:36:45.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "s3_files": [
+            {
+                "id": "0d81811f-4cb7-4d3e-875f-0e229ab98fa4",
+                "type": "ID",
+                "sub_type": "BACK",
+                "relation_id": "c7509e8b-49bb-40df-bc80-609c4f460af8",
+                "link": "link",
+                "reference_id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
+                "status": null,
+                "comments": null,
+                "deleted_at": null,
+                "created_at": "2020-08-25T15:14:00.000Z",
+                "updated_at": "2020-08-25T15:14:00.000Z"
+            },
+            {
+                "id": "3bf55d4f-6570-4d32-93ae-fc101677fce9",
+                "type": "ID",
+                "sub_type": "FRONT",
+                "relation_id": "c7509e8b-49bb-40df-bc80-609c4f460af8",
+                "link": "link",
+                "reference_id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
+                "status": null,
+                "comments": null,
+                "deleted_at": null,
+                "created_at": "2020-08-25T15:14:00.000Z",
+                "updated_at": "2020-08-25T15:14:00.000Z"
+            }
+        ],
+        "criminal_statuses": [
+            {
+                "id": "026c5a13-8112-40c7-8bba-39655a3f987a",
+                "type": "NATIONAL_CRIMINAL",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "0e9fb3d3-d464-4752-bc34-8537807482b9",
+                "type": "GLOBAL_WATCHLIST",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "2cf42d97-850f-4348-bac9-a7eacbe575b9",
+                "type": "SEX_OFFENDER",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "4b8e8f14-db92-476c-b2fb-bf9d054ad96e",
+                "type": "COUNTY_CRIMINAL_SEARCH",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "5d16c475-ba47-44fe-962c-a32dc26878c5",
+                "type": "CIVIL_COURT",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            }
+        ],
+        "sjv_criminal_reports": [
+            {
+                "id": "d18c1432-91be-4ce2-8f07-4bff6728850c",
+                "employee_email_fk": "johndoe@gmail.com",
+                "status": "NOT_INITIATED",
+                "sjv_search_type": "CIVIL_COURT_NOTIFICATION",
+                "reference_id": null,
+                "cic_criminal_record_fk": null,
+                "report_link": null,
+                "marked_done": 0,
+                "marked_reviewed": 0,
+                "county_id": null,
+                "adverse_action_fk": null,
+                "authenticating_unique_identifier": null,
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z",
+                "county_name": null,
+                "adverse_action": null
+            },
+            {
+                "id": "fed50a2f-bc72-4d3b-99dd-5e5053304008",
+                "employee_email_fk": "johndoe@gmail.com",
+                "status": "NOT_INITIATED",
+                "sjv_search_type": "COUNTY_CRIMINAL_NOTIFICATION",
+                "reference_id": null,
+                "cic_criminal_record_fk": null,
+                "report_link": null,
+                "marked_done": 0,
+                "marked_reviewed": 0,
+                "county_id": null,
+                "adverse_action_fk": null,
+                "authenticating_unique_identifier": null,
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z",
+                "county_name": null,
+                "adverse_action": null
+            }
+        ]
+    }
+}
 ```
+
+<!---
 
 > Error Response
 
@@ -2536,7 +2928,7 @@ Success Response
  -->
 
 
-After the forementioned checks have been successfully submitted and triggered. Employee can create a password for their profile.
+After the fore mentioned checks have been successfully submitted and triggered. Employee can create a password for their profile.
 
 <aside class="notice">
     Password field should be hashed using SHA256 before hand.
@@ -2547,31 +2939,35 @@ After the forementioned checks have been successfully submitted and triggered. E
 
 Parameter | Type | Description
 --------- | ------- | -----------
-passwordHash| string | Hash of the password.
+token|string|JWT_TOKEN
+password_hash| string | Hash of the password.
 
 ## Reset Password
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/resetPassword' \
+curl --location --request POST 'https://api.us.springverify.com/employee/reset-password' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-	"oldPasswordHash":"100d5fcb45dc552d1a9011e2707b937904f79df410199fcb7a1e2b3c022d9911",
-	"newPasswordHash":"1ajnfas184918491813nasfjh2481879asdajsdajsdjasdjs091301903910391"
+	"password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e"
 }'
 ```
 
 <aside class="notice">
-    `oldPasswordHash` and `newPasswordHash` fields should be hashed using SHA256 before hand.
+    password field should be hashed using SHA256 before hand.
 </aside>
 
-<!---
-
-Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": true
+}
 ```
+
+<!---
 
 > Error Response
 
@@ -2584,5 +2980,4 @@ Success Response
 
 Parameter | Type | Description
 --------- | ------- | -----------
-oldPasswordHash| string | Hash of the Old password.
-newPasswordHash| string | Hash of the New password.
+password| string | Hash of the password.
