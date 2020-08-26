@@ -3244,6 +3244,8 @@ curl --location --request POST 'https://api.us.springverify.com/employee/reset-p
 }'
 ```
 
+This API is used to reset the employee profile password.
+
 <aside class="notice">
     password field should be hashed using SHA256 before hand.
 </aside>
@@ -3265,9 +3267,381 @@ curl --location --request POST 'https://api.us.springverify.com/employee/reset-p
 ```
  -->
 
-
 ### URL Parameters
 
 Parameter | Type | Description
 --------- | ------- | -----------
 password| string | Hash of the password.
+
+## Complete Employee Flow
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/employee/flow-completed' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: text/plain' \
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
+        "access_id": "6e7d5f15-9456-430d-b9da-9df67a4d9996",
+        "email": "johndoe@gmail.com",
+        "password_hash": "yahoo123456789",
+        "first_name": "John",
+        "middle_name": "David",
+        "last_name": "Doe",
+        "name_verified": null,
+        "created_at": "2020-08-25T14:28:47.000Z",
+        "updated_at": "2020-08-26T07:52:04.000Z",
+        "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
+        "payment_id": "6c75e302-ac2a-4efa-9ba9-c5dfc97b941e",
+        "email_sent": true,
+        "payment": false,
+        "status": null,
+        "flow_completed": null,
+        "company_created_by": "zed@max.com",
+        "employee_limit_id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
+        "employments": [
+            {
+                "id": "d0284d0b-eae8-4f0c-a574-66d39ad9d548",
+                "email": "johndoe@gmail.com",
+                "access_id": null,
+                "employer_name": "Stark Industries pvt ltd",
+                "employer_name_verified": null,
+                "employer_phone": "9911991199",
+                "employer_phone_verified": null,
+                "employer_address": "12, Manhattan Street",
+                "employer_address_verified": null,
+                "employer_town": "New York",
+                "employer_town_verified": null,
+                "state": "New York",
+                "state_verified": null,
+                "zipcode": "129012",
+                "zipcode_verified": null,
+                "employer_country": "USA",
+                "employer_country_verified": null,
+                "job_title": "Senior Manager",
+                "job_title_verified": null,
+                "start_date": "19-11-2000",
+                "start_date_verified": null,
+                "end_date": "19-11-2002",
+                "end_date_verified": null,
+                "supervisor_name": "Nick Fury",
+                "supervisor_contact": "nickfury@starkindustries.com",
+                "current_employment": "0",
+                "current_employment_verified": null,
+                "contract_type": null,
+                "contract_type_verified": null,
+                "source": null,
+                "created_at": "2020-08-26T06:24:25.000Z",
+                "updated_at": "2020-08-26T06:26:07.000Z",
+                "job_type": "Full time",
+                "reason_for_leaving": "xyz",
+                "status": 0,
+                "status_new": null,
+                "super_admin_status": null,
+                "super_admin_status_new": null,
+                "consent": null,
+                "adverse_action": null
+            }
+        ],
+        "education": [
+            {
+                "id": "18304027-e78a-426c-aae5-db9c677c1704",
+                "email": "johndoe@gmail.com",
+                "access_id": null,
+                "employee_alias_name": null,
+                "employee_alias_name_verified": null,
+                "school_name": "MIT",
+                "school_name_verified": null,
+                "school_campus": "Boston",
+                "school_campus_verified": null,
+                "phone": null,
+                "phone_verified": null,
+                "address": "New street east block",
+                "address_verified": null,
+                "town": null,
+                "town_verified": null,
+                "city": "Boston",
+                "city_verified": null,
+                "state": "Massachusetts",
+                "state_verified": null,
+                "zipcode": "129012",
+                "zipcode_verified": null,
+                "country": "USA",
+                "country_verified": null,
+                "start_date": "28-12-1991",
+                "start_date_verified": null,
+                "end_date": "12-28-1996",
+                "end_date_verified": null,
+                "degree": "Engineering",
+                "degree_verified": null,
+                "major": "Biotech",
+                "major_verified": null,
+                "school_type": "University",
+                "source": null,
+                "created_at": "2020-08-26T07:15:58.000Z",
+                "updated_at": "2020-08-26T07:16:55.000Z",
+                "currently_attending": 0,
+                "completed_successfully": 1,
+                "status": 0,
+                "status_new": null,
+                "super_admin_status": null,
+                "super_admin_status_new": null,
+                "adverse_action": null
+            }
+        ],
+        "cic_criminal_records": [
+            {
+                "id": "4fb5b9ee-873e-4a7c-b19b-b0ae943f420b",
+                "record_type": null,
+                "reviewed": false,
+                "adverse_action": null
+            },
+            {
+                "id": "f68e75da-a915-4e4c-8159-9e86ca595996",
+                "record_type": null,
+                "reviewed": false,
+                "adverse_action": null
+            }
+        ],
+        "professional_licenses": [],
+        "employee_detail": {
+            "id": "efa4191a-331d-48c3-8e52-8915ed8167be",
+            "access_id": null,
+            "address": "236 Avea street",
+            "address_verified": null,
+            "driving_number": null,
+            "driving_number_verified": null,
+            "city": "Gotham",
+            "city_verified": null,
+            "state": "CA",
+            "state_verified": null,
+            "zipcode": "33433",
+            "zipcode_verified": null,
+            "country": null,
+            "country_verified": null,
+            "birthdate": "12-11-1980",
+            "birthdate_verified": null,
+            "phone": "56-999222992",
+            "phone_verified": null,
+            "ssn": "6789",
+            "ssn_verified": null,
+            "created_at": "2020-08-25T14:32:46.000Z",
+            "updated_at": "2020-08-25T14:32:46.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_verification": {
+            "id": "c068d1da-9615-4b8e-a7a7-5daf624ed8d1",
+            "s3_gov_id": "image link",
+            "s3_gov_id_back": "image link",
+            "s3_gov_id_match": false,
+            "s3_web_img": null,
+            "s3_passport_verified": 1,
+            "passport_status": "FAILED",
+            "s3_dl_verified": 1,
+            "dl_status": "VERIFIED",
+            "verification_type": "id",
+            "address": null,
+            "address_verified": null,
+            "city": null,
+            "city_verified": null,
+            "state": null,
+            "state_verified": null,
+            "zipcode": null,
+            "zipcode_verified": null,
+            "country": null,
+            "country_verified": null,
+            "birthdate": null,
+            "birthdate_verified": null,
+            "criminal_verified": null,
+            "global_watchlist_verified": null,
+            "created_at": "2020-08-25T14:48:27.000Z",
+            "updated_at": "2020-08-26T05:01:16.000Z",
+            "is_report_checked": false,
+            "summary_of_rights_accepted": true,
+            "background_check_disclosure_accepted": true,
+            "id_manual_review": null,
+            "super_admin_status": null,
+            "super_admin_status_new": null,
+            "consent_link": "link",
+            "spring_sign_ref_id": "5f4524b817710d0014423b61",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_limit": {
+            "id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
+            "employment": 2,
+            "education": 1,
+            "professional_license": 0,
+            "all_county_criminal_search": true,
+            "county_criminal_search": 0,
+            "civil_court": 1,
+            "driving_license": 0,
+            "package_id": null,
+            "created_at": "2020-08-25T14:28:47.000Z",
+            "updated_at": "2020-08-25T14:28:47.000Z",
+            "employee_invite_group_id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85",
+            "employee_invite_group": {
+                "id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85",
+                "package": "diamond",
+                "active": true,
+                "created_at": "2020-08-25T14:28:47.000Z",
+                "updated_at": "2020-08-25T14:28:47.000Z",
+                "company_created_by": "zed@max.com",
+                "package_id": "5"
+            }
+        },
+        "kbaqna": {
+            "id": "71f4dda4-2949-4f23-97ae-26d158c082a2",
+            "access_id": "6e7d5f15-9456-430d-b9da-9df67a4d9996",
+            "email": "johndoe@gmail.com",
+            "questions_flag": 1,
+            "kba_enabled": 1,
+            "question_count": "5",
+            "correct_answers": "4",
+            "verified": false,
+            "created_at": "2020-08-25T15:06:19.000Z",
+            "updated_at": "2020-08-25T15:11:49.000Z",
+            "idm_session_id": "91b59885191b01f5",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_flow": {
+            "id": 289,
+            "employment_flow": "SUBMITTED",
+            "education_flow": "SUBMITTED",
+            "professional_license_flow": null,
+            "created_at": "2020-08-25T14:32:40.000Z",
+            "updated_at": "2020-08-26T07:36:45.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "s3_files": [
+            {
+                "id": "0d81811f-4cb7-4d3e-875f-0e229ab98fa4",
+                "type": "ID",
+                "sub_type": "BACK",
+                "relation_id": "c7509e8b-49bb-40df-bc80-609c4f460af8",
+                "link": "link",
+                "reference_id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
+                "status": null,
+                "comments": null,
+                "deleted_at": null,
+                "created_at": "2020-08-25T15:14:00.000Z",
+                "updated_at": "2020-08-25T15:14:00.000Z"
+            },
+            {
+                "id": "3bf55d4f-6570-4d32-93ae-fc101677fce9",
+                "type": "ID",
+                "sub_type": "FRONT",
+                "relation_id": "c7509e8b-49bb-40df-bc80-609c4f460af8",
+                "link": "link",
+                "reference_id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
+                "status": null,
+                "comments": null,
+                "deleted_at": null,
+                "created_at": "2020-08-25T15:14:00.000Z",
+                "updated_at": "2020-08-25T15:14:00.000Z"
+            }
+        ],
+        "criminal_statuses": [
+            {
+                "id": "026c5a13-8112-40c7-8bba-39655a3f987a",
+                "type": "NATIONAL_CRIMINAL",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "0e9fb3d3-d464-4752-bc34-8537807482b9",
+                "type": "GLOBAL_WATCHLIST",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "2cf42d97-850f-4348-bac9-a7eacbe575b9",
+                "type": "SEX_OFFENDER",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "4b8e8f14-db92-476c-b2fb-bf9d054ad96e",
+                "type": "COUNTY_CRIMINAL_SEARCH",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            },
+            {
+                "id": "5d16c475-ba47-44fe-962c-a32dc26878c5",
+                "type": "CIVIL_COURT",
+                "status": "PENDING",
+                "source": "SYSTEM",
+                "employee_email_fk": "johndoe@gmail.com",
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z"
+            }
+        ],
+        "sjv_criminal_reports": [
+            {
+                "id": "d18c1432-91be-4ce2-8f07-4bff6728850c",
+                "employee_email_fk": "johndoe@gmail.com",
+                "status": "NOT_INITIATED",
+                "sjv_search_type": "CIVIL_COURT_NOTIFICATION",
+                "reference_id": null,
+                "cic_criminal_record_fk": null,
+                "report_link": null,
+                "marked_done": 0,
+                "marked_reviewed": 0,
+                "county_id": null,
+                "adverse_action_fk": null,
+                "authenticating_unique_identifier": null,
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z",
+                "county_name": null,
+                "adverse_action": null
+            },
+            {
+                "id": "fed50a2f-bc72-4d3b-99dd-5e5053304008",
+                "employee_email_fk": "johndoe@gmail.com",
+                "status": "NOT_INITIATED",
+                "sjv_search_type": "COUNTY_CRIMINAL_NOTIFICATION",
+                "reference_id": null,
+                "cic_criminal_record_fk": null,
+                "report_link": null,
+                "marked_done": 0,
+                "marked_reviewed": 0,
+                "county_id": null,
+                "adverse_action_fk": null,
+                "authenticating_unique_identifier": null,
+                "created_at": "2020-08-25T15:14:36.000Z",
+                "updated_at": "2020-08-25T15:14:36.000Z",
+                "county_name": null,
+                "adverse_action": null
+            }
+        ]
+    }
+}
+}
+```
+
+<!---
+
+> Error Response
+
+```json
+```
+ -->
+This API is used to let the system know that employee form has been submitted successfully.
