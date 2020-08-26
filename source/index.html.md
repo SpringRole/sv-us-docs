@@ -1770,9 +1770,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 
 ```json
 {
-  "error": true,
-  "errorCode": "02",
-  "errorMsg": "The Passport could not be parsed. Please make sure all four sides are visible and the Passport is in front of a dark background."
+    "message": "The Passport could not be parsed. Please make sure all four sides are visible and the Passport is in front of a dark background."
 }
 ```
 
@@ -1856,178 +1854,180 @@ curl --location --request GET 'https://api.us.springverify.com/employee/' \
 ```json
 {
     "success": true,
-    "successMsg": "packages retrived successfully",
     "data": {
         "employee": {
-            "id": "5d9f192f-446d-4576-926c-289863d6dbf6",
-            "access_id": "ca4be4ab-c256-4377-a9fa-9e60538ae6d3",
-            "email": "fuspuzumlu@desoz.com",
-            "first_name": "abc",
-            "middle_name": "",
-            "last_name": "xyz",
+            "id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
+            "access_id": "ba92f24e-796e-4de4-8907-675f0ee77d58",
+            "email": "johndoe@gmail.com",
+            "password_hash": "100d5fcb45dc552d1a9011e2707b937904f79df410199fcb7a1e2b3c022d9911",
+            "first_name": "John",
+            "middle_name": "David",
+            "last_name": "Doe",
             "name_verified": null,
-            "created_at": "2019-07-25T13:15:19.000Z",
-            "updated_at": "2020-03-30T14:32:24.000Z",
+            "created_at": "2020-08-25T14:28:47.000Z",
+            "updated_at": "2020-08-26T09:56:22.000Z",
             "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
-            "payment_id": "fff773ce-7c8c-48b1-8476-bceb88f5dd62",
+            "payment_id": "6c75e302-ac2a-4efa-9ba9-c5dfc97b941e",
             "email_sent": true,
             "payment": false,
-            "status": "VERIFIED",
+            "status": "PENDING",
             "flow_completed": true,
-            "CompanyCreatedBy": "johndoe@domain.com",
-            "EmployeeLimitId": "574077a2-1800-4e5e-bec8-cb51adf42848",
-            "kbaqna": {
-                "id": "d7131f0a-e716-41d4-bbcd-fd8a419bd938",
-                "access_id": "ca4be4ab-c256-4377-a9fa-9e60538ae6d3",
-                "email": "fuspuzumlu@desoz.com",
-                "questions_flag": 1,
-                "kba_enabled": 1,
-                "question_count": "4",
-                "correct_answers": "1",
-                "verified": false,
-                "created_at": "2019-07-25T13:21:00.000Z",
-                "updated_at": "2019-08-05T08:35:33.000Z",
-                "IDMSessionId": "64ee9ce28fd84f43",
-                "EmployeeEmail": "fuspuzumlu@desoz.com"
-            },
-            "Employements": [
+            "company_created_by": "zed@max.com",
+            "employee_limit_id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
+            "employments": [
                 {
-                    "id": "3cefb130-0d34-4859-ad95-ae5f7c42bcc7",
-                    "email": "fuspuzumlu@desoz.com",
+                    "id": "d0284d0b-eae8-4f0c-a574-66d39ad9d548",
+                    "email": "johndoe@gmail.com",
                     "access_id": null,
-                    "employer_name": "SpringRole",
-                    "employer_name_verified": 0,
-                    "employer_phone": "1-",
+                    "employer_name": "Stark Industries pvt ltd",
+                    "employer_name_verified": null,
+                    "employer_phone": "9911991199",
                     "employer_phone_verified": null,
-                    "employer_address": "Hosur Road",
-                    "employer_address_verified": 0,
-                    "employer_town": "Bengaluru",
-                    "employer_town_verified": 0,
-                    "state": "KA",
+                    "employer_address": "12, Manhattan Street",
+                    "employer_address_verified": null,
+                    "employer_town": "New York",
+                    "employer_town_verified": null,
+                    "state": "New York",
                     "state_verified": null,
-                    "zipcode": "560029",
+                    "zipcode": "129012",
                     "zipcode_verified": null,
-                    "employer_country": "India",
-                    "employer_country_verified": 0,
-                    "job_title": "Job",
-                    "job_title_verified": 0,
-                    "start_date": "01-01-2000",
-                    "start_date_verified": 0,
-                    "end_date": "01-01-2000",
-                    "end_date_verified": 0,
-                    "supervisor_name": "Name",
-                    "supervisor_contact": null,
-                    "current_employment": null,
-                    "current_employment_verified": 0,
+                    "employer_country": "USA",
+                    "employer_country_verified": null,
+                    "job_title": "Senior Manager",
+                    "job_title_verified": null,
+                    "start_date": "19-11-2000",
+                    "start_date_verified": null,
+                    "end_date": "19-11-2002",
+                    "end_date_verified": null,
+                    "supervisor_name": "Nick Fury",
+                    "supervisor_contact": "nickfury@starkindustries.com",
+                    "current_employment": "0",
+                    "current_employment_verified": null,
                     "contract_type": null,
-                    "contract_type_verified": "0",
+                    "contract_type_verified": null,
                     "source": null,
-                    "created_at": "2019-08-01T12:40:47.000Z",
-                    "updated_at": "2019-09-11T11:56:27.000Z",
-                    "job_type": "full time employee",
-                    "reason_for_leaving": null,
-                    "status": 2,
-                    "super_admin_status": 1,
-                    "consent": null
+                    "created_at": "2020-08-26T06:24:25.000Z",
+                    "updated_at": "2020-08-26T06:26:07.000Z",
+                    "job_type": "Full time",
+                    "reason_for_leaving": "xyz",
+                    "status": 0,
+                    "status_new": null,
+                    "super_admin_status": null,
+                    "super_admin_status_new": null,
+                    "consent": null,
+                    "adverse_action": null
                 }
             ],
-            "Education": [
+            "education": [
                 {
-                    "id": "a3cb1983-e69f-4053-a494-3fce7323bf66",
-                    "email": "fuspuzumlu@desoz.com",
+                    "id": "18304027-e78a-426c-aae5-db9c677c1704",
+                    "email": "johndoe@gmail.com",
                     "access_id": null,
                     "employee_alias_name": null,
                     "employee_alias_name_verified": null,
-                    "school_name": "CMS",
+                    "school_name": "MIT",
                     "school_name_verified": null,
-                    "school_campus": "CMS",
+                    "school_campus": "Boston",
                     "school_campus_verified": null,
                     "phone": null,
                     "phone_verified": null,
-                    "address": null,
+                    "address": "New street east block",
                     "address_verified": null,
                     "town": null,
                     "town_verified": null,
-                    "city": "Lucknow",
+                    "city": "Boston",
                     "city_verified": null,
-                    "state": "UP",
+                    "state": "Massachusetts",
                     "state_verified": null,
-                    "zipcode": null,
+                    "zipcode": "129012",
                     "zipcode_verified": null,
-                    "country": "India",
+                    "country": "USA",
                     "country_verified": null,
-                    "start_date": "01-01-2000",
+                    "start_date": "28-12-1991",
                     "start_date_verified": null,
-                    "end_date": "01-01-2000",
+                    "end_date": "12-28-1996",
                     "end_date_verified": null,
-                    "degree": "Degree",
+                    "degree": "Engineering",
                     "degree_verified": null,
-                    "major": null,
+                    "major": "Biotech",
                     "major_verified": null,
                     "school_type": "University",
                     "source": null,
-                    "created_at": "2019-08-01T13:20:23.000Z",
-                    "updated_at": "2020-03-30T14:32:22.000Z",
+                    "created_at": "2020-08-26T07:15:58.000Z",
+                    "updated_at": "2020-08-26T07:16:55.000Z",
                     "currently_attending": 0,
                     "completed_successfully": 1,
-                    "status": 2,
-                    "super_admin_status": 1
+                    "status": 0,
+                    "status_new": null,
+                    "super_admin_status": null,
+                    "super_admin_status_new": null,
+                    "adverse_action": null
                 }
             ],
-            "EmployeeLimit": {
-                "id": "574077a2-1800-4e5e-bec8-cb51adf42848",
-                "employement": 2,
+            "kbaqna": {
+                "id": "71f4dda4-2949-4f23-97ae-26d158c082a2",
+                "access_id": "6e7d5f15-9456-430d-b9da-9df67a4d9996",
+                "email": "johndoe@gmail.com",
+                "questions_flag": 1,
+                "kba_enabled": 1,
+                "question_count": "5",
+                "correct_answers": "4",
+                "verified": false,
+                "created_at": "2020-08-25T15:06:19.000Z",
+                "updated_at": "2020-08-25T15:11:49.000Z",
+                "idm_session_id": "91b59885191b01f5",
+                "employee_email": "johndoe@gmail.com"
+            },
+            "professional_licenses": [],
+            "employee_limit": {
+                "id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
+                "employment": 2,
                 "education": 1,
-                "professional_license": 1,
-                "civil_court": 0,
+                "professional_license": 0,
+                "all_county_criminal_search": true,
+                "county_criminal_search": 0,
+                "civil_court": 1,
                 "driving_license": 0,
                 "package_id": null,
-                "created_at": "2019-07-25T13:15:19.000Z",
-                "updated_at": "2019-07-25T13:15:19.000Z",
-                "EmployeeInviteGroupId": "6d3eae64-32b8-42d4-9f87-86b746afabd2",
-                "EmployeeInviteGroup": {
-                    "id": "6d3eae64-32b8-42d4-9f87-86b746afabd2",
-                    "package": "gold",
-                    "active": false,
-                    "created_at": "2019-07-25T13:15:17.000Z",
-                    "updated_at": "2019-07-26T12:45:14.000Z",
-                    "CompanyCreatedBy": "johndoe@domain.com",
-                    "PackageId": "2"
-                }
+                "created_at": "2020-08-25T14:28:47.000Z",
+                "updated_at": "2020-08-25T14:28:47.000Z",
+                "employee_invite_group_id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85"
             },
-            "EmployeeDetail": {
-                "id": "29e8611d-1072-447f-914b-c38c19648138",
-                "access_id": "ca4be4ab-c256-4377-a9fa-9e60538ae6d3",
-                "address": "17 2nd Street, Suite 201",
+            "employee_detail": {
+                "id": "efa4191a-331d-48c3-8e52-8915ed8167be",
+                "access_id": null,
+                "address": "236 Avea street",
                 "address_verified": null,
                 "driving_number": null,
                 "driving_number_verified": null,
-                "city": " Santa Monica,",
+                "city": "Gotham",
                 "city_verified": null,
                 "state": "CA",
                 "state_verified": null,
-                "zipcode": "90401",
+                "zipcode": "33433",
                 "zipcode_verified": null,
                 "country": null,
                 "country_verified": null,
-                "birthdate": "29-05-1994",
+                "birthdate": "12-11-1980",
                 "birthdate_verified": null,
-                "phone": "1-9179139020",
+                "phone": "56-999222992",
                 "phone_verified": null,
-                "ssn": "3485",
+                "ssn": "6789",
                 "ssn_verified": null,
-                "created_at": "2019-07-25T13:20:20.000Z",
-                "updated_at": "2019-07-25T13:20:20.000Z",
-                "EmployeeEmail": "fuspuzumlu@desoz.com"
+                "created_at": "2020-08-25T14:32:46.000Z",
+                "updated_at": "2020-08-26T09:52:33.000Z",
+                "employee_email": "johndoe@gmail.com"
             },
-            "EmployeeVerification": {
-                "id": "0a392e86-6973-46d9-a6a1-a7124c5efce1",
-                "s3_gov_id": "https://spring-verify-us.s3.amazonaws.com/employee-id/fuspuzumlu%40desoz.com/passport.jpg",
-                "s3_gov_id_back": null,
+            "employee_verification": {
+                "id": "c068d1da-9615-4b8e-a7a7-5daf624ed8d1",
+                "s3_gov_id": "link",
+                "s3_gov_id_back": "link",
                 "s3_gov_id_match": false,
                 "s3_web_img": null,
                 "s3_passport_verified": 1,
-                "s3_dl_verified": null,
+                "passport_status": "VERIFIED",
+                "s3_dl_verified": 1,
+                "dl_status": "VERIFIED",
                 "verification_type": "id",
                 "address": null,
                 "address_verified": null,
@@ -2042,17 +2042,72 @@ curl --location --request GET 'https://api.us.springverify.com/employee/' \
                 "birthdate": null,
                 "birthdate_verified": null,
                 "criminal_verified": null,
-                "created_at": "2019-07-25T13:20:55.000Z",
-                "updated_at": "2019-08-01T10:06:48.000Z",
-                "is_report_checked": true,
+                "global_watchlist_verified": null,
+                "created_at": "2020-08-25T14:48:27.000Z",
+                "updated_at": "2020-08-26T09:52:59.000Z",
+                "is_report_checked": false,
                 "summary_of_rights_accepted": true,
                 "background_check_disclosure_accepted": true,
                 "id_manual_review": null,
                 "super_admin_status": null,
-                "EmployeeEmail": "fuspuzumlu@desoz.com"
+                "super_admin_status_new": null,
+                "consent_link": "link",
+                "spring_sign_ref_id": "5f4630f817710d0014423b74",
+                "employee_email": "johndoe@gmail.com"
+            },
+            "employee_flow": {
+                "id": 289,
+                "employment_flow": "SUBMITTED",
+                "education_flow": "SUBMITTED",
+                "professional_license_flow": null,
+                "created_at": "2020-08-25T14:32:40.000Z",
+                "updated_at": "2020-08-26T07:36:45.000Z",
+                "employee_email": "johndoe@gmail.com"
+            },
+            "criminal_statuses": {
+                "national_criminal": "PENDING",
+                "sex_offender": "PENDING",
+                "global_watchlist": "PENDING",
+                "county_criminal_search": "PENDING",
+                "civil_court": "PENDING",
+                "overall_criminal_status": "PENDING"
+            },
+            "employer": {
+                "id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
+                "active": true,
+                "email": "zed@max.com",
+                "domain": "springrole.com",
+                "role": "ADMIN",
+                "password": "$2b$10$WbyPfKtgYGSgU36arbbqnOpivH9hBFKuORLJ0iF.Dln6f289v3IvW",
+                "first_name": "Zed",
+                "last_name": "Max",
+                "phone_number": "1-2132143213",
+                "stripe_id": "cus_Bu8MQZ5BNDiij0",
+                "email_sent_time": null,
+                "created_at": "2019-07-23T11:32:51.000Z",
+                "updated_at": "2020-08-26T08:34:45.000Z",
+                "company": {
+                    "id": 1,
+                    "created_by": "zed@max.com",
+                    "name": "Google",
+                    "address": "Address",
+                    "city": "reqbodycity",
+                    "state": "reqbodystate",
+                    "zipcode": "12345",
+                    "tax_id_number": "reqbodytaxIdNumber",
+                    "credits": 496250,
+                    "domain": "springrole.com",
+                    "employment_limit": null,
+                    "education_limit": null,
+                    "license_limit": null,
+                    "civilcourt_limit": null,
+                    "dl_limit": null,
+                    "s3_logo": "link",
+                    "created_at": "2019-07-23T11:33:04.000Z",
+                    "updated_at": "2020-08-20T08:25:09.000Z"
+                }
             }
-        },
-        "review": []
+        }
     }
 }
 ```
@@ -2288,13 +2343,22 @@ curl --location --request GET 'https://api.us.springverify.com/employee/submit/e
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
-<!---
-
- Success Response
+> Success Response
 
 ```json
+{
+    "success": true,
+    "data": {
+        "success": true,
+        "status": "Completed",
+        "institution_name_verified": false,
+        "employer_name_verified": false,
+        "count": 1
+    }
+}
 ```
 
+<!---
 > Error Response
 
 ```json
@@ -2490,7 +2554,7 @@ major|string| Course Major if any
 ## Delete Education
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/employee/deleteeducation?id=de359912-1223-4338-87c4-0783a0ea495b' \
+curl --location --request DELETE 'https://api.us.springverify.com/employee/education?id=de359912-1223-4338-87c4-0783a0ea495b' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
