@@ -1425,6 +1425,232 @@ state|string|State of the employee.
 zip_code|string|Zip code of the employee.
 phone|string|Phone number of the employee.
 
+## Update Personal Details
+
+```shell
+curl --location --request PUT 'https://api.us.springverify.com/employee/personal-details' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+	"first_name":"John",
+	"middle_name":"David",
+	"last_name":"Doe",
+	"dob":"12-11-1980",
+	"ssn":"123456789",
+	"email":"johndoe@gmail.com",
+    "house_number": "239",
+    "street_name": "A clear street"
+	"address":"236 A clear street",
+	"city":"Gotham",
+	"state":"CA",
+	"zip_code":"33433",
+	"phone":"56-999222992"
+}'
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
+        "access_id": "2148fefc-d0db-466a-9f15-8234ce30c101",
+        "email": "johndoe@gmail.com",
+        "password_hash": null,
+        "first_name": "John",
+        "middle_name": "David",
+        "last_name": "Doe",
+        "name_verified": null,
+        "created_at": "2020-08-26T08:34:31.000Z",
+        "updated_at": "2020-08-26T12:58:23.488Z",
+        "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
+        "payment_id": "02247ac0-b3f0-402c-a413-df463dae52bb",
+        "email_sent": true,
+        "payment": false,
+        "status": null,
+        "flow_completed": null,
+        "company_created_by": "zed@max.com",
+        "employee_limit_id": "e4bdd91d-8509-4989-bafb-8b997cbb6d47",
+        "employments": [],
+        "education": [],
+        "cic_criminal_records": [],
+        "professional_licenses": [],
+        "employee_detail": {
+            "id": "41098fa9-cfd9-4ac7-a5e1-a8191c46edff",
+            "access_id": null,
+            "address": "236 A clear street",
+            "address_verified": null,
+            "driving_number": null,
+            "driving_number_verified": null,
+            "city": "Gotham",
+            "city_verified": null,
+            "state": "CA",
+            "state_verified": null,
+            "zipcode": "33433",
+            "zipcode_verified": null,
+            "country": null,
+            "country_verified": null,
+            "birthdate": "12-11-1980",
+            "birthdate_verified": null,
+            "phone": "56-999222992",
+            "phone_verified": null,
+            "ssn": "6789",
+            "ssn_verified": null,
+            "created_at": "2020-08-26T10:19:02.000Z",
+            "updated_at": "2020-08-26T12:58:23.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_verification": {
+            "id": "40ac9a1a-5f1d-48c1-92e7-53dea339e5cf",
+            "s3_gov_id": "link",
+            "s3_gov_id_back": null,
+            "s3_gov_id_match": false,
+            "s3_web_img": null,
+            "s3_passport_verified": 2,
+            "passport_status": "FAILED",
+            "s3_dl_verified": null,
+            "dl_status": null,
+            "verification_type": "id",
+            "address": null,
+            "address_verified": null,
+            "city": null,
+            "city_verified": null,
+            "state": null,
+            "state_verified": null,
+            "zipcode": null,
+            "zipcode_verified": null,
+            "country": null,
+            "country_verified": null,
+            "birthdate": null,
+            "birthdate_verified": null,
+            "criminal_verified": null,
+            "global_watchlist_verified": null,
+            "created_at": "2020-08-26T10:19:46.000Z",
+            "updated_at": "2020-08-26T10:23:31.000Z",
+            "is_report_checked": false,
+            "summary_of_rights_accepted": true,
+            "background_check_disclosure_accepted": true,
+            "id_manual_review": null,
+            "super_admin_status": null,
+            "super_admin_status_new": null,
+            "consent_link": "link",
+            "spring_sign_ref_id": "5f46374017710d0014423b76",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_limit": {
+            "id": "e4bdd91d-8509-4989-bafb-8b997cbb6d47",
+            "employment": 2,
+            "education": 1,
+            "professional_license": 0,
+            "all_county_criminal_search": true,
+            "county_criminal_search": 0,
+            "civil_court": 1,
+            "driving_license": 0,
+            "package_id": null,
+            "created_at": "2020-08-26T08:34:31.000Z",
+            "updated_at": "2020-08-26T08:34:31.000Z",
+            "employee_invite_group_id": "bee68098-30b6-43a0-96d0-a45d8a18fc64",
+            "employee_invite_group": {
+                "id": "bee68098-30b6-43a0-96d0-a45d8a18fc64",
+                "package": "diamond",
+                "active": false,
+                "created_at": "2020-08-26T08:34:31.000Z",
+                "updated_at": "2020-08-26T12:13:14.000Z",
+                "company_created_by": "zed@max.com",
+                "package_id": "5"
+            }
+        },
+        "kbaqna": {
+            "id": "ac407a95-ca32-4fb7-832b-f8655ed1a5ef",
+            "access_id": "a8f67651-2206-46ab-be18-1d956ee662de",
+            "email": "johndoe@gmail.com",
+            "questions_flag": 1,
+            "kba_enabled": 1,
+            "question_count": "5",
+            "correct_answers": "4",
+            "verified": false,
+            "created_at": "2020-08-26T10:20:08.000Z",
+            "updated_at": "2020-08-26T10:21:08.000Z",
+            "idm_session_id": "8871924c3b585878",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "employee_flow": {
+            "id": 290,
+            "employment_flow": null,
+            "education_flow": null,
+            "professional_license_flow": null,
+            "created_at": "2020-08-26T10:19:00.000Z",
+            "updated_at": "2020-08-26T10:19:00.000Z",
+            "employee_email": "johndoe@gmail.com"
+        },
+        "s3_files": [
+            {
+                "id": "70617497-2e00-422f-a1d8-0d652f87193b",
+                "type": "ID",
+                "sub_type": "FRONT",
+                "relation_id": "d0e2aefd-4266-4db0-90fa-9ec4e1a54291",
+                "link": "link",
+                "reference_id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
+                "status": null,
+                "comments": null,
+                "deleted_at": null,
+                "created_at": "2020-08-26T10:23:31.000Z",
+                "updated_at": "2020-08-26T10:23:31.000Z"
+            },
+            {
+                "id": "b69a5b2d-3fc6-4f4b-ac30-7970b3bf84d2",
+                "type": "ID",
+                "sub_type": "FRONT",
+                "relation_id": "42fa4d1b-60e6-4ce9-b684-953b58a8dca9",
+                "link": "link",
+                "reference_id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
+                "status": null,
+                "comments": null,
+                "deleted_at": null,
+                "created_at": "2020-08-26T10:22:02.000Z",
+                "updated_at": "2020-08-26T10:22:02.000Z"
+            },
+            {
+                "id": "e7118fef-b778-418c-b8cc-3ce906b31482",
+                "type": "ID",
+                "sub_type": "FRONT",
+                "relation_id": "975059dd-69ef-4dd7-92e0-627290d76a9f",
+                "link": "link",
+                "reference_id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
+                "status": null,
+                "comments": null,
+                "deleted_at": null,
+                "created_at": "2020-08-26T10:22:53.000Z",
+                "updated_at": "2020-08-26T10:22:53.000Z"
+            }
+        ],
+        "criminal_statuses": [],
+        "sjv_criminal_reports": []
+    }
+}
+```
+
+This API is used to update the personal details of the employee. Until verification for identity check is not completed, employee is allowed to edit the personal details.
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ------- | -----------
+first_name|string|First name of the employee.
+middle_name|string|Middle name of the employee.
+last_name|string|Last name of the employee.
+dob|string|Date of birth of the employee in DD-MM-YYYY.
+ssn|string|SSN of the employee.
+email|string|Email of the employee.
+house_number|integer|House number of the employee.
+street_name|string|Street name of the employee.
+address|string|Address of the employee.
+city|string|City of the employee.
+state|string|State of the employee.
+zip_code|string|Zip code of the employee.
+phone|string|Phone number of the employee.
 
 ## Provide Consent
 
@@ -1669,7 +1895,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/kba/ver
   ]
 }'
 ```
-
+<!-- TODO: UPDATE THE RESPONSE -->
 > Success Response
 
 ```json
@@ -1753,7 +1979,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 --header 'Authorization: Bearer JWT_TOKEN' \
 --form 'front=@/path/to/file'
 ```
-
+<!-- TODO: CHANGE THE RESPONSE -->
 > Success Response
 
 ```json
