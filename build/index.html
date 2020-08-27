@@ -999,7 +999,8 @@ curl --location --request POST <span class="s1">'https://api.us.springverify.com
         --header <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
         --header <span class="s1">'Authorization: Bearer JWT_TOKEN'</span> <span class="se">\</span>
         --data-raw <span class="s1">'{
-                "id": "72586cfc-2b46-468a-8f80-af64de0106e0"
+                "id": "72586cfc-2b46-468a-8f80-af64de0106e0",
+                "send_email": true
         }'</span>
 </code></pre>
 <blockquote>
@@ -1008,10 +1009,21 @@ curl --location --request POST <span class="s1">'https://api.us.springverify.com
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
         </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"successMsg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money added successfully"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">        
+            </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kicih32rwe563@delot23ti.com"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoia2ljaWgzMnJ3ZTU2M0BkZWxvdDIzdGkuY29tIiwiaWF0IjoxNTk4MjY3MDY0LCJleHAiOjE2MDE4NjcwNjR9.cdmBksgyhgNMkk6gjIQxOW0ToYK2yF69LbigsQ86IFg"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sdfasdfwer@asdewwe32fewewas.com"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoic2RmYXNkZndlckBhc2Rld3dlMzJmZXdld2FzLmNvbSIsImlhdCI6MTU5ODI2NzA2NCwiZXhwIjoxNjAxODY3MDY0fQ.Xjd2x2Rp48ACTmOsxaryd13nzer1XXjBrlS3YJzMB6E"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate.</p>
+<p>This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate. When send_email field is set to false this api returns links of candidates in response.</p>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1024,6 +1036,11 @@ curl --location --request POST <span class="s1">'https://api.us.springverify.com
 <td>id</td>
 <td>string</td>
 <td>Reference id retrieved in invite employee API.</td>
+</tr>
+<tr>
+<td>send_email</td>
+<td>Boolean</td>
+<td>If false returns form links.</td>
 </tr>
 </tbody></table>
 <h2 id='get-single-candidate'>Get Single Candidate</h2><pre class="highlight shell tab-shell"><code>curl --location --request GET <span class="s1">'https://api.us.springverify.com/company/employee?id=

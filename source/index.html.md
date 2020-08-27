@@ -52,27 +52,6 @@ Authenticating in SpringVerify is done on the bases of JSON Web Tokens. Once reg
 You must replace <code>JWT_TOKEN</code> in the examples below with your personal Token.
 </aside>
 
-## Status Mapping
-
-### System Statuses
-
-STATUS | VALUE
------- | -----
-0| PENDING
-1| VERIFIED
-2| FAILED
-3| MANUAL REVIEW
-
-### Super Admin Statuses
-
-STATUS | VALUE
------- | -----
-0| PENDING
-1| VERIFIED
-2| FAILED
-3| UNABLE TO VERIFY
-
-
 # Company API Flow
 
 ## SignUp
@@ -124,8 +103,8 @@ This API is used to register a company ADMIN. Once registered an verification em
 Parameter | Type | Description
 --------- | ------- | -----------
 email|string|Email registered on SpringVerify.
-password|string|Password registered on SpringVerify.
-confirm_password|string|Password confirmation.
+password|string|A strong password. (hashed, 8 characters minimum)
+confirm_password|string|Repeat the password. (hashed, 8 characters minimum)
 first_name|string|First name of the Admin.
 last_name|string|Last name of the Admin.
 phone|string|Phone number of the user.
@@ -264,7 +243,7 @@ Client needs to send JWT token in the header successfully Call other APIs.
 Parameter | Type | Description
 --------- | ------- | -----------
 email|string|Email registered on SpringVerify.
-password|string|Password registered on SpringVerify.
+password|string|Password registered on SpringVerify. (hashed, 8 characters minimum)
 role|string|It is the role of the login entity (use ‘admin’ for company login).
 
 ## Forgot Password
@@ -285,7 +264,9 @@ curl --location --request POST 'https://api.us.springverify.com/auth/forgot-pass
     "data": "success"
 }
 ```
-
+This API will send a forgot password email to the Company Admin. The email will consist of a Token embedded URL.
+This Token will be used to call the [Reset Password](#reset-password) API.
+  
 ## Reset Password
 
 ```shell
@@ -305,6 +286,14 @@ curl --location --request POST 'https://api.us.springverify.com/profile/reset-pa
     "data": "success"
 }
 ```
+
+The email sent in [Forgot Password](#forgot-password) will consist of a TOKEN which has to be passed here along with the new Password. 
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ------- | -----------
+password|string|A strong Password. (hashed, 8 characters minimum)
 
 ## Register Your Company
 
@@ -627,7 +616,7 @@ curl --location --request POST 'localhost:3080/employee/invite' \
 }
 ```
 
-AIM of this API is used to invite employee/employees. It can be used to invite employee in bulk. Once payment is done sucessfully then email is sent to the employee.
+AIM of this API is used to invite employee/employees. It can be used to invite employees in bulk. Once payment is done sucessfully then email is sent to the employee.
 
 <aside class="notice">This API should only be used after getting the packages in previous API.</aside>
 
@@ -652,7 +641,7 @@ count|number|It gives the number of candidates.
 
 ```shell
 curl --location --request POST 'https://api.stripe.com/v1/tokens' \
---header 'Authorization: Bearer pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe' \
+--header 'Authorization: Bearer STRIPE_TOKEN' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'card[number]=4242424242424242' \
 --data-urlencode 'card[exp_month]=12' \
@@ -701,6 +690,15 @@ curl --location --request POST 'https://api.stripe.com/v1/tokens' \
 
 This API is used to register your Card with Stripe. Once the API call is successful the response will incude an `id` parameter which will be used in the next API request for authorizing payments (Payment For Invites).
 
+
+### Stripe Token
+
+Parameter | Type | Environment | Value
+--------- | ------- | ------- | -----------
+STRIPE_TOKEN|string|Development|pk_live_51H1niLFq1aDrrzKztsRsWduNwtnBIIuRWSdeAJtIsgFefyWukEuqx8J6T8djCLiHAMDNNvdKpYkdiqq7iP9hwtCK00VdWazMPg
+STRIPE_TOKEN|string|Production|pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe
+
+
 ## Save the Payment Info
 
 ```shell
@@ -730,7 +728,8 @@ curl --location --request POST 'https://api.us.springverify.com/payment/charge-u
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --data-raw '{
-    "id": "2612d112-5827-4b1c-a177-03a85eabd03d"
+    "id": "2612d112-5827-4b1c-a177-03a85eabd03d",
+    "send_email": true
 }'
 ```
 
@@ -858,13 +857,14 @@ curl --location --request POST 'https://api.us.springverify.com/payment/charge-u
 }
 ```
 
-This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate.
+This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate. When `send_email` field is set to `false` this api returns verification links of added candidates in response.
 
 ### URL Parameters
 
 Parameter | Type | Description
 --------- | ------- | -----------
 id|string|Reference id retrieved in invite employee API.
+send_email|Boolean|If false returns verification links of added candidates.
 
 
 ## Get Single Candidate
@@ -4141,7 +4141,7 @@ After the fore mentioned checks have been successfully submitted and triggered. 
 Parameter | Type | Description
 --------- | ------- | -----------
 token|string|JWT_TOKEN
-password_hash| string | Hash of the password.
+password_hash| string | Hash of the password. (8 characters minimum)
 
 ## Reset Password
 
@@ -4174,7 +4174,7 @@ This API is used to reset the employee profile password.
 
 Parameter | Type | Description
 --------- | ------- | -----------
-password| string | Hash of the password.
+password| string | Hash of the password. (8 characters minimum)
 
 ## Complete Employee Flow
 
@@ -4597,7 +4597,7 @@ Aim is to generate a JWT token , which will be used for login once the current J
 Parameter | Type | Description
 --------- | ------- | -----------
 email|string|Email registered on SpringVerify.
-password|string|Password registered on SpringVerify.
+password|string|Password registered on SpringVerify. (hashed) (hashed)
 role|string|It is the role of the login entity (use ‘employee’ for login).
 
 
