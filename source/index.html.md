@@ -1979,16 +1979,12 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 --header 'Authorization: Bearer JWT_TOKEN' \
 --form 'front=@/path/to/file'
 ```
-<!-- TODO: CHANGE THE RESPONSE -->
 > Success Response
 
 ```json
 {
-  "success": true,
-  "successMsg": "passport uploaded successfully",
-  "data": {
-
-  }
+    "success": true,
+    "data": true
 }
 ```
 
