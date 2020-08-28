@@ -695,8 +695,8 @@ This API is used to register your Card with Stripe. Once the API call is success
 
 Parameter | Type | Environment | Value
 --------- | ------- | ------- | -----------
-STRIPE_TOKEN|string|Development|pk_live_51H1niLFq1aDrrzKztsRsWduNwtnBIIuRWSdeAJtIsgFefyWukEuqx8J6T8djCLiHAMDNNvdKpYkdiqq7iP9hwtCK00VdWazMPg
-STRIPE_TOKEN|string|Production|pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe
+STRIPE_TOKEN|string|Development|pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe
+STRIPE_TOKEN|string|Production|pk_live_51H1niLFq1aDrrzKztsRsWduNwtnBIIuRWSdeAJtIsgFefyWukEuqx8J6T8djCLiHAMDNNvdKpYkdiqq7iP9hwtCK00VdWazMPg
 
 
 ## Save the Payment Info
@@ -1343,7 +1343,7 @@ offset|integer|Page offset.
 filter|string|ALL/COMPLETED/VERIFIED/PENDING/NULL(AWAITING INPUT FROM EMPLOYEE)/FAILED.
 
 
-## Get Company Adverse Actoion Counts
+## Get Company Adverse Action Counts
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company/action/adverse/counts' \
@@ -4597,7 +4597,7 @@ Aim is to generate a JWT token , which will be used for login once the current J
 Parameter | Type | Description
 --------- | ------- | -----------
 email|string|Email registered on SpringVerify.
-password|string|Password registered on SpringVerify. (hashed) (hashed)
+password|string|Password registered on SpringVerify. (hashed, 8 characters minimum)
 role|string|It is the role of the login entity (use ‘employee’ for login).
 
 
@@ -4605,5 +4605,5 @@ role|string|It is the role of the login entity (use ‘employee’ for login).
 
 These docs are pertaining to the current version (v2). If you would like to view older docs to reference previous versions, the links are below:
 
-1) [Version 1 Docs](https://https://docs.us.springverify.com/olddocs/v1/index.html) - End of Life on 2020-09-14.
+1) [Version 1 Docs](https://docs.us.springverify.com/olddocs/v1/index.html) - End of Life on 2020-09-14.
 
