@@ -325,3 +325,301 @@ On an employee profile that is being processed for adversities, an admin can get
 | Parameter | Type | Description |
 | --- | --- | --- |
 | sjv_id | `string` | The SJV ID of the criminal report. |
+
+---
+
+## User
+
+This section covers the API details available for users logged in as _employees_ (or candidates), i.e., users who wish to get background verification checks performed on their profiles.
+
+### Submit Personal Details
+
+An employee can submit their personal details using this API. It is of the utmost importance that the details entered here are absolutely accurate. For creating the profile, the same email ID must be used to which the verification request was sent.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| first_name | `string` | The employee's first name. |
+| middle_name | `string` | The employee's middle name. |
+| last_name | `string` | The employee's last name. |
+| dob | `string` | The employee's date of birth in the format DD-MM-YYYY. |
+| ssn | `string` | The employee's SSN. |
+| email | `string` | The employee's email address - must be the same address to which the verification request was sent. |
+| house_number | `integer` | The employee's house number. |
+| street_name | `string` | The name of the street where the employee's house is located. |
+| address | `string` | The employee's residential address. |
+| city | `string` | The city where the employee's house is located. |
+| state | `string` | The state where the employee's house is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's house is located. |
+| phone | `string` | The employee's phone number. |
+
+### Update Personal Details
+
+An employee who has created a profile can use this API tp update their persona details. The updates can be made until the verification process is complete.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| first_name | `string` | The employee's first name. |
+| middle_name | `string` | The employee's middle name. |
+| last_name | `string` | The employee's last name. |
+| dob | `string` | The employee's date of birth in the format DD-MM-YYYY. |
+| ssn | `string` | The employee's SSN. |
+| email | `string` | The employee's email address - must be the same address to which the verification request was sent. |
+| house_number | `integer` | The employee's house number. |
+| street_name | `string` | The name of the street where the employee's house is located. |
+| address | `string` | The employee's residential address. |
+| city | `string` | The city where the employee's house is located. |
+| state | `string` | The state where the employee's house is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's house is located. |
+| phone | `string` | The employee's phone number. |
+
+### Provide Consent
+
+After creating their profile, an employee needs to explicitly provide consent to allow background verification using this API. The name provided here should match the full name provided in the Submit Personal Details API.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| summary_of_rights | `boolean` | Indicates that the employee has read the summary of rights. This flag can be "true" or "false". |
+| background_check | `boolean` | Indicates that the employee has agreed for a background check. This flag can be "true" or "false". |
+| report_checked | `boolean` | Indicates that the employee's report has been checked. This flag can be "true" or "false". |
+| full_name | `string` | The employee's full name. |
+
+### Knowledge Based Quiz
+
+This API is used to generate a knowledge-based quiz about the employee to verify authenticity. A series of questions relating to the employee's profile will be asked to which the employee is required to answer. Based on these answers, a score will be generated.
+
+### Submit KBA Quiz
+
+This API is used to submit the employee's answers of the [Knowledge Based Quiz](https://docs.us.springverify.com/#knowledge-based-quiz).
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| qna | `array` | This is an array that contains the IDs of the question as well as the ID of the responses to those questions. |
+
+### Upload and Verify ID
+
+This API records the ID of the user and verifies its authenticity.
+
+**Important Notes:**
+
+1. The maximum allowed size of the image uploaded (per image) is capped at 2MB. Uploading photos larger than 2MB will throw an exception.
+2. If using a mobile device, capturing a clear, non-blurry image is extremely important so that the ID can be processed accurately.
+3. At a minimum, a 5MP camera should be used to capture the images for the UploadID parameter.
+4. It is mandatory to have a contrast between the ID and the background. The background must be solid colored.
+5. It must be ensured that all the edges of the ID are visible and none of the edges are cutoff.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| front | `image` | The image of the front of the ID. |
+| back | `image` | The image of the back of the ID. |
+
+### Upload and Verify Passport
+
+This API records the Passport of the user and verifies it authenticity.
+
+This API is used to upload an image of the employee's passport that will be scanned and parsed. The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
+
+There are several variables that are more likely to cause a document to fail:
+1. The quality of the captured image - blurred images or images with reflections.
+2. Personalization of the document such as documents with especially long names.
+3. Variations in manufacturing techniques - for example, a card printed on the wrong side or slight variations in the printing location.
+4. Wear and aging of the document - a worn or dirty card can cause failure.
+5. Tampering and counterfeiting - unlawful changes or reproduction of documents.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| front | `image` | The image of the passport. |
+
+### Request Manual Review of the ID or Passport
+
+If the uploading of an ID _and_ of the passport fails more than once, a manual review can be requested using this API.
+
+### Get ID verification tries
+
+This API will provide the number of tries that an employee has made for uploading the Driving License ID , the Passport and also the number of tries an employee has made on the KBA. The maximum allowed limit is 2 per method per candidate.
+
+### Get Candidate Info
+
+This API returns all info pertaining to a candidate including all types of verification.
+
+### Add Candidate Employment
+
+This API will be used to submit the Employment records for the Employee.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| employer_name | `string` | Name of the employer. |
+| employer_address | `string` | Address of the employer. |
+| employer_phone | `string` | Phone number of the employer. |
+| employer_town | `string` | Town where the employer is located. |
+| state | `string` | State where the employer is located. |
+| zip_code | `string` | Zip Code of the postal district where the employer is located. |
+| country | `string` | Country where the employer is located. |
+| job_title | `string` | Job title of the latest employment. |
+| start_date | `string` | Start Date of the employment. |
+| end_date | `string` | End Date of the employment. |
+| supervisor_name | `string` | The name of the employee's supervisor in this employment. |
+| current_employment | `string` | Is this the employee's current employment? |
+| job_type | `string` | Is this a contract or a full-time employment? |
+| reason_for_leaving | `string` | Reason for leaving the job (optional). |
+| supervisor_contact | `string` | Contact details of the supervisor. |
+
+### Delete Employment
+
+This API is used to delete the employment submitted in the "Add Candidate Employment" API before it goes for verification.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the employment record. |
+
+### Edit Employment
+
+By adding the ID received in the "Submit Employment" response in this API, it can be used to edit the employment data.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the employment record. |
+| employer_name | `string` | Name of the employer. |
+| employer_address | `string` | Address of the employer. |
+| employer_phone | `string` | Phone number of the employer. |
+| employer_town | `string` | Town where the employer is located. |
+| state | `string` | State where the employer is located. |
+| zip_code | `string` | Zip Code of the postal district where the employer is located. |
+| country | `string` | Country where the employer is located. |
+| job_title | `string` | Job title of the latest employment. |
+| start_date | `string` | Start Date of the employment. |
+| end_date | `string` | End Date of the employment. |
+| supervisor_name | `string` | The name of the employee's supervisor in this employment. |
+| current_employment | `string` | Is this the employee's current employment? |
+| job_type | `string` | Is this a contract or a full-time employment? |
+| reason_for_leaving | `string` | Reason for leaving the job (optional). |
+| supervisor_contact | `string` | Contact details of the supervisor. |
+
+### Trigger Employment Verification
+
+Once the employment records have been submitted and finalized, an Employment Verification request can be triggered using this API.
+
+### Add Employee's Education
+
+This API will be used to submit the education records of the employee.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| school_name | `string` | The name of the employee's school. |
+| school_type | `string` | The type of the employee's school. |
+| school_campus | `string` | The campus of the employee's school. |
+| address | `string` | The address of the employee's school. |
+| city | `string` | The city where the employee's school is located. |
+| state | `string` | The state where the employee's school is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's school is located. |
+| country | `string` | The country where the employee's school is located. |
+| start_date | `string` | Start date of the course. |
+| end_date | `string` | End date of the course. |
+| degree | `string` | Official degree of the course. |
+| currently_attending | `string` | This flag will be set to 1 if the employee is currently attending the course, else it will be set to 0. |
+| completed_successfully | `string` | This flag will be set to 1 if the employee has successfully completed the course, else it will be set to 0. |
+| major | `string` | The field in which the employee has majored. |
+
+### Edit Education Entry
+
+This API will be used to edit the education records for the Employee. The id parameter passed will be the same as received at the time of Education Entry submission.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the education entry. |
+| school_name | `string` | The name of the employee's school. |
+| school_type | `string` | The type of the employee's school. |
+| school_campus | `string` | The campus of the employee's school. |
+| address | `string` | The address of the employee's school. |
+| city | `string` | The city where the employee's school is located. |
+| state | `string` | The state where the employee's school is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's school is located. |
+| country | `string` | The country where the employee's school is located. |
+| start_date | `string` | Start date of the course. |
+| end_date | `string` | End date of the course. |
+| degree | `string` | Official degree of the course. |
+| currently_attending | `string` | This flag will be set to 1 if the employee is currently attending the course, else it will be set to 0. |
+| completed_successfully | `string` | This flag will be set to 1 if the employee has successfully completed the course, else it will be set to 0. |
+| major | `string` | The field in which the employee has majored. |
+
+### Delete Education
+
+This API is used to delete the education entry submitted in the previous API before it goes for verification.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the education entry. |
+
+### Trigger Education Verification
+
+Once the education records have been submitted and finalized, an Education Verification request can be triggered using this API.
+
+### Create Password
+
+After all the previously mentioned checks have been successfully submitted and triggered, the employee can create a password for their profile using this API.
+
+>The `Password` fields shouldbe hashed using SHA256 beforehand.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| token | `string` | JWT_TOKEN |
+| password_hash | `string` | Hash of the password. (8 characters minimum). |
+
+### Reset Password
+
+This API is used to reset the employee profile password.
+
+>The `Password` fields shouldbe hashed using SHA256 beforehand.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| password | `string` | Hash of the password. (8 characters minimum). |
+
+### Complete Employee Flow
+
+This API is used to let the system know that employee form has been submitted successfully.
+
+### Employee Login
+
+For logging in, the aim is to generate a JSON web token that is to be used in all subsequent API calls. The JWT generated will be valid for one hour.
+
+To call the subsequent APIs, the user will need to send the JWT successfully in the header of those APIs.
+
+>The password should be hashed using SHA256 beforehand.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| email | `string` | The email address used by the employee to register with SpringVerify. |
+| password | `string` | The password used by the employee to register with SpringVerify. (Hashed, 8 characters minimum). |
+| role | `string` | The role of the user being logged in - in this case, `employee`. |
+
+---
