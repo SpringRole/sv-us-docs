@@ -52,6 +52,22 @@ Authenticating in SpringVerify is done on the bases of JSON Web Tokens. Once reg
 You must replace <code>JWT_TOKEN</code> in the examples below with your personal Token.
 </aside>
 
+## API Response Status Codes
+
+Status Codes | Description
+--------- | ------- 
+200| OK
+400| BAD REQUEST
+401| Unauthorized
+404| Not Found
+417| Expectation Failed
+422| Unprocessable Entity
+500| Internal Server Error
+
+All the 4xx status codes will be accompanied by an error message.
+
+For the 5xx status code, please contact the SpringVerify Team at info@springverify.com.
+
 # Company API Flow
 
 ## SignUp
