@@ -1,60 +1,75 @@
 ---
-title: SpringVerify API Reference
+title: SpringVerify US API Documentation
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell: cURL
+  - javascript
+  - php
+  - python
+  - ruby
 
 toc_footers:
-  - <a href='https://stage.us.springverify.com'>Head to SpringVerify to know more.</a>
-
-
-includes:
-
+  - 
+  - 
 
 search: true
+
+code_clipboard: true
 ---
 
+# Welcome!
 
-# Introduction
+**Hello and welcome to SpringVerify.**
 
-Welcome to the SpringVerify API!
+This is the API documentation section of SpringVerify for customers and users located in the USA. It is divided into three sections for ease of navigation:
 
-We currently have two environments, development and production. Both the environments have separate databases. During development base url of development environment must be used.
+1. Introductions - _where entities, environments, and authentication protocols are detailed._
+2. Company API flow - _where functions available to users logged in as company admins are detailed._
+3. User API flow - _where functions available to users logged in as employees are detailed._
 
-We have language bindings in cURL. You can view code examples in the dark area to the right.
+---
 
-## Defining internal objects
+## Introduction
 
-USER ROLES | RESPONSE
---------- | ------- 
-Employee|We define employee as an entity which is being verified on the platform.
-User| We define user as an company admin.
-Company| We define company as an entity having group of users (Admins).
-Super Admin	| We define Super Admin as springVerify-US team.
+SpringVerify currently has three environments -- stage, acceptance and production. All three environments have independent databases. While in the stage phase, it is mandatory to use the base URL of the stage environment.
 
-## Environment Urls
+The language bindings are in cURL, node.js, and PHP. The API documentation is set up with a display area on the right to show examples.
 
-**Development** : https://api-stage.us.springverify.com
+## Internal objects
 
-**Acceptance** : https://api-acceptance.us.springverify.com
+| User Roles | Response |
+| ---------- | -------- |
+| Company | An entity that has users. These users can be employees who are **performing the verification** or are **being verified**. |
+| Admin | A user who is performing the verification. |
+| Employee | A user whose details are being verified on the platform. |
 
-**Production** : https://api.us.springverify.com
+## Environment URLs
 
-<aside class="notice">
-Currently we have two types of coupons (open/closed). Please contact info@springverify.com regarding coupon code for your company.
-</aside>
+**Stage**: https://api-stage.us.springverify.com  
+**Acceptance**: https://api-acceptance.us.springverify.com  
+**Production**: https://api.us.springverify.com  
+
+>Currently we have two types of coupons -- "open" and "closed". Please contact sales@springverify.com regarding coupon codes for your company.
 
 ## Authentication
 
-Authenticating in SpringVerify is done on the bases of JSON Web Tokens. Once registered, you will receive a token which can be used for subsequent API requests. 
+Authenticating in SpringVerify is done on the basis of JSON Web Tokens. Once registered, a user will receive a token to be used for subsequent API requests. If misplaced, the token can be retrieved by logging in again.
+
+>The user must replace `JWT_TOKEN` in the examples below with their personal token.
+
+---
+
+# Company
+
+This section covers the API details available for users logged in as _admins_, i.e., users who wish to conduct background verification checks on employees (or prospective employees).
+
+## Signup
+
+The signup API is used to register an admin - a user that performs verifications - in a company. Once a user is registered, a verification email is sent to the registered address.
 
 <aside class="notice">
-You must replace <code>JWT_TOKEN</code> in the examples below with your personal Token.
+The <code>`Password`</code> and <code>`Confirm Password`</code> fields should be hashed using SHA256 beforehand.
 </aside>
-
-# Company API Flow
-
-## SignUp
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/auth/signup' \
@@ -68,6 +83,88 @@ curl --location --request POST 'https://api.us.springverify.com/auth/signup' \
     "confirm_password":"daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5",
     "domain": "wick.com"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/auth/signup', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "first_name": "John", "last_name": "Wick", "phone": "999999999", "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "confirm_password":"daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "domain": "wick.com" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "first_name": "John", "last_name": "Wick", "phone": "999999999", "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "confirm_password":"daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "domain": "wick.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/auth/signup',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json'
+);
+$data = '{ "first_name": "John", "last_name": "Wick", "phone": "999999999", "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "confirm_password":"daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "domain": "wick.com" }';
+$response = Requests::post('https://api.us.springverify.com/auth/signup', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+}
+
+data = '{ "first_name": "John", "last_name": "Wick", "phone": "999999999", "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "confirm_password":"daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "domain": "wick.com" }'
+
+response = requests.post('https://api.us.springverify.com/auth/signup', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/auth/signup")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -92,33 +189,77 @@ curl --location --request POST 'https://api.us.springverify.com/auth/signup' \
 }
 ```
 
-This API is used to register a company ADMIN. Once registered an verification email is sent to the registered email.
+**Query Parameters**
 
-<aside class="notice">
-    Password and Confirm Password fields should be hashed using SHA256 before hand. 
-</aside>
+| Parameter | Type | Description | Mandatory |
+| --- | --- | --- | --- |
+| email | `string` | The email address used to register with SpringVerify | Yes |
+| password | `string` | A strong, hashed password of minimum 8 characters | Yes |
+| confirm_password | `string` | Repeat the password to confirm | Yes |
+| first_name | `string` | The user's first name | Yes |
+| last_name | `string` | The user's last name | No |
+| phone | `string` | The user's preferred phone number | No |
+| domain | `string` | The company's domain. Must be the same as the email domain | Yes |
 
-### Query Parameters
+With this, the user is successfully registered into a company's domain as an admin.
 
-Parameter | Type | Description
---------- | ------- | -----------
-email|string|Email registered on SpringVerify.
-password|string|A strong password. (hashed, 8 characters minimum)
-confirm_password|string|Repeat the password. (hashed, 8 characters minimum)
-first_name|string|First name of the Admin.
-last_name|string|Last name of the Admin.
-phone|string|Phone number of the user.
-domain|string|Domain of the company. Must be same as the email domain.
-
-<aside class="success">
-Congrats on getting started with SpringVerify!
-</aside>
-
-
-## Verify Company Admin Email
+## Verify an Admin's Email address
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/auth/verify?token=TOKEN_SENT_IN_EMAIL'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/auth/verify?token=TOKEN_SENT_IN_EMAIL');
+
+// REQUEST
+
+var request = require('request');
+
+var options = {
+    url: 'https://api.us.springverify.com/auth/verify?token=TOKEN_SENT_IN_EMAIL'
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array();
+$response = Requests::get('https://api.us.springverify.com/auth/verify?token=TOKEN_SENT_IN_EMAIL', $headers);
+```
+
+```python
+import requests
+
+params = (
+    ('token', 'TOKEN_SENT_IN_EMAIL'),
+)
+
+response = requests.get('https://api.us.springverify.com/auth/verify', params=params)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/auth/verify?token=TOKEN_SENT_IN_EMAIL")
+response = Net::HTTP.get_response(uri)
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -143,10 +284,9 @@ curl --location --request GET 'https://api.us.springverify.com/auth/verify?token
 }
 ```
 
-This API is used to confirm email a company ADMIN. Once confirmed the company will get created. 
+This API is used to verify a company admin's email address. If this user is the first user for a company, then the company will be created as an entity on the admin being successfully verified.
 
-
-## Resend Verify Company Admin Email
+## Resend the verification email to a company admin
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/auth/resend-email' \
@@ -155,6 +295,89 @@ curl --location --request POST 'https://api.us.springverify.com/auth/resend-emai
     "email":"john@wick.com"
 }'
 ```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/auth/resend-email', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "email":"john@wick.com" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "email":"john@wick.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/auth/resend-email',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json'
+);
+$data = '{ "email":"john@wick.com" }';
+$response = Requests::post('https://api.us.springverify.com/auth/resend-email', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+}
+
+data = '{ "email":"john@wick.com" }'
+
+response = requests.post('https://api.us.springverify.com/auth/resend-email', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/auth/resend-email")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 > Success Response
 
 ```json
@@ -164,7 +387,6 @@ curl --location --request POST 'https://api.us.springverify.com/auth/resend-emai
         "message": "Email Sent."
     }
 }
-
 ```
 
 > Error Response
@@ -175,10 +397,9 @@ curl --location --request POST 'https://api.us.springverify.com/auth/resend-emai
 }
 ```
 
-This API is used to resend confirm email a company ADMIN. 
+If an admin requires the verification email to be sent again, this API should be used.
 
-
-## Login
+## Logging in
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/auth/login' \
@@ -189,6 +410,80 @@ curl --location --request POST 'https://api.us.springverify.com/auth/login' \
     "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5",
     "role":"admin"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/auth/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"admin" })
+});
+
+// REQUEST
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/auth/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"admin" })
+});
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"admin" }';
+$response = Requests::post('https://api.us.springverify.com/auth/login', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"admin" }'
+
+response = requests.post('https://api.us.springverify.com/auth/login', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/auth/login")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -230,23 +525,23 @@ curl --location --request POST 'https://api.us.springverify.com/auth/login' \
 }
 ```
 
-Aim is to generate a JWT token , which will be used for all further API calls. The Token in the response will be valid for one hour. 
+For logging in, the aim is to generate a JSON web token that is to be used in all subsequent API calls. The JWT generated will be valid for one hour.
 
-Client needs to send JWT token in the header successfully Call other APIs.
+To call the subsequent APIs, the user will need to send the JWT successfully in the header of those APIs.
 
 <aside class="notice">
-    Password should be hashed using SHA256 before hand. 
+The password should be hashed using SHA256 beforehand.
 </aside>
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-email|string|Email registered on SpringVerify.
-password|string|Password registered on SpringVerify. (hashed, 8 characters minimum)
-role|string|It is the role of the login entity (use ‘admin’ for company login).
+| Parameter | Type | Description |
+| --- | --- | --- |
+| email | `string` | The email address used to register with SpringVerify |
+| password | `string` | A strong, hashed password of minimum 8 characters |
+| role | `string` | The role of the user being logged in - in this case, `admin` |
 
-## Forgot Password
+## Forgot password
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/auth/forgot-password' \
@@ -254,6 +549,86 @@ curl --location --request POST 'https://api.us.springverify.com/auth/forgot-pass
 --data-raw '{
     "email":"johndoe@gmail.com"
 }'
+```
+
+```javascript
+// FETCH
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/auth/forgot-password', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "email":"johndoe@gmail.com" })
+});
+
+// REQUEST
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "email":"johndoe@gmail.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/auth/forgot-password',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json'
+);
+$data = '{ "email":"johndoe@gmail.com" }';
+$response = Requests::post('https://api.us.springverify.com/auth/forgot-password', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+}
+
+data = '{ "email":"johndoe@gmail.com" }'
+
+response = requests.post('https://api.us.springverify.com/auth/forgot-password', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/auth/forgot-password")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -264,9 +639,9 @@ curl --location --request POST 'https://api.us.springverify.com/auth/forgot-pass
     "data": "success"
 }
 ```
-This API will send a forgot password email to the Company Admin. The email will consist of a Token embedded URL.
-This Token will be used to call the [Reset Password](#reset-password) API.
-  
+
+In case of a misplaced password, this API should be used to send an email to the user to reset their password. The email will contain a token-embedded URL which will be used to call the [Reset Password](https://docs.us.springverify.com/#reset-password) API.
+
 ## Reset Password
 
 ```shell
@@ -278,6 +653,93 @@ curl --location --request POST 'https://api.us.springverify.com/profile/reset-pa
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/profile/reset-password', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "password":"17f80754644d33ac685b0842a402229adbb43fc9312f7bdf36ba24237a1f1ffb" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "password":"17f80754644d33ac685b0842a402229adbb43fc9312f7bdf36ba24237a1f1ffb" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/profile/reset-password',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "password":"17f80754644d33ac685b0842a402229adbb43fc9312f7bdf36ba24237a1f1ffb" }';
+$response = Requests::post('https://api.us.springverify.com/profile/reset-password', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "password":"17f80754644d33ac685b0842a402229adbb43fc9312f7bdf36ba24237a1f1ffb" }'
+
+response = requests.post('https://api.us.springverify.com/profile/reset-password', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/profile/reset-password")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 > Success Response
 
 ```json
@@ -287,15 +749,15 @@ curl --location --request POST 'https://api.us.springverify.com/profile/reset-pa
 }
 ```
 
-The email sent in [Forgot Password](#forgot-password) will consist of a TOKEN which has to be passed here along with the new Password. 
+When a user requests declares a forgotten password, an email will be sent using the [Forgot Password](https://docs.us.springverify.com/#forgot-password) API. This email will consist of a token-embedded URL that is to be passed in this API along with the new password.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-password|string|A strong Password. (hashed, 8 characters minimum)
+| Parameter | Type | Description |
+| --- | --- | --- |
+| password | `string` | A strong, hashed password of minimum 8 characters |
 
-## Register Your Company
+## Register your company
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/company' \
@@ -311,6 +773,93 @@ curl --location --request POST 'https://api.us.springverify.com/company' \
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "name": "SmartBrains", "address": "901, Downtown Manhattan", "city": "NY", "state": "NY", "zipcode": "91319", "tax_id_number":"1234567890" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "name": "SmartBrains", "address": "901, Downtown Manhattan", "city": "NY", "state": "NY", "zipcode": "91319", "tax_id_number":"1234567890" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "name": "SmartBrains", "address": "901, Downtown Manhattan", "city": "NY", "state": "NY", "zipcode": "91319", "tax_id_number":"1234567890" }';
+$response = Requests::post('https://api.us.springverify.com/company', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "name": "SmartBrains", "address": "901, Downtown Manhattan", "city": "NY", "state": "NY", "zipcode": "91319", "tax_id_number":"1234567890" }'
+
+response = requests.post('https://api.us.springverify.com/company', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 > Success Response:
 
 ```json
@@ -322,25 +871,100 @@ curl --location --request POST 'https://api.us.springverify.com/company' \
 }
 ```
 
-This API is used to register a company. JWT token will be used for authentication.
+A user with the role of an admin can create a company once their profile is [verified](https://docs.us.springverify.com/#verify-company-admin-email). A valid JWT will be needed to authenicate the user in this API.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-name|string|Name of the registered company.
-address|string|Address of the company.
-city|string|City of the company.
-state|string|State of the registered company.
-zipcode|string|Zipcode of the company.
-tax_id_number|string|Tax number of the company.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| name | `string` | Name of the company being registered |
+| address | `string` | Address of the company being registered |
+| city | `string` | The city where the company being registered is located |
+| state | `string` | The state where the company being registered is located |
+| zipcode | `string` | The ZIP code of the postal district in which the company is located |
+| tax_id_number | `string` | Tax number of the company that is being registered |
 
-## Upload Logo
+## Upload a logo
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/company/upload-logo' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --form 'logo=@/path/to/file'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/upload-logo', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company/upload-logo',
+    method: 'POST',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::post('https://api.us.springverify.com/company/upload-logo', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.post('https://api.us.springverify.com/company/upload-logo', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/upload-logo")
+request = Net::HTTP::Post.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -352,19 +976,92 @@ curl --location --request POST 'https://api.us.springverify.com/company/upload-l
 }
 ```
 
-Set the company logo using this API
+Upload the company's logo using this API.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-logo| file | Raw File of the logo. 
+| Parameter | Type | Description |
+| --- | --- | --- |
+| logo | `file` | Raw file of the logo |
 
-## Get Company Details
+## Get company details
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/company', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/company', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -396,14 +1093,86 @@ curl --location --request GET 'https://api.us.springverify.com/company' \
 }
 ```
 
-Get company details using the JWT_TOKEN.
+For a registered admin with a valid JWT, this API can be used to get the details of the company. This is different from the company profile. A company's profile contains details of the company given during registration as well as the count of the employees whose profiles were verified, failed or is pending.
 
-
-## Get Company Profile
+## Get company profile
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/profile' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/profile', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/profile',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/profile', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/profile', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/profile")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -449,14 +1218,86 @@ curl --location --request GET 'https://api.us.springverify.com/profile' \
 }
 ```
 
-Get company profile using the JWT_TOKEN.
+For a registered admin with a valid JWT, this API can be used to get the company's profile. This is different from the company details. A company's profile contains details of the company given during registration as well as the count of the employees whose profiles were verified, failed, or is pending.
 
-
-## Get Available Packages
+## Get available packages
 
 ```shell
 curl --location --request GET 'http://api-stage.us.springverify.com/company/package' \
         --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('http://api-stage.us.springverify.com/company/package', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'http://api-stage.us.springverify.com/company/package',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('http://api-stage.us.springverify.com/company/package', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('http://api-stage.us.springverify.com/company/package', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("http://api-stage.us.springverify.com/company/package")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response:
@@ -579,9 +1420,9 @@ curl --location --request GET 'http://api-stage.us.springverify.com/company/pack
 }
 ```
 
-This API is used to get the currently available packages and prices.
+This API is used to get the available pricing plans and packages.
 
-## Invite Candidates
+## Invite candidates
 
 ```shell
 curl --location --request POST 'localhost:3080/employee/invite' \
@@ -603,6 +1444,93 @@ curl --location --request POST 'localhost:3080/employee/invite' \
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('localhost:3080/employee/invite', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }'
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }';
+
+var options = {
+    url: 'localhost:3080/employee/invite',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }';
+$response = Requests::post('localhost:3080/employee/invite', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }'
+
+response = requests.post('http://localhost:3080/employee/invite', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("http://localhost:3080/employee/invite")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 >Success Response:
 
 ```json
@@ -616,28 +1544,28 @@ curl --location --request POST 'localhost:3080/employee/invite' \
 }
 ```
 
-AIM of this API is used to invite employee/employees. It can be used to invite employees in bulk. Once payment is done sucessfully then email is sent to the employee.
+This API is used to invite existing and/or prospective employees to get their profiles verified. It can be used to invite employees in bulk. However, emails will be sent to the employees only once the payment is successfully completed.
 
-<aside class="notice">This API should only be used after getting the packages in previous API.</aside>
+>This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-email_list|array|Contains the list of employee emails.
-package|string|Name of the package (retrieved in get packages api).
-add_ons|Object|Extra checks can be added in a package.
-coupon_code|string|This coupon Code is to avail discounts.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| email_list | `array` | Contains a list of the email addresses of the employees to be contacted |
+| package | `string` | Name of the package as retrieved from the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API |
+| add_ons | `object` | To add additional services into the retrieved package |
+| coupon_code | `string` | Any coupon code that the admin has for a discounted pricing |
 
-### Response Parameters
+**Response Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-price|number|It gives price in cents that has to be payed.
-id|string|It is the reference id against which payment has to be made.
-count|number|It gives the number of candidates.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| price | `number` | The price (in cents) that is to be paid |
+| id | `string` | The reference ID against which the payment is being made |
+| count | `number` | The total number of candidates that are being verified |
+
 ## Save Credit Card in Stripe for Payments
-
 
 ```shell
 curl --location --request POST 'https://api.stripe.com/v1/tokens' \
@@ -647,6 +1575,84 @@ curl --location --request POST 'https://api.stripe.com/v1/tokens' \
 --data-urlencode 'card[exp_month]=12' \
 --data-urlencode 'card[exp_year]=2020' \
 --data-urlencode 'card[cvc]=123'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.stripe.com/v1/tokens', {
+    headers: {
+        'Authorization': 'Bearer STRIPE_TOKEN',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer STRIPE_TOKEN',
+    'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+var options = {
+    url: 'https://api.stripe.com/v1/tokens',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer STRIPE_TOKEN',
+    'Content-Type' => 'application/x-www-form-urlencoded'
+);
+$response = Requests::get('https://api.stripe.com/v1/tokens', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer STRIPE_TOKEN',
+    'Content-Type': 'application/x-www-form-urlencoded',
+}
+
+response = requests.get('https://api.stripe.com/v1/tokens', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.stripe.com/v1/tokens")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/x-www-form-urlencoded"
+request["Authorization"] = "Bearer STRIPE_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -688,18 +1694,14 @@ curl --location --request POST 'https://api.stripe.com/v1/tokens' \
 }
 ```
 
-This API is used to register your Card with Stripe. Once the API call is successful the response will incude an `id` parameter which will be used in the next API request for authorizing payments (Payment For Invites).
+This API is used to register the credit card with Stripe for payments. If this API call is successful, the response generated will include an `id` parameter that is used in the [Payment for Invites](https://docs.us.springverify.com/#payment-for-invites) API.
 
+| Parameter | Type | Environment | Value |
+| --- | --- | --- | --- |
+| STRIPE_TOKEN | `string` | Development | pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe |
+| STRIPE_TOKEN | `string` | Production | pk_live_51H1niLFq1aDrrzKztsRsWduNwtnBIIuRWSdeAJtIsgFefyWukEuqx8J6T8djCLiHAMDNNvdKpYkdiqq7iP9hwtCK00VdWazMPg |
 
-### Stripe Token
-
-Parameter | Type | Environment | Value
---------- | ------- | ------- | -----------
-STRIPE_TOKEN|string|Development|pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe
-STRIPE_TOKEN|string|Production|pk_live_51H1niLFq1aDrrzKztsRsWduNwtnBIIuRWSdeAJtIsgFefyWukEuqx8J6T8djCLiHAMDNNvdKpYkdiqq7iP9hwtCK00VdWazMPg
-
-
-## Save the Payment Info
+## Save payment info
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/payment/save-card' \
@@ -710,7 +1712,92 @@ curl --location --request POST 'https://api.us.springverify.com/payment/save-car
 }'
 ```
 
-The token received from the previous API has to be saved with SpringVerify.
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/payment/save-card', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/payment/save-card',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }';
+$response = Requests::post('https://api.us.springverify.com/payment/save-card', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }'
+
+response = requests.post('https://api.us.springverify.com/payment/save-card', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/payment/save-card")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
 
 > Success Response
 
@@ -720,6 +1807,8 @@ The token received from the previous API has to be saved with SpringVerify.
     "data": "card saved for the specified user"
 }
 ```
+
+To save the token received from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments), use this API.
 
 ## Payment For Invites
 
@@ -731,6 +1820,93 @@ curl --location --request POST 'https://api.us.springverify.com/payment/charge-u
     "id": "2612d112-5827-4b1c-a177-03a85eabd03d",
     "send_email": true
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/payment/charge-user', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true }';
+
+var options = {
+    url: 'https://api.us.springverify.com/payment/charge-user',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true }';
+$response = Requests::post('https://api.us.springverify.com/payment/charge-user', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true }'
+
+response = requests.post('https://api.us.springverify.com/payment/charge-user', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/payment/charge-user")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 >Success Response
@@ -857,22 +2033,104 @@ curl --location --request POST 'https://api.us.springverify.com/payment/charge-u
 }
 ```
 
-This API is called right after invite API. The reference id retrieved in previous api is used in this api (Invite Candidates). Once the payment is done successfully the email is sent out to the candidate. When `send_email` field is set to `false` this api returns verification links of added candidates in response.
+Once a user has been invited to get themselves verified, the verification must be paid for. This API is used for the payment purpose and must be called immediately after the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. The reference ID retrieved from the "Invite Candidates" API is used here. Emails to employees (or prospective employees) requesting verification will be sent only after the payment is successful. If the `send_email` field is set to `false`, the API will return the verification links of the employees in the response.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-id|string|Reference id retrieved in invite employee API.
-send_email|Boolean|If false returns verification links of added candidates.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `string` | The reference ID retrieved from the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. |
+| send_email | `boolean` | `true` -- sends emails to the candidates. |
+| | | `false` -- returns the verifications links of the candidates. |
 
-
-## Get Single Candidate
+## Get Single Candidate (or employee)
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --data-raw ''
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID',
+    method: 'POST',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = array(
+
+);
+$response = Requests::post('https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+params = (
+    ('id', 'EMPLOYEE_ID'),
+)
+
+response = requests.post('https://api.us.springverify.com/company/employee', headers=headers, params=params)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -947,16 +2205,15 @@ curl --location --request GET 'https://api.us.springverify.com/company/employee?
 }
 ```
 
-AIM of this API is used to get details of a particular employee.
+When the details of a specific user that is already verified -- a candidate or an employee -- is to be retrieved, use this API. This API retrivies the details of the user that have been verified, as well as the pricing package in which the user's profile was verified, along with the date of the most recent verification.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-id|uuid|Contains the unique id of the employee.
+| Parameter | Type | Description |
+| --- | --- | --- |
+|id | `uuid` | Contains the unique ID of the user. |
 
-
-## Search Employee in Company
+## Search Employee
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/company/employee/search' \
@@ -965,6 +2222,93 @@ curl --location --request POST 'https://api.us.springverify.com/company/employee
 --data-raw '{
     "search":"johndoe@gmail.com"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/employee/search', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "search":"johndoe@gmail.com" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "search":"johndoe@gmail.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company/employee/search',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "search":"johndoe@gmail.com" }';
+$response = Requests::post('https://api.us.springverify.com/company/employee/search', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "search":"johndoe@gmail.com" }'
+
+response = requests.post('https://api.us.springverify.com/company/employee/search', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/employee/search")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -992,17 +2336,15 @@ curl --location --request POST 'https://api.us.springverify.com/company/employee
 }
 ```
 
-AIM of this API is used to search a particular employee in your company. 
+This API searches and retrieves the profile of a specific employee that is already verified.
 
+**URL Parameters**
 
-### URL Parameters
+| Parameter | Type | Description |
+| --- | --- | --- |
+| search | `string`| Contains the search term |
 
-Parameter | Type | Description
---------- | ------- | -----------
-search|string|Contains the search term.
-
-
-## Get Company Actions
+## Get company action
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/company/actions' \
@@ -1012,6 +2354,93 @@ curl --location --request POST 'https://api.us.springverify.com/company/actions'
     "limit":10,
     "offset":0
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/actions', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "limit":10, "offset":0 })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "limit":10, "offset":0 }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company/actions',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "limit":10, "offset":0 }';
+$response = Requests::post('https://api.us.springverify.com/company/actions', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "limit":10, "offset":0 }'
+
+response = requests.post('https://api.us.springverify.com/company/actions', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/actions")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -1114,6 +2543,13 @@ curl --location --request POST 'https://api.us.springverify.com/company/actions'
 }
 ```
 
+This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
+
+* The candidate has been invited to provide their information to initiate the verification.
+* The candidate has entereed their personal information.
+* The candidate has successfully uploaded their driver's license.
+* The candidate has successfully verified their identity using their driver's license.
+* The candidate has failed to verify their identity using their driver's license.
 
 ## Get Company Actions Pertaining to an employee
 
@@ -1126,6 +2562,93 @@ curl --location --request POST 'https://api.us.springverify.com/company/actions'
     "offset":0,
     "email":"employee@email.com"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/actions', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "limit":10, "offset":0, "email":"employee@email.com" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "limit":10, "offset":0, "email":"employee@email.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company/actions',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "limit":10, "offset":0, "email":"employee@email.com" }';
+$response = Requests::post('https://api.us.springverify.com/company/actions', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "limit":10, "offset":0, "email":"employee@email.com" }'
+
+response = requests.post('https://api.us.springverify.com/company/actions', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/actions")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -1210,6 +2733,16 @@ curl --location --request POST 'https://api.us.springverify.com/company/actions'
 }
 ```
 
+This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
+
+* The candidate has been invited to provide their information to initiate the verification.
+* The candidate has entereed their personal information.
+* The candidate has successfully uploaded their driver's license.
+* The candidate has successfully verified their identity using their driver's license.
+* The candidate has entered their education information.
+* The candidate has entered their employment information.
+* Verification for the education information has been initiated.
+* Verification for the employment information has been initiated.
 
 ## Get Company Employees by Filter
 
@@ -1222,6 +2755,93 @@ curl --location --request POST 'https://api.us.springverify.com/company/employee
     "offset":0,
     "filter":"NULL"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/employees', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "limit":1, "offset":0, "filter":"NULL" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "limit":1, "offset":0, "filter":"NULL" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company/employees',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "limit":1, "offset":0, "filter":"NULL" }';
+$response = Requests::post('https://api.us.springverify.com/company/employees', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "limit":1, "offset":0, "filter":"NULL" }'
+
+response = requests.post('https://api.us.springverify.com/company/employees', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/employees")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -1334,20 +2954,92 @@ curl --location --request POST 'https://api.us.springverify.com/company/employee
 }
 ```
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-limit|integer|Page limit.
-offset|integer|Page offset.
-filter|string|ALL/COMPLETED/VERIFIED/PENDING/NULL(AWAITING INPUT FROM EMPLOYEE)/FAILED.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| limit | `integer` | Page limit |
+| offset | `integer` | Page offset |
+| filter | `string` | ALL/COMPLETED/VERIFIED/PENDING/NULL(AWAITING EMPLOYEE INPUT)/FAILED.
 
-
-## Get Company Adverse Action Counts
+### Get Company Adverse Action Counts
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company/action/adverse/counts' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/action/adverse/counts', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company/action/adverse/counts',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/company/action/adverse/counts', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/company/action/adverse/counts', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/counts")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -1380,6 +3072,14 @@ curl --location --request GET 'https://api.us.springverify.com/company/action/ad
 }
 ```
 
+This API gives the count of the total adverse actions that are/have been:
+
+* closed -- the employee's response has been accepted or rejected and the verification is completed.
+* pending -- the employee is to be informed of the issue; or the employee's response is to be received.
+* being reviewed -- the employee's response is being reviewed.
+* sent a notice -- the employee has been informed of an issue with their verification.
+* taken a final call on -- a decision has been taken by the company on the adverse action and is to be informed to the employee.
+
 ## Get Company Adverse Actions
 
 ```shell
@@ -1391,6 +3091,93 @@ curl --location --request POST 'https://api.us.springverify.com/company/action/a
     "offset":0,
     "status":"PENDING"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/action/adverse/fetch', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "limit":10, "offset":0, "status":"PENDING" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "limit":10, "offset":0, "status":"PENDING" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company/action/adverse/fetch',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "limit":10, "offset":0, "status":"PENDING" }';
+$response = Requests::post('https://api.us.springverify.com/company/action/adverse/fetch', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "limit":10, "offset":0, "status":"PENDING" }'
+
+response = requests.post('https://api.us.springverify.com/company/action/adverse/fetch', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/fetch")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -1914,25 +3701,104 @@ curl --location --request POST 'https://api.us.springverify.com/company/action/a
 }
 ```
 
+This API can be used to get a list of the adversities found across all the profiles that have been processed.
 
-This API is used to fetch Adverse actions. Possible status values - PENDING,NOTICE_SENT,IN_REVIEW,FINAL_CALL,CLOSED,IGNORED
+**URL Parameters**
 
+| Parameter | Type | Description |
+| --- | --- | --- |
+| limit | `integer` | _Raw file of the logo._ |
+| offset | `integer` | _Raw file of the logo._ |
+| status | `string` | Current status of the action: (PENDING/NOTICE_SENT/IN_REVIEW/FINAL_CALL/CLOSED)
 
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-limit| integer | Raw File of the logo. 
-offset| integer | Raw File of the logo. 
-status | string | Current Status of the action. (PENDING, NOTICE_SENT, IN_REVIEW, FINAL_CALL, CLOSED)
-
-
-## Adverse Action of Single Employee
+### Adverse Action of Single Employee
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company/action/adverse?adverse_action_id=2504d7c7-3f68-47a7-b9dc-be2adb99936e' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: application/json'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/action/adverse?adverse_action_id=2504d7c7-3f68-47a7-b9dc-be2adb99936e', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company/action/adverse?adverse_action_id=2504d7c7-3f68-47a7-b9dc-be2adb99936e',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$response = Requests::get('https://api.us.springverify.com/company/action/adverse?adverse_action_id=2504d7c7-3f68-47a7-b9dc-be2adb99936e', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+params = (
+    ('adverse_action_id', '2504d7c7-3f68-47a7-b9dc-be2adb99936e'),
+)
+
+response = requests.get('https://api.us.springverify.com/company/action/adverse', headers=headers, params=params)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse?adverse_action_id=2504d7c7-3f68-47a7-b9dc-be2adb99936e")
+request = Net::HTTP::Get.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response:
@@ -2131,13 +3997,13 @@ curl --location --request GET 'https://api.us.springverify.com/company/action/ad
 }
 ```
 
-Retrive Adverse action for a single employee.
+For a specific employee whose verification has resulted in an adverse action, this API can be used to get a list of the adversities found in the profile.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-adverse_action_id| uuid | ID of Adverse Action. 
+| Parameter | Type | Description |
+| --- | --- | --- |
+| adverse_action_id | `uuid` | The ID of the adverse action. |
 
 ## Mark Adverse Action as Read
 
@@ -2150,6 +4016,93 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/mark
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('http://localhost:3080/company/action/adverse/mark-read', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }';
+
+var options = {
+    url: 'http://localhost:3080/company/action/adverse/mark-read',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }';
+$response = Requests::post('http://localhost:3080/company/action/adverse/mark-read', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }'
+
+response = requests.post('http://localhost:3080/company/action/adverse/mark-read', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("http://localhost:3080/company/action/adverse/mark-read")
+request = Net::HTTP::Put.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 > Success Response 
 
 ```json
@@ -2159,16 +4112,15 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/mark
 }
 ```
 
-Mark adverse action as read for Company Admins.
+Once an admin has been notified of a list of adversity (of a single employee's profile or of multiple profiles), this API is used to let the admin mark the notification as "read".
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-IDs | array | Array of IDs to be marked read.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| IDs | `array` | An array of the IDs that are to be marked as read. |
 
-
-## Clear or Send Adverse Action Notice 
+## Clear or Send Adverse Action Notice
 
 ```shell
 curl --location --request PUT 'http://localhost:3080/company/action/adverse/pending' \
@@ -2178,6 +4130,93 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/pend
     "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e",
     "status":"NOTICE_SENT"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('http://localhost:3080/company/action/adverse/pending', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }';
+
+var options = {
+    url: 'http://localhost:3080/company/action/adverse/pending',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }';
+$response = Requests::post('http://localhost:3080/company/action/adverse/pending', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }'
+
+response = requests.post('http://localhost:3080/company/action/adverse/pending', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("http://localhost:3080/company/action/adverse/pending")
+request = Net::HTTP::Put.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 
@@ -2190,15 +4229,14 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/pend
 }
 ```
 
-Set Adverse action status. This is the intial action in a particular adverse action lifecycle for the Admin.
+Once notified, an admin can decide to take an action on the adversity notified or ignore it. This is the initial action particular adverse action lifecycle for the Admin.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-status | string | "NOTICE_SENT", "IGNORED"
-adverse_action_id | string | Adverse Action ID on which status is being updated.
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| status | `string` | Current status of the action: NOTICE_SENT/IGNORED. |
+| adverse_action_id | `string` | The ID of the adverse action whose status is being updated. |
 
 ## Set Final Adverse Action Status
 
@@ -2212,6 +4250,92 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/fina
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('http://localhost:3080/company/action/adverse/final', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }';
+
+var options = {
+    url: 'http://localhost:3080/company/action/adverse/final',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }';
+$response = Requests::post('http://localhost:3080/company/action/adverse/final', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }'
+
+response = requests.post('http://localhost:3080/company/action/adverse/final', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("http://localhost:3080/company/action/adverse/final")
+request = Net::HTTP::Put.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
 
 > Success Response
 
@@ -2222,21 +4346,97 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/fina
 }
 ```
 
-Set Final Adverse action status. This is the final action in a particular adverse action lifecycle for the Admin.
+On an employee profile that is being processed for adversities, an admin can set a final adverse action using this API. This is the final action in a particular adverse action lifecycle for the Admin.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-status | string | "CLEAR", "REJECT"
-adverse_action_id | string | Adverse Action ID on which status is being updated.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| status | `string` | Current status of the action: CLEAR/REJECT. |
+| adverse_action_id | `string` | The ID of the adverse action whose status is being updated. |
 
 ## Get Criminal Report
-
 
 ```shell
 curl --location --request GET 'http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+params = (
+    ('sjv_id', '0db2b92a-ec0d-4506-a356-fcb97f31e0c3'),
+)
+
+response = requests.get('http://localhost:3080/company/criminal/sjv/report', headers=headers, params=params)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -2260,17 +4460,19 @@ curl --location --request GET 'http://localhost:3080/company/criminal/sjv/report
 }
 ```
 
-Get criminal Report using SJV ID in the adverse action object. This is a sample JSON response.
+On an employee profile that is being processed for adversities, an admin can get the criminal report using the SJV ID in the adverse action object of this API. This is a sample JSON response.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-sjv_id | string | SJV ID of crminal report.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| sjv_id | `string` | The SJV ID of the criminal report. |
 
+---
 
+# User
 
-# User API Flow
+This section covers the API details available for users logged in as _employees_ (or candidates), i.e., users who wish to get background verification checks performed on their profiles.
 
 ## Submit Personal Details
 
@@ -2296,6 +4498,92 @@ curl --location --request POST 'https://api.us.springverify.com/employee/persona
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/personal-details', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }'
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/personal-details',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }';
+$response = Requests::post('https://api.us.springverify.com/employee/personal-details', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }'
+
+response = requests.post('https://api.us.springverify.com/employee/personal-details', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/personal-details")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
 
 > Success Response
 
@@ -2391,25 +4679,25 @@ curl --location --request POST 'https://api.us.springverify.com/employee/persona
 }
 ```
 
-This API records the information of the USER whose details will be verified. It is utmost essential that the information provided is absolutely accurate. The email provided here should be same as the one on which verification request was received.
+An employee can submit their personal details using this API. It is of the utmost importance that the details entered here are absolutely accurate. For creating the profile, the same email ID must be used to which the verification request was sent.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-first_name|string|First name of the employee.
-middle_name|string|Middle name of the employee.
-last_name|string|Last name of the employee.
-dob|string|Date of birth of the employee in DD-MM-YYYY.
-ssn|string|SSN of the employee.
-email|string|Email of the employee.
-house_number|integer|House number of the employee.
-street_name|string|Street name of the employee.
-address|string|Address of the employee.
-city|string|City of the employee.
-state|string|State of the employee.
-zip_code|string|Zip code of the employee.
-phone|string|Phone number of the employee.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| first_name | `string` | The employee's first name. |
+| middle_name | `string` | The employee's middle name. |
+| last_name | `string` | The employee's last name. |
+| dob | `string` | The employee's date of birth in the format DD-MM-YYYY. |
+| ssn | `string` | The employee's SSN. |
+| email | `string` | The employee's email address - must be the same address to which the verification request was sent. |
+| house_number | `integer` | The employee's house number. |
+| street_name | `string` | The name of the street where the employee's house is located. |
+| address | `string` | The employee's residential address. |
+| city | `string` | The city where the employee's house is located. |
+| state | `string` | The state where the employee's house is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's house is located. |
+| phone | `string` | The employee's phone number. |
 
 ## Update Personal Details
 
@@ -2433,6 +4721,93 @@ curl --location --request PUT 'https://api.us.springverify.com/employee/personal
 	"zip_code":"33433",
 	"phone":"56-999222992"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/personal-details', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "A clear street" "address":"236 A clear street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }'
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/personal-details',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }';
+$response = Requests::post('https://api.us.springverify.com/employee/personal-details', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }'
+
+response = requests.post('https://api.us.springverify.com/employee/personal-details', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/personal-details")
+request = Net::HTTP::Put.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -2618,25 +4993,25 @@ curl --location --request PUT 'https://api.us.springverify.com/employee/personal
 }
 ```
 
-This API is used to update the personal details of the employee. Until verification for identity check is not completed, employee is allowed to edit the personal details.
+An employee who has created a profile can use this API tp update their persona details. The updates can be made until the verification process is complete.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-first_name|string|First name of the employee.
-middle_name|string|Middle name of the employee.
-last_name|string|Last name of the employee.
-dob|string|Date of birth of the employee in DD-MM-YYYY.
-ssn|string|SSN of the employee.
-email|string|Email of the employee.
-house_number|integer|House number of the employee.
-street_name|string|Street name of the employee.
-address|string|Address of the employee.
-city|string|City of the employee.
-state|string|State of the employee.
-zip_code|string|Zip code of the employee.
-phone|string|Phone number of the employee.
+| Parameter | Type | Description |
+| --- | --- | --- |
+| first_name | `string` | The employee's first name. |
+| middle_name | `string` | The employee's middle name. |
+| last_name | `string` | The employee's last name. |
+| dob | `string` | The employee's date of birth in the format DD-MM-YYYY. |
+| ssn | `string` | The employee's SSN. |
+| email | `string` | The employee's email address - must be the same address to which the verification request was sent. |
+| house_number | `integer` | The employee's house number. |
+| street_name | `string` | The name of the street where the employee's house is located. |
+| address | `string` | The employee's residential address. |
+| city | `string` | The city where the employee's house is located. |
+| state | `string` | The state where the employee's house is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's house is located. |
+| phone | `string` | The employee's phone number. |
 
 ## Provide Consent
 
@@ -2651,6 +5026,93 @@ curl --location --request POST 'https://api.us.springverify.com/employee/consent
      "report_checked":true,
      "full_name":"John James Doe"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/consent', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/consent',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" }';
+$response = Requests::post('https://api.us.springverify.com/employee/consent', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" }'
+
+response = requests.post('https://api.us.springverify.com/employee/consent', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/consent")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -2672,17 +5134,16 @@ curl --location --request POST 'https://api.us.springverify.com/employee/consent
 }
 ```
 
-This API records the consent of the USER whose details will be verified. The name provided here should match the full name provided in the Submit Personal Details API.
+After creating their profile, an employee needs to explicitly provide consent to allow background verification using this API. The name provided here should match the full name provided in the Submit Personal Details API.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-summary_of_rights|boolean|summary_of_rights flag can be true or false.
-background_check|boolean|background_check flag can be true or false.
-report_checked|boolean|report_checked flag can be true or false.
-full_name|string|Full name of the employee.
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| summary_of_rights | `boolean` | Indicates that the employee has read the summary of rights. This flag can be "true" or "false". |
+| background_check | `boolean` | Indicates that the employee has agreed for a background check. This flag can be "true" or "false". |
+| report_checked | `boolean` | Indicates that the employee's report has been checked. This flag can be "true" or "false". |
+| full_name | `string` | The employee's full name. |
 
 ## Knowledge Based Quiz
 
@@ -2850,8 +5311,7 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kba/ques
 }
 ```
 
-This API is used to fetch a Knowledge based quiz. The users will give their answers to the multiple choice questions and this will score their results.
-
+This API is used to generate a knowledge-based quiz about the employee to verify authenticity. A series of questions relating to the employee's profile will be asked to which the employee is required to answer. Based on these answers, a score will be generated.
 
 ## Submit KBA Quiz
 
@@ -2882,6 +5342,93 @@ curl --location --request POST 'https://api.us.springverify.com/employee/kba/ver
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/kba/verify', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "qna":[ { "question_id": 1, "answer_id": 5 },{ "question_id": 2, "answer_id": 5 },{ "question_id": 3, "answer_id": 5 },{ "question_id": 4, "answer_id": 5 },{ "question_id": 5, "answer_id": 5 } ] })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "qna":[ { "question_id": 1, "answer_id": 5 },{ "question_id": 2, "answer_id": 5 },{ "question_id": 3, "answer_id": 5 },{ "question_id": 4, "answer_id": 5 },{ "question_id": 5, "answer_id": 5 } ] }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/kba/verify',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "qna":[ { "question_id": 1, "answer_id": 5 },{ "question_id": 2, "answer_id": 5 },{ "question_id": 3, "answer_id": 5 },{ "question_id": 4, "answer_id": 5 },{ "question_id": 5, "answer_id": 5 } ] }';
+$response = Requests::post('https://api.us.springverify.com/employee/kba/verify', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "qna":[ { "question_id": 1, "answer_id": 5 },{ "question_id": 2, "answer_id": 5 },{ "question_id": 3, "answer_id": 5 },{ "question_id": 4, "answer_id": 5 },{ "question_id": 5, "answer_id": 5 } ] }'
+
+response = requests.post('https://api.us.springverify.com/employee/kba/verify', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/kba/verify")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 > Success Response
 
 ```json
@@ -2904,15 +5451,13 @@ curl --location --request POST 'https://api.us.springverify.com/employee/kba/ver
 }
 ```
 
-This API is used to submit the answers to the Knowledge based quiz.
+This API is used to submit the employee's answers of the [Knowledge Based Quiz](https://docs.us.springverify.com/#knowledge-based-quiz).
 
+**URL Parameters**
 
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-qna|array|Contains the array of question id and their respective answer id.
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| qna | `array` | This is an array that contains the IDs of the question as well as the ID of the responses to those questions. |
 
 ## Upload and Verify ID
 
@@ -2921,6 +5466,81 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 --header 'Authorization: Bearer JWT_TOKEN' \
 --form 'front=@/path/to/file' \
 --form 'back=@/path/to/file' \
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/upload/id', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/upload/id',
+    method: 'POST',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::post('https://api.us.springverify.com/employee/upload/id', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.post('https://api.us.springverify.com/employee/upload/id', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/upload/id")
+request = Net::HTTP::Post.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -2936,26 +5556,22 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 }
 ```
 
-This API records the ID of the user and verifies it authenticity.
+This API records the ID of the user and verifies its authenticity.
 
 **Important Notes:**
 
-1. The maximum allowed size of the image uploaded (per image) is capped at 2MB. Please do not send in photos larger than 2MB as an exception will be thrown.
-2. Capturing a clear, non-blurry image with the mobile device is extremely important so that the ID can be processed accurately.
-3. Make sure to use a minimum 5 Megapixel camera to capture the images for UploadID.
-4. Make sure that there is a contrast between the ID and the background, and the background is a solid colored background.
-5. Make sure that there is a contrast between the ID and the background, and the background is a solid colored background.
-6. Make sure all the edges of the ID are visible and no edge is getting cutoff.
+1. The maximum allowed size of the image uploaded (per image) is capped at 2MB. Uploading photos larger than 2MB will throw an exception.
+2. If using a mobile device, capturing a clear, non-blurry image is extremely important so that the ID can be processed accurately.
+3. At a minimum, a 5MP camera should be used to capture the images for the UploadID parameter.
+4. It is mandatory to have a contrast between the ID and the background. The background must be solid colored.
+5. It must be ensured that all the edges of the ID are visible and none of the edges are cutoff.
 
+**URL Parameters**
 
-
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-front|image|Front side of the ID.
-back|image|Back side of the ID.
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| front | `image` | The image of the front of the ID. |
+| back | `image` | The image of the back of the ID. |
 
 ## Upload and Verify Passport
 
@@ -2964,6 +5580,82 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 --header 'Authorization: Bearer JWT_TOKEN' \
 --form 'front=@/path/to/file'
 ```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/upload/passport', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/upload/passport',
+    method: 'POST',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::post('https://api.us.springverify.com/employee/upload/passport', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.post('https://api.us.springverify.com/employee/upload/passport', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/upload/passport")
+request = Net::HTTP::Post.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 > Success Response
 
 ```json
@@ -2983,28 +5675,100 @@ curl --location --request POST 'https://api.us.springverify.com/employee/upload/
 
 This API records the Passport of the user and verifies it authenticity.
 
-This call is used to upload an image of a passport to be scanned and parsed. The image should be of the page with the user's information on it (generally on the first or second page). It is one picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints in that the picture needs to be clear, it needs to have minimal glare, and it must have sufficient lighting.
+This API is used to upload an image of the employee's passport that will be scanned and parsed. The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
 
 There are several variables that are more likely to cause a document to fail:
+1. The quality of the captured image - blurred images or images with reflections.
+2. Personalization of the document such as documents with especially long names.
+3. Variations in manufacturing techniques - for example, a card printed on the wrong side or slight variations in the printing location.
+4. Wear and aging of the document - a worn or dirty card can cause failure.
+5. Tampering and counterfeiting - unlawful changes or reproduction of documents.
 
-1. Image capture quality (for example blurriness or reflection)
-2. Personalization of the document (such as especially long names)
-3. Variations in manufacturing techniques (for example card printed on wrong side or slight variations in printing location)
-4. Wear and aging of the document (a worn or dirty card can cause failure) Tampering and counterfeiting (unlawful changes or reproduction of documents)
+**URL Parameters**
 
-
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-front|image|Front side of the Passport.
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| front | `image` | The image of the passport. |
 
 ## Request Manual Review of the ID or Passport
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/id/manual-review' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/id/manual-review', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/id/manual-review',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/id/manual-review', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/employee/id/manual-review', headers=headers)
+```
+
+```ruby
+
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/id/manual-review")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3016,14 +5780,86 @@ curl --location --request GET 'https://api.us.springverify.com/employee/id/manua
 }
 ```
 
-In case both Upload ID and Upload Passport fail twice or less, the ID can be requested for a manual review, which our Ops Team will look into.
-
+If the uploading of an ID _and_ of the passport fails more than once, a manual review can be requested using this API.
 
 ## Get ID verification tries
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/id/try-counts' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/id/try-counts', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/id/try-counts',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/id/try-counts', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/employee/id/try-counts', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/id/try-counts")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3039,14 +5875,87 @@ curl --location --request GET 'https://api.us.springverify.com/employee/id/try-c
 }
 ```
 
-This API will give you the number of Driving License ID , Passport and KBA tries an employee has made. The maximum allowed limit is 2 per method per candidate.
-
+This API will provide the number of tries that an employee has made for uploading the Driving License ID , the Passport and also the number of tries an employee has made on the KBA. The maximum allowed limit is 2 per method per candidate.
 
 ## Get Candidate Info
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/employee/', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3322,22 +6231,109 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employm
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-	"employer_name": "Stark Industries",
-	"employer_address": "12, Manhattan Street",
-	"employer_phone": "9911991199",
-	"employer_town": "New York",
-	"state": "New York",
-	"zip_code": "129012",
-	"country": "USA",
-	"job_title": "Senior Manager",
-	"start_date": "19-11-2000",
-	"end_date": "19-11-2002",
-	"supervisor_name": "Nick Fury",
-	"current_employment": "0",
-	"job_type": "Contract",
-	"reason_for_leaving": "xyz",
-	"supervisor_contact": "nickfury@starkindustries.com"
+"employer_name": "Stark Industries",
+"employer_address": "12, Manhattan Street",
+"employer_phone": "9911991199",
+"employer_town": "New York",
+"state": "New York",
+"zip_code": "129012",
+"country": "USA",
+"job_title": "Senior Manager",
+"start_date": "19-11-2000",
+"end_date": "19-11-2002",
+"supervisor_name": "Nick Fury",
+"current_employment": "0",
+"job_type": "Contract",
+"reason_for_leaving": "xyz",
+"supervisor_contact": "nickfury@starkindustries.com"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/employment', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "employer_name": "Stark Industries", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "employer_name": "Stark Industries", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/employment',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "employer_name": "Stark Industries", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }';
+$response = Requests::post('https://api.us.springverify.com/employee/employment', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "employer_name": "Stark Industries", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }'
+
+response = requests.post('https://api.us.springverify.com/employee/employment', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/employment")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3369,34 +6365,110 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employm
 }
 ```
 
-
 This API will be used to submit the Employment records for the Employee.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-employer_name|string|Name of the employer.
-employer_address|string|Address of the employer.
-employer_phone|string|Phone number of the employer.
-employer_town|string|Town of the employer.
-state|string|State of the employer.
-zip_code|string|Zip Code of the employer.
-country|string|Country of the employer.
-job_title|string|Job Title (latest one if multiple)
-start_date|string|Start Date of the Job.
-end_date|string|End Date of the Job.
-supervisor_name|string|Supervisor Name
-current_employment|string| Is this Employee's current employment.
-job_type|string|Job Type (Contract/Employment)
-reason_for_leaving|string| Reason for leaving the job (optional)
-supervisor_contact|string| Active contact of the supervisor
+| Parameter | Type | Description |
+| --- | --- | --- |
+| employer_name | `string` | Name of the employer. |
+| employer_address | `string` | Address of the employer. |
+| employer_phone | `string` | Phone number of the employer. |
+| employer_town | `string` | Town where the employer is located. |
+| state | `string` | State where the employer is located. |
+| zip_code | `string` | Zip Code of the postal district where the employer is located. |
+| country | `string` | Country where the employer is located. |
+| job_title | `string` | Job title of the latest employment. |
+| start_date | `string` | Start Date of the employment. |
+| end_date | `string` | End Date of the employment. |
+| supervisor_name | `string` | The name of the employee's supervisor in this employment. |
+| current_employment | `string` | Is this the employee's current employment? |
+| job_type | `string` | Is this a contract or a full-time employment? |
+| reason_for_leaving | `string` | Reason for leaving the job (optional). |
+| supervisor_contact | `string` | Contact details of the supervisor. |
 
 ## Delete Employment
 
 ```shell
 curl --location --request DELETE 'https://api.us.springverify.com/employee/employment?id=ef9e7612-3789-405a-be37-c7bc1871c1f7' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/employment?id=ef9e7612-3789-405a-be37-c7bc1871c1f7', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/employment?id=ef9e7612-3789-405a-be37-c7bc1871c1f7',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/employment?id=ef9e7612-3789-405a-be37-c7bc1871c1f7', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+params = (
+    ('id', 'ef9e7612-3789-405a-be37-c7bc1871c1f7'),
+)
+
+response = requests.get('https://api.us.springverify.com/employee/employment', headers=headers, params=params)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/employment?id=ef9e7612-3789-405a-be37-c7bc1871c1f7")
+request = Net::HTTP::Delete.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3408,14 +6480,13 @@ curl --location --request DELETE 'https://api.us.springverify.com/employee/emplo
 }
 ```
 
-This API is used to delete the employment submitted in the previous API before it goes for verification.
+This API is used to delete the employment submitted in the "Add Candidate Employment" API before it goes for verification.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-id|UUID|UUID of the employment record.
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the employment record. |
 
 ## Edit Employment
 
@@ -3442,6 +6513,93 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employm
 	"reason_for_leaving": "xyz",
 	"supervisor_contact": "nickfury@starkindustries.com"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/employment', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7", "employer_name": "Stark Industries pvt ltd", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7", "employer_name": "Stark Industries pvt ltd", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/employment',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7", "employer_name": "Stark Industries pvt ltd", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }';
+$response = Requests::post('https://api.us.springverify.com/employee/employment', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7", "employer_name": "Stark Industries pvt ltd", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }'
+
+response = requests.post('https://api.us.springverify.com/employee/employment', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/employment")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3493,35 +6651,107 @@ curl --location --request POST 'https://api.us.springverify.com/employee/employm
 }
 ```
 
-This call is similar to add employment, if ID received in the Submit Employment response is added, it can be used to edit the employment data.
+By adding the ID received in the "Submit Employment" response in this API, it can be used to edit the employment data.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-id|UUID|UUID of the employment record.
-employer_name|string|Name of the employer.
-employer_address|string|Address of the employer.
-employer_phone|string|Phone number of the employer.
-employer_town|string|Town of the employer.
-state|string|State of the employer.
-zip_code|string|Zip Code of the employer.
-country|string|Country of the employer.
-job_title|string|Job Title (latest one if multiple)
-start_date|string|Start Date of the Job.
-end_date|string|End Date of the Job.
-supervisor_name|string|Supervisor Name
-current_employment|string| Is this Employees current employment.
-job_type|string|Job Type (Contract/Employment)
-reason_for_leaving|string| Reason for leaving the job (optional)
-supervisor_contact|string| Active contact of the supervisor
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the employment record. |
+| employer_name | `string` | Name of the employer. |
+| employer_address | `string` | Address of the employer. |
+| employer_phone | `string` | Phone number of the employer. |
+| employer_town | `string` | Town where the employer is located. |
+| state | `string` | State where the employer is located. |
+| zip_code | `string` | Zip Code of the postal district where the employer is located. |
+| country | `string` | Country where the employer is located. |
+| job_title | `string` | Job title of the latest employment. |
+| start_date | `string` | Start Date of the employment. |
+| end_date | `string` | End Date of the employment. |
+| supervisor_name | `string` | The name of the employee's supervisor in this employment. |
+| current_employment | `string` | Is this the employee's current employment? |
+| job_type | `string` | Is this a contract or a full-time employment? |
+| reason_for_leaving | `string` | Reason for leaving the job (optional). |
+| supervisor_contact | `string` | Contact details of the supervisor. |
 
 ## Trigger Employment Verification
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/submit/employment' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/submit/employment', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/submit/employment',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/submit/employment', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/employee/submit/employment', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/submit/employment")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3539,8 +6769,7 @@ curl --location --request GET 'https://api.us.springverify.com/employee/submit/e
 }
 ```
 
-Once the employment records have been submitted and finalized, Employment Verification can be triggered using this API.
-
+Once the employment records have been submitted and finalized, an Employment Verification request can be triggered using this API.
 
 ## Add Employee's Education
 
@@ -3593,26 +6822,109 @@ curl --location --request POST 'https://api.us.springverify.com/employee/educati
 }
 ```
 
-This API will be used to submit the education records for the Employee.
+```javascript
+// FETCH
 
-### URL Parameters
+var fetch = require('node-fetch');
 
-Parameter | Type | Description
---------- | ------- | -----------
-school_name|string|School Name of the Employee.
-school_type|string|School Type of the Employee.
-school_campus|string|School Campus of the Employee.
-address|string| Address of the school.
-city|string|City in which the school is based.
-state|string|State in which the school is based.
-zip_code|string| Zip code of the school
-country|string|Country in which the school is based.
-start_date|string|Start date of the course.
-end_date|string|End date of the course.
-degree|string|Official degree of the course.
-currently_attending|string| If Currently Attending 1, otherwise 0
-completed_successfully|string| If Completed Successfully 1, otherwise 0
-major|string|major if any
+fetch('https://api.us.springverify.com/employee/education', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: '{ "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address": "Asdasd", "city":"Boston", "state":"Massachusetts", "zip_code": "126112" "country":"USA", "start_date":"28-12-1991", "end_date":"12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" }'
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address": "Asdasd", "city":"Boston", "state":"Massachusetts", "zip_code": "126112" "country":"USA", "start_date":"28-12-1991", "end_date":"12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/education',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json'
+);
+$data = '{ "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address": "Asdasd", "city":"Boston", "state":"Massachusetts", "zip_code": "126112" "country":"USA", "start_date":"28-12-1991", "end_date":"12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" }';
+$response = Requests::post('https://api.us.springverify.com/employee/education', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+}
+
+data = '{ "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address": "Asdasd", "city":"Boston", "state":"Massachusetts", "zip_code": "126112" "country":"USA", "start_date":"28-12-1991", "end_date":"12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" }'
+
+response = requests.post('https://api.us.springverify.com/employee/education', headers=headers, data=data)
+```
+
+```ruby
+
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/education")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+This API will be used to submit the education records of the employee.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| school_name | `string` | The name of the employee's school. |
+| school_type | `string` | The type of the employee's school. |
+| school_campus | `string` | The campus of the employee's school. |
+| address | `string` | The address of the employee's school. |
+| city | `string` | The city where the employee's school is located. |
+| state | `string` | The state where the employee's school is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's school is located. |
+| country | `string` | The country where the employee's school is located. |
+| start_date | `string` | Start date of the course. |
+| end_date | `string` | End date of the course. |
+| degree | `string` | Official degree of the course. |
+| currently_attending | `string` | This flag will be set to 1 if the employee is currently attending the course, else it will be set to 0. |
+| completed_successfully | `string` | This flag will be set to 1 if the employee has successfully completed the course, else it will be set to 0. |
+| major | `string` | The field in which the employee has majored. |
 
 ## Edit Education Entry
 
@@ -3636,6 +6948,88 @@ curl --location --request POST 'https://api.us.springverify.com/employee/educati
     "completed_successfully":"1",
     "major":"Biotech"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/education', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "id":"de359912-1223-4338-87c4-0783a0ea495b", "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address":"New street east block", "city":"Boston", "state":"Massachusetts", "zip_code": "129012", "country":"USA", "start_date": "28-12-1991", "end_date": "12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "id":"de359912-1223-4338-87c4-0783a0ea495b", "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address":"New street east block", "city":"Boston", "state":"Massachusetts", "zip_code": "129012", "country":"USA", "start_date": "28-12-1991", "end_date": "12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/education',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json'
+);
+$data = '{ "id":"de359912-1223-4338-87c4-0783a0ea495b", "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address":"New street east block", "city":"Boston", "state":"Massachusetts", "zip_code": "129012", "country":"USA", "start_date": "28-12-1991", "end_date": "12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" }';
+$response = Requests::post('https://api.us.springverify.com/employee/education', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+}
+
+data = '{ "id":"de359912-1223-4338-87c4-0783a0ea495b", "school_name": "MIT", "school_type": "University", "school_campus": "Boston", "address":"New street east block", "city":"Boston", "state":"Massachusetts", "zip_code": "129012", "country":"USA", "start_date": "28-12-1991", "end_date": "12-28-1996", "degree":"Engineering", "currently_attending":"0", "completed_successfully":"1", "major":"Biotech" }'
+
+response = requests.post('https://api.us.springverify.com/employee/education', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/education")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3691,31 +7085,108 @@ curl --location --request POST 'https://api.us.springverify.com/employee/educati
 
 This API will be used to edit the education records for the Employee. The id parameter passed will be the same as received at the time of Education Entry submission.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-id| UUID | UUID of the education entry.
-school_name|string|School Name of the Employee.
-school_type|string|School Type of the Employee.
-school_campus|string|School Campus of the Employee.
-address|string|Address of the school.
-city|string|City in which the school is based.
-state|string|State in which the school is based.
-zip_code|string|Zip code of the school.
-country|string|Country in which the school is based.
-start_date|string|Start date of the course.
-end_date|string|End date of the course.
-degree|string|Official degree of the course.
-currently_attending|string| If Currently Attending 1, otherwise 0
-completed_successfully|string| If Completed Successfully 1, otherwise 0
-major|string| Course Major if any
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the education entry. |
+| school_name | `string` | The name of the employee's school. |
+| school_type | `string` | The type of the employee's school. |
+| school_campus | `string` | The campus of the employee's school. |
+| address | `string` | The address of the employee's school. |
+| city | `string` | The city where the employee's school is located. |
+| state | `string` | The state where the employee's school is located. |
+| zip_code | `string` | The ZIP code of the postal district where the employee's school is located. |
+| country | `string` | The country where the employee's school is located. |
+| start_date | `string` | Start date of the course. |
+| end_date | `string` | End date of the course. |
+| degree | `string` | Official degree of the course. |
+| currently_attending | `string` | This flag will be set to 1 if the employee is currently attending the course, else it will be set to 0. |
+| completed_successfully | `string` | This flag will be set to 1 if the employee has successfully completed the course, else it will be set to 0. |
+| major | `string` | The field in which the employee has majored. |
 
 ## Delete Education
 
 ```shell
 curl --location --request DELETE 'https://api.us.springverify.com/employee/education?id=de359912-1223-4338-87c4-0783a0ea495b' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/education?id=de359912-1223-4338-87c4-0783a0ea495b', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/education?id=de359912-1223-4338-87c4-0783a0ea495b',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/education?id=de359912-1223-4338-87c4-0783a0ea495b', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+params = (
+    ('id', 'de359912-1223-4338-87c4-0783a0ea495b'),
+)
+
+response = requests.get('https://api.us.springverify.com/employee/education', headers=headers, params=params)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/education?id=de359912-1223-4338-87c4-0783a0ea495b")
+request = Net::HTTP::Delete.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3727,21 +7198,92 @@ curl --location --request DELETE 'https://api.us.springverify.com/employee/educa
 }
 ```
 
-
 This API is used to delete the education entry submitted in the previous API before it goes for verification.
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-id| UUID | UUID of the education entry.
-
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of the education entry. |
 
 ## Trigger Education Verification
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/submit/education' \
 --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/submit/education', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/submit/education',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/submit/education', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/employee/submit/education', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/submit/education")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -3758,8 +7300,7 @@ curl --location --request GET 'https://api.us.springverify.com/employee/submit/e
 }
 ```
 
-Once the education records have been submitted and finalized, Education Verification can be triggered using this API.
-
+Once the education records have been submitted and finalized, an Education Verification request can be triggered using this API.
 
 ## Create Password
 
@@ -3772,6 +7313,93 @@ curl --location --request POST 'https://api.us.springverify.com/employee/create-
     "token": "JWT_TOKEN"
 	"password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31"
 }'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/create-password', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: '{ "token": "JWT_TOKEN" "password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31" }'
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "token": "JWT_TOKEN" "password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/create-password',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "token": "JWT_TOKEN" "password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31" }';
+$response = Requests::post('https://api.us.springverify.com/employee/create-password', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "token": "JWT_TOKEN" "password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31" }'
+
+response = requests.post('https://api.us.springverify.com/employee/create-password', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/create-password")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -4128,20 +7756,18 @@ curl --location --request POST 'https://api.us.springverify.com/employee/create-
 }
 ```
 
-
-After the fore mentioned checks have been successfully submitted and triggered. Employee can create a password for their profile.
+After all the previously mentioned checks have been successfully submitted and triggered, the employee can create a password for their profile using this API.
 
 <aside class="notice">
-    Password field should be hashed using SHA256 before hand.
+The `Password` fields shouldbe hashed using SHA256 beforehand.
 </aside>
 
+**URL Parameters**
 
-### URL Parameters
-
-Parameter | Type | Description
---------- | ------- | -----------
-token|string|JWT_TOKEN
-password_hash| string | Hash of the password. (8 characters minimum)
+| Parameter | Type | Description |
+| --- | --- | --- |
+| token | `string` | JWT_TOKEN |
+| password_hash | `string` | Hash of the password. (8 characters minimum). |
 
 ## Reset Password
 
@@ -4155,11 +7781,92 @@ curl --location --request POST 'https://api.us.springverify.com/employee/reset-p
 }'
 ```
 
-This API is used to reset the employee profile password.
+```javascript
+// FETCH
 
-<aside class="notice">
-    password field should be hashed using SHA256 before hand.
-</aside>
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/reset-password', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/reset-password',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e" }';
+$response = Requests::post('https://api.us.springverify.com/employee/reset-password', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e" }'
+
+response = requests.post('https://api.us.springverify.com/employee/reset-password', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/reset-password")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
 
 > Success Response
 
@@ -4170,11 +7877,17 @@ This API is used to reset the employee profile password.
 }
 ```
 
-### URL Parameters
+This API is used to reset the employee profile password.
 
-Parameter | Type | Description
---------- | ------- | -----------
-password| string | Hash of the password. (8 characters minimum)
+<aside class="notice">
+The `Password` fields shouldbe hashed using SHA256 beforehand.
+</aside>
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| password | `string` | Hash of the password. (8 characters minimum). |
 
 ## Complete Employee Flow
 
@@ -4183,6 +7896,85 @@ curl --location --request GET 'https://api.us.springverify.com/employee/flow-com
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: text/plain' \
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/employee/flow-completed', {
+    headers: {
+        'Content-Type': 'text/plain',
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/employee/flow-completed',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'text/plain',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/employee/flow-completed', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'text/plain',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/employee/flow-completed', headers=headers)
+```
+
+```ruby
+
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/employee/flow-completed")
+request = Net::HTTP::Get.new(uri)
+request.content_type = "text/plain"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
 ```
 
 > Success Response
@@ -4556,6 +8348,93 @@ curl --location --request POST 'https://api.us.springverify.com/auth/login' \
 }'
 ```
 
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/auth/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"employee" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"employee" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/auth/login',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"employee" }';
+$response = Requests::post('https://api.us.springverify.com/auth/login', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "email": "john@wick.com", "password": "daaad6e5604e8e17bd9f108d91e26afe6281dac8fda0091040a7a6d7bd9b43b5", "role":"employee" }'
+
+response = requests.post('https://api.us.springverify.com/auth/login', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/auth/login")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
 > Success Response
 
 ```json
@@ -4586,24 +8465,20 @@ curl --location --request POST 'https://api.us.springverify.com/auth/login' \
 }
 ```
 
-Aim is to generate a JWT token , which will be used for login once the current JWT expires. The Token in the response will be valid for one hour. 
+For logging in, the aim is to generate a JSON web token that is to be used in all subsequent API calls. The JWT generated will be valid for one hour.
+
+To call the subsequent APIs, the user will need to send the JWT successfully in the header of those APIs.
 
 <aside class="notice">
-    Password should be hashed using SHA256 before hand. 
+The password should be hashed using SHA256 beforehand.
 </aside>
 
-### URL Parameters
+**URL Parameters**
 
-Parameter | Type | Description
---------- | ------- | -----------
-email|string|Email registered on SpringVerify.
-password|string|Password registered on SpringVerify. (hashed, 8 characters minimum)
-role|string|It is the role of the login entity (use ‘employee’ for login).
+| Parameter | Type | Description |
+| --- | --- | --- |
+| email | `string` | The email address used by the employee to register with SpringVerify. |
+| password | `string` | The password used by the employee to register with SpringVerify. (Hashed, 8 characters minimum). |
+| role | `string` | The role of the user being logged in - in this case, `employee`. |
 
-
-# Previous Versions
-
-These docs are pertaining to the current version (v2). If you would like to view older docs to reference previous versions, the links are below:
-
-1) [Version 1 Docs](https://docs.us.springverify.com/olddocs/v1/index.html) - End of Life on 2020-09-14.
-
+---
