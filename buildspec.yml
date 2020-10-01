@@ -2,7 +2,7 @@ version: 0.2
 phases:
     install:
        commands:
-           - sudo snap install ruby --classic -y
+           - sudo apt install ruby-full -y
            - sudo apt  install ruby-bundler ruby-dev build-essential zlib1g-dev nodejs -y
            - sudo gem install bundler -v 2.0.2
            - sudo gem update --system
