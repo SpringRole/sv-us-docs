@@ -1,11 +1,12 @@
 version: 0.2
 phases:
-    
+
     pre_build:
         commands:
             - echo pre_build
+            
     build:
-        commands:
-            - echo Build started on `date`
-            - bundle install
-			- bundle exec middleman build
+       commands:
+           - echo Build started on `date`
+           - bundle install
+           - bundle exec middleman build
