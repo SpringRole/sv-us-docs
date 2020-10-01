@@ -1,15 +1,16 @@
 version: 0.2
 phases:
-
+    install:
+       commands:
+           - sudo snap install ruby --classic -y
+           - sudo apt  install ruby-bundler ruby-dev build-essential zlib1g-dev nodejs -y
+           - sudo gem install bundler -v 2.0.2
+           - sudo gem update --system
+           - sudo gem install fast_blank -v '1.0.0'
+           - sudo gem install nokogiri -v '1.10.4'
     pre_build:
-        commands:
-            - echo pre_build
-            - sudo snap install ruby --classic -y
-            - sudo apt  install ruby-bundler ruby-dev build-essential zlib1g-dev nodejs -y
-            - sudo gem install bundler -v 2.0.2
-            - sudo gem update --system
-            - sudo gem install fast_blank -v '1.0.0'
-            - sudo gem install nokogiri -v '1.10.4'
+       commands:
+           - echo pre_build
             
     build:
        commands:
