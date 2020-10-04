@@ -4,7 +4,7 @@ phases:
        commands:
            - sudo apt install ruby-full -y
            - sudo apt  install ruby-bundler ruby-dev build-essential zlib1g-dev nodejs -y
-           - sudo gem install bundler -v 2.0.2
+           - sudo gem install bundler:2.0.2
            - sudo gem update --system
            - sudo gem install fast_blank -v '1.0.0'
            - sudo gem install nokogiri -v '1.10.4'
