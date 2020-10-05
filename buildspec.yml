@@ -17,4 +17,9 @@ phases:
        commands:
            - echo Build started on `date`
            - bundle install
-           - bundle exec middleman build
+           - bundle exec middleman build --clean
+           - mv build/**/* ./
+           - mv build/* ./
+artifacts:
+    files:
+         - '**/*'
