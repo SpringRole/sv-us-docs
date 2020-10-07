@@ -45,17 +45,29 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 
 ## Environment URLs
 
-**Stage**: https://stage.us.springverify.com  
-**Acceptance**: https://acceptance.us.springverify.com  
-**Production**: https://us.springverify.com  
+**Stage**:  
+https://stage.us.springverify.com  
+https://api-stage.us.springverify.com  
 
->Currently we have two types of coupons -- "open" and "closed". Please contact sales@springverify.com regarding coupon codes for your company.
+**Acceptance**:
+https://acceptance.us.springverify.com  
+https://api-acceptance.us.springverify.com
+
+**Production**:  
+https://us.springverify.com  
+https://api.us.springverify.com
+
+<aside class="notice">
+Currently we have two types of coupons -- "open" and "closed". Please contact sales@springverify.com regarding coupon codes for your company.
+</aside>
 
 ## Authentication
 
 Authenticating in SpringVerify is done on the basis of JSON Web Tokens. Once registered, a user will receive a token to be used for subsequent API requests. If misplaced, the token can be retrieved by logging in again.
 
->The user must replace `JWT_TOKEN` in the examples below with their personal token.
+<aside class="notice">
+The user must replace `JWT_TOKEN` in the examples below with their personal token.
+</aside>
 
 ---
 
