@@ -871,7 +871,7 @@ end
 }
 ```
 
-A user with the role of an admin can create a company once their profile is [verified](https://docs.us.springverify.com/#verify-company-admin-email). A valid JWT will be needed to authenicate the user in this API.
+A user with the role of an admin can create a company once their profile is [verified](https://docs.us.springverify.com/#verify-company-admin-email). A valid JWT will be needed to authenticate the user in this API.
 
 **URL Parameters**
 
@@ -1546,7 +1546,9 @@ end
 
 This API is used to invite existing and/or prospective employees to get their profiles verified. It can be used to invite employees in bulk. However, emails will be sent to the employees only once the payment is successfully completed.
 
->This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
+<aside class="notice">
+This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
+</aside>
 
 **URL Parameters**
 
@@ -2546,7 +2548,7 @@ end
 This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
 
 * The candidate has been invited to provide their information to initiate the verification.
-* The candidate has entereed their personal information.
+* The candidate has entered their personal information.
 * The candidate has successfully uploaded their driver's license.
 * The candidate has successfully verified their identity using their driver's license.
 * The candidate has failed to verify their identity using their driver's license.
@@ -2736,7 +2738,7 @@ end
 This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
 
 * The candidate has been invited to provide their information to initiate the verification.
-* The candidate has entereed their personal information.
+* The candidate has entered their personal information.
 * The candidate has successfully uploaded their driver's license.
 * The candidate has successfully verified their identity using their driver's license.
 * The candidate has entered their education information.
