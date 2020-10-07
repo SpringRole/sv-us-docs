@@ -45,9 +45,9 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 
 ## Environment URLs
 
-**Stage**: https://api-stage.us.springverify.com  
-**Acceptance**: https://api-acceptance.us.springverify.com  
-**Production**: https://api.us.springverify.com  
+**Stage**: https://stage.us.springverify.com  
+**Acceptance**: https://acceptance.us.springverify.com  
+**Production**: https://us.springverify.com  
 
 >Currently we have two types of coupons -- "open" and "closed". Please contact sales@springverify.com regarding coupon codes for your company.
 
@@ -65,7 +65,7 @@ This section covers the API details available for users logged in as _admins_, i
 
 ## Signup
 
-The signup API is used to register an admin - a user that performs verifications - in a company. Once a user is registered, a verification email is sent to the registered address.
+The signup API is used to register an admin - a user that performs verifications - in a company. Once an admin user is registered, a verification email is sent to the registered address.
 
 <aside class="notice">
 The <code>`Password`</code> and <code>`Confirm Password`</code> fields should be hashed using SHA256 beforehand.
@@ -749,7 +749,7 @@ end
 }
 ```
 
-When a user requests declares a forgotten password, an email will be sent using the [Forgot Password](https://docs.us.springverify.com/#forgot-password) API. This email will consist of a token-embedded URL that is to be passed in this API along with the new password.
+When an admin requests declares a forgotten password, an email will be sent using the [Forgot Password](https://docs.us.springverify.com/#forgot-password) API. This email will consist of a token-embedded URL that is to be passed in this API along with the new password.
 
 **URL Parameters**
 
@@ -871,7 +871,7 @@ end
 }
 ```
 
-A user with the role of an admin can create a company once their profile is [verified](https://docs.us.springverify.com/#verify-company-admin-email). A valid JWT will be needed to authenicate the user in this API.
+A user with the role of an admin can create a company once their profile is [verified](https://docs.us.springverify.com/#verify-company-admin-email). A valid JWT will be needed to authenticate the user in this API.
 
 **URL Parameters**
 
@@ -1546,7 +1546,9 @@ end
 
 This API is used to invite existing and/or prospective employees to get their profiles verified. It can be used to invite employees in bulk. However, emails will be sent to the employees only once the payment is successfully completed.
 
->This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
+<aside class="notice">
+This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
+</aside>
 
 **URL Parameters**
 
@@ -2033,7 +2035,7 @@ end
 }
 ```
 
-Once a user has been invited to get themselves verified, the verification must be paid for. This API is used for the payment purpose and must be called immediately after the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. The reference ID retrieved from the "Invite Candidates" API is used here. Emails to employees (or prospective employees) requesting verification will be sent only after the payment is successful. If the `send_email` field is set to `false`, the API will return the verification links of the employees in the response.
+Once a candidate has been invited to get themselves verified, the verification must be paid for. This API is used for the payment purpose and must be called immediately after the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. Payments will be processed using the details from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments) API. The reference ID retrieved from the "Invite Candidates" API is used here. Emails to candidates requesting verification will be sent only after the payment is successful. If the `send_email` field is set to `false`, the API will return the verification links of the employees in the response.
 
 **URL Parameters**
 
@@ -2205,13 +2207,13 @@ end
 }
 ```
 
-When the details of a specific user that is already verified -- a candidate or an employee -- is to be retrieved, use this API. This API retrivies the details of the user that have been verified, as well as the pricing package in which the user's profile was verified, along with the date of the most recent verification.
+When the details of a specific candidate whose profile is already verified is to be retrieved, use this API. This API retrieves the details of the candidate that have been verified, as well as the pricing package in which the candidate's profile was verified, along with the date of the most recent verification.
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-|id | `uuid` | Contains the unique ID of the user. |
+|id | `uuid` | Contains the unique ID of the candidate. |
 
 ## Search Employee
 
@@ -2546,7 +2548,7 @@ end
 This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
 
 * The candidate has been invited to provide their information to initiate the verification.
-* The candidate has entereed their personal information.
+* The candidate has entered their personal information.
 * The candidate has successfully uploaded their driver's license.
 * The candidate has successfully verified their identity using their driver's license.
 * The candidate has failed to verify their identity using their driver's license.
@@ -2736,7 +2738,7 @@ end
 This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
 
 * The candidate has been invited to provide their information to initiate the verification.
-* The candidate has entereed their personal information.
+* The candidate has entered their personal information.
 * The candidate has successfully uploaded their driver's license.
 * The candidate has successfully verified their identity using their driver's license.
 * The candidate has entered their education information.
@@ -4470,7 +4472,7 @@ On an employee profile that is being processed for adversities, an admin can get
 
 ---
 
-# User
+# User (Employee)
 
 This section covers the API details available for users logged in as _employees_ (or candidates), i.e., users who wish to get background verification checks performed on their profiles.
 
@@ -4993,7 +4995,7 @@ end
 }
 ```
 
-An employee who has created a profile can use this API tp update their persona details. The updates can be made until the verification process is complete.
+An employee who has created a profile can use this API to update their personal details. The updates can be made until the verification process is complete.
 
 **URL Parameters**
 
@@ -5673,7 +5675,7 @@ end
 }
 ```
 
-This API records the Passport of the user and verifies it authenticity.
+This API records the Passport details of the employee and verifies its authenticity.
 
 This API is used to upload an image of the employee's passport that will be scanned and parsed. The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
 
@@ -5875,7 +5877,7 @@ end
 }
 ```
 
-This API will provide the number of tries that an employee has made for uploading the Driving License ID , the Passport and also the number of tries an employee has made on the KBA. The maximum allowed limit is 2 per method per candidate.
+This API will provide the number of tries that an employee has made for uploading the Driving License ID, the Passport and also the number of tries an employee has made on the KBA (Knowledge Based Quiz). The maximum allowed limit is 2 per method per candidate.
 
 ## Get Candidate Info
 
@@ -7759,7 +7761,7 @@ end
 After all the previously mentioned checks have been successfully submitted and triggered, the employee can create a password for their profile using this API.
 
 <aside class="notice">
-The `Password` fields shouldbe hashed using SHA256 beforehand.
+The `Password` fields should be hashed using SHA256 beforehand.
 </aside>
 
 **URL Parameters**
@@ -7880,7 +7882,7 @@ end
 This API is used to reset the employee profile password.
 
 <aside class="notice">
-The `Password` fields shouldbe hashed using SHA256 beforehand.
+The `Password` fields should be hashed using SHA256 beforehand.
 </aside>
 
 **URL Parameters**
