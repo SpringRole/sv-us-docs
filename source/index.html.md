@@ -1450,7 +1450,8 @@ curl --location --request POST 'localhost:3080/employee/invite' \
         "driving_license": 0,
         "civil_court": 1,
         "all_county_criminal_search": true,
-        "county_criminal_search": 0
+        "county_criminal_search": 0,
+        "MVR": false
     },
     coupon_code:""
 }'
@@ -1467,7 +1468,7 @@ fetch('localhost:3080/employee/invite', {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
-    body: '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }'
+    body: '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }'
 });
 
 // REQUEST
@@ -1479,7 +1480,7 @@ var headers = {
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
-var dataString = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }';
+var dataString = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }';
 
 var options = {
     url: 'localhost:3080/employee/invite',
@@ -1505,7 +1506,7 @@ $headers = array(
     'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
-$data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }';
+$data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }';
 $response = Requests::post('localhost:3080/employee/invite', $headers, $data);
 ```
 
@@ -1517,7 +1518,7 @@ headers = {
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
-data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0 }, coupon_code:"" }'
+data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }'
 
 response = requests.post('http://localhost:3080/employee/invite', headers=headers, data=data)
 ```
