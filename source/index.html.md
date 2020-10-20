@@ -61,6 +61,10 @@ https://api.us.springverify.com
 Currently we have two types of coupons -- "open" and "closed". Please contact sales@springverify.com regarding coupon codes for your company.
 </aside>
 
+## Postman
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/18db7f2798828598cbc7)
+
 ## Authentication
 
 Authenticating in SpringVerify is done on the basis of JSON Web Tokens. Once registered, a user will receive a token to be used for subsequent API requests. If misplaced, the token can be retrieved by logging in again.
