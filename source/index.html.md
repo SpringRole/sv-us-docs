@@ -1718,6 +1718,7 @@ This API is used to register the credit card with Stripe for payments. If this A
 | Parameter | Type | Environment | Value |
 | --- | --- | --- | --- |
 | STRIPE_TOKEN | `string` | Development | pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe |
+| STRIPE_TOKEN | `string` | Acceptance | pk_test_51H1niLFq1aDrrzKzoQEG7espm3z3HirSoy5IJl8tWbxJk18pZDx67Y70mCynyLKOrEJFWarCiVSigW9RuW1bqdeU00lRNETXxe |
 | STRIPE_TOKEN | `string` | Production | pk_live_51H1niLFq1aDrrzKztsRsWduNwtnBIIuRWSdeAJtIsgFefyWukEuqx8J6T8djCLiHAMDNNvdKpYkdiqq7iP9hwtCK00VdWazMPg |
 
 ## Save payment info
