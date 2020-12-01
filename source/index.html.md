@@ -63,7 +63,7 @@ Currently we have two types of coupons -- "open" and "closed". Please contact sa
 
 ## Postman
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/18db7f2798828598cbc7#?env%5BAcceptance%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovL2FwaS1hY2NlcHRhbmNlLnVzLnNwcmluZ3ZlcmlmeS5jb20iLCJlbmFibGVkIjp0cnVlfV0=)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/16e880e6be037d304b2f#?env%5BAcceptance%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovL2FwaS1hY2NlcHRhbmNlLnVzLnNwcmluZ3ZlcmlmeS5jb20iLCJlbmFibGVkIjp0cnVlfV0=)
 
 ## Authentication
 
