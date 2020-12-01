@@ -1567,6 +1567,10 @@ This API is used to invite existing and/or prospective employees to get their pr
 This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
 </aside>
 
+<aside class="notice">
+Employee will be getting email reminders for filling up the form.
+</aside>
+
 **URL Parameters**
 
 | Parameter | Type | Description |
@@ -4488,6 +4492,416 @@ On an employee profile that is being processed for adversities, an admin can get
 | --- | --- | --- |
 | sjv_id | `string` | The SJV ID of the criminal report. |
 
+## Create Webhook
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/company/webhook' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "url": "https://httpstat.us/200?sleep=2000"
+}'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({"url":"https://httpstat.us/200?sleep=2000"});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/company/webhook", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = JSON.stringify({"url":"https://httpstat.us/200?sleep=2000"});
+
+var options = {
+    url: 'https://api.us.springverify.com/company/webhook',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/company/webhook');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
+));
+$request->setBody('{\n    "url": "https://httpstat.us/200?sleep=2000"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/company/webhook"
+
+payload="{\n    \"url\": \"https://httpstat.us/200?sleep=2000\"\n}"
+headers = {
+  'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/company/webhook")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+request["Content-Type"] = "application/json"
+request.body = "{\n    \"url\": \"https://httpstat.us/200?sleep=2000\"\n}"
+
+response = https.request(request)
+puts response.read_body
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "id": "ea48d205-aeac-4b5a-b687-17fba5854396",
+        "company_id": 53,
+        "url": "https://httpstat.us/200?sleep=2000",
+        "active": true,
+        "updated_at": "2020-12-01T08:33:27.802Z",
+        "created_at": "2020-12-01T08:33:27.802Z"
+    }
+}
+```
+
+A company can register a webhook for any overall status updates to the candidate. Only one webhook can be registered per company. Webhook url must be a valid url and must respond with a status code of 200.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| url | `string` | Webhook url |
+
+**Webhook Data Sample**
+
+    {
+        "data": {
+            "employee_email": "abc@email.com",
+            "overall_status": "FAILED"
+        },
+        "event_type": "overall_status_update"
+    }
+
+**Webhook Event Types**
+
+| Event types | Description |
+| --- | --- |
+| overall_status_update | Any status change in overall status of the candidate |
+
+
+## Get Webhook
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/company/webhook' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/company/webhook", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company/webhook',
+    method: 'GET',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/company/webhook');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/company/webhook"
+
+payload={}
+headers = {
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/company/webhook")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = https.request(request)
+puts response.read_body
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "id": "3f8f1464-d4a9-4020-86bd-048b2660f01b",
+        "url": "https://httpstat.us/200?sleep=2000",
+        "active": true
+    }
+}
+```
+
+A company can get the details of a registered webhook using this API.
+
+## Delete Webhook
+
+```shell
+curl --location --request DELETE 'https://api.us.springverify.com/company/webhook' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/company/webhook", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company/webhook',
+    method: 'DELETE',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/company/webhook');
+$request->setMethod(HTTP_Request2::METHOD_DELETE);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/company/webhook"
+
+payload={}
+headers = {
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/company/webhook")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Delete.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = https.request(request)
+puts response.read_body
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": 1
+}
+```
+
+A company can delete a registered webhook using this API.
+
 ---
 
 # User (Employee)
@@ -6791,6 +7205,14 @@ end
 
 Once the employment records have been submitted and finalized, an Employment Verification request can be triggered using this API.
 
+<aside class="notice">
+After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Education Verification</b> APIs the employee flow is considered as complete and the checks will begin to run.
+</aside>
+
+<aside class="notice">
+If the employee doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
+</aside>
+
 ## Add Employee's Education
 
 ```shell
@@ -7321,6 +7743,14 @@ end
 ```
 
 Once the education records have been submitted and finalized, an Education Verification request can be triggered using this API.
+
+<aside class="notice">
+After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Education Verification</b> APIs the employee flow is considered as complete and the checks will begin to run.
+</aside>
+
+<aside class="notice">
+If the employee doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
+</aside>
 
 ## Create Password
 
