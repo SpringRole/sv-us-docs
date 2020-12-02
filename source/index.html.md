@@ -8932,3 +8932,21 @@ The password should be hashed using SHA256 beforehand.
 | role | `string` | The role of the user being logged in - in this case, `employee`. |
 
 ---
+
+# Changelog
+
+All notable changes to the docs will be documented here.
+
+## Version 0.0.1
+
+Date: *December 2, 2020*
+
+### Added
+- Three new APIs: Create, Get and Delete Webhook
+- Employee will receive email reminders to start filling up the form after getting invited from company
+- Once employee signs up, he will receive email reminders to create a password for his account
+
+### Changed
+- Postman collection link was updated to include the new APIs
+
+---
