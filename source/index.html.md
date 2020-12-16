@@ -9050,7 +9050,7 @@ All notable changes to the docs will be documented here.
 
 ## Version 0.0.2
 
-Date: *December 12, 2020*
+Date: *December 16, 2020*
 
 ### Added
 - If ID status changes to UNABLE_TO_VERIFY, company admin will receive a mail with the comment from ops team
