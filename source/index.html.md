@@ -898,7 +898,7 @@ A user with the role of an admin can create a company once their profile is [ver
 | city | `string` | The city where the company being registered is located |
 | state | `string` | The state where the company being registered is located |
 | zipcode | `string` | The ZIP code of the postal district in which the company is located |
-| tax_id_number | `string` | Tax number of the company that is being registered |
+| tax_id_number | `string` | (Optional) Tax number of the company that is being registered |
 
 ## Upload a logo
 
@@ -1441,111 +1441,141 @@ This API is used to get the available pricing plans and packages.
 ## Invite candidates
 
 ```shell
-curl --location --request POST 'localhost:3080/employee/invite' \
+curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --data-raw '{
-    "email_list": ["johndoe@gmail.com"],
-    "package": "diamond",
-    "add_ons": {
-        "employment": 2,
-        "education": 1,
+    "email_list": [
+        "venunath2@gmail.com"
+    ],
+    "employee_details": [
+        {
+            "email": "venunath2@gmail.com",
+            "first_name": "abcd",
+            "last_name": "xyc",
+            "middle_name": "zxcz",
+            "phone": "21321313",
+            "birthdate": "12-12-2012"
+        }
+    ],
+    "package": "bronze",
+    "addOns": {
+        "employment": 0,
+        "education": 0,
         "license": 0,
         "driving_license": 0,
-        "civil_court": 1,
-        "all_county_criminal_search": true,
+        "civil_court": 0,
+        "all_county_criminal_search": false,
         "county_criminal_search": 0,
         "MVR": false
-    },
-    coupon_code:""
+    }
 }'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
 
-fetch('localhost:3080/employee/invite', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer JWT_TOKEN'
-    },
-    body: '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }'
-});
+var raw = JSON.stringify({"email_list":["venunath2@gmail.com"],"employee_details":[{"email":"venunath2@gmail.com","first_name":"abcd","last_name":"xyc","middle_name":"zxcz","phone":"21321313","birthdate":"12-12-2012"}],"package":"bronze","addOns":{"employment":0,"education":0,"license":0,"driving_license":0,"civil_court":0,"all_county_criminal_search":false,"county_criminal_search":0,"MVR":false}});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/invite", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
+var options = {
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/employee/invite',
+  'headers': {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
+  },
+  body: JSON.stringify({"email_list":["venunath2@gmail.com"],"employee_details":[{"email":"venunath2@gmail.com","first_name":"abcd","last_name":"xyc","middle_name":"zxcz","phone":"21321313","birthdate":"12-12-2012"}],"package":"bronze","addOns":{"employment":0,"education":0,"license":0,"driving_license":0,"civil_court":0,"all_county_criminal_search":false,"county_criminal_search":0,"MVR":false}})
+
 };
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 
-var dataString = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }';
-
-var options = {
-    url: 'localhost:3080/employee/invite',
-    method: 'POST',
-    headers: headers,
-    body: dataString
-};
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
 ```
 
 ```php
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Content-Type' => 'application/json',
-    'Authorization' => 'Bearer JWT_TOKEN'
-);
-$data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }';
-$response = Requests::post('localhost:3080/employee/invite', $headers, $data);
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/invite');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+$request->setBody('{\n    "email_list": [\n        "venunath2@gmail.com"\n    ],\n    "employee_details": [\n        {\n            "email": "venunath2@gmail.com",\n            "first_name": "abcd",\n            "last_name": "xyc",\n            "middle_name": "zxcz",\n            "phone": "21321313",\n            "birthdate": "12-12-2012"\n        }\n    ],\n    "package": "bronze",\n    "addOns": {\n        "employment": 0,\n        "education": 0,\n        "license": 0,\n        "driving_license": 0,\n        "civil_court": 0,\n        "all_county_criminal_search": false,\n        "county_criminal_search": 0,\n        "MVR": false\n    }\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```python
 import requests
 
+url = "https://api.us.springverify.com/employee/invite"
+
+payload="{\n    \"email_list\": [\n        \"venunath2@gmail.com\"\n    ],\n    \"employee_details\": [\n        {\n            \"email\": \"venunath2@gmail.com\",\n            \"first_name\": \"abcd\",\n            \"last_name\": \"xyc\",\n            \"middle_name\": \"zxcz\",\n            \"phone\": \"21321313\",\n            \"birthdate\": \"12-12-2012\"\n        }\n    ],\n    \"package\": \"bronze\",\n    \"addOns\": {\n        \"employment\": 0,\n        \"education\": 0,\n        \"license\": 0,\n        \"driving_license\": 0,\n        \"civil_court\": 0,\n        \"all_county_criminal_search\": false,\n        \"county_criminal_search\": 0,\n        \"MVR\": false\n    }\n}"
 headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
 }
 
-data = '{ "email_list": ["johndoe@gmail.com"], "package": "diamond", "add_ons": { "employment": 2, "education": 1, "license": 0, "driving_license": 0, "civil_court": 1, "all_county_criminal_search": true, "county_criminal_search": 0, "MVR": false }, coupon_code:"" }'
+response = requests.request("POST", url, headers=headers, data=payload)
 
-response = requests.post('http://localhost:3080/employee/invite', headers=headers, data=data)
+print(response.text)
+
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "net/http"
 
-uri = URI.parse("http://localhost:3080/employee/invite")
-request = Net::HTTP::Post.new(uri)
-request.content_type = "application/json"
+url = URI("https://api.us.springverify.com/employee/invite")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
+request.body = "{\n    \"email_list\": [\n        \"venunath2@gmail.com\"\n    ],\n    \"employee_details\": [\n        {\n            \"email\": \"venunath2@gmail.com\",\n            \"first_name\": \"abcd\",\n            \"last_name\": \"xyc\",\n            \"middle_name\": \"zxcz\",\n            \"phone\": \"21321313\",\n            \"birthdate\": \"12-12-2012\"\n        }\n    ],\n    \"package\": \"bronze\",\n    \"addOns\": {\n        \"employment\": 0,\n        \"education\": 0,\n        \"license\": 0,\n        \"driving_license\": 0,\n        \"civil_court\": 0,\n        \"all_county_criminal_search\": false,\n        \"county_criminal_search\": 0,\n        \"MVR\": false\n    }\n}"
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+response = https.request(request)
+puts response.read_body
 
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
 ```
 
 >Success Response:
@@ -1554,9 +1584,15 @@ end
 {
     "success": true,
     "data": {
-        "price": 4000,
-        "id": "2612d112-5827-4b1c-a177-06a85eabd03d",
-        "count": 1
+        "price": 750,
+        "id": "0aa10b4e-e4fc-460b-95dc-6f0ca80be061",
+        "count": 1,
+        "employees": [
+            {
+                "id": "48d18330-408e-40ff-b898-dac10cb32ce4",
+                "email": "venunath2@gmail.com"
+            }
+        ]
     }
 }
 ```
@@ -1577,6 +1613,7 @@ Employee will be getting email reminders for filling up the form.
 | --- | --- | --- |
 | email_list | `array` | Contains a list of the email addresses of the employees to be contacted |
 | package | `string` | Name of the package as retrieved from the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API |
+| employee_details | `object` | (Optional) Details of the candidate |
 | add_ons | `object` | To add additional services into the retrieved package |
 | coupon_code | `string` | Any coupon code that the admin has for a discounted pricing |
 
@@ -1587,6 +1624,7 @@ Employee will be getting email reminders for filling up the form.
 | price | `number` | The price (in cents) that is to be paid |
 | id | `string` | The reference ID against which the payment is being made |
 | count | `number` | The total number of candidates that are being verified |
+| employees | `array` | Id and email id of invited candidates |
 
 ## Save Credit Card in Stripe for Payments
 
@@ -4655,7 +4693,7 @@ A company can register a webhook for any overall status updates to the candidate
 
 | Event types | Description |
 | --- | --- |
-| overall_status_update | Any status change in overall status of the candidate |
+| overall_status_update | Any status change in overall status of the candidate. Individual status of each check for the candidate is not included in this event. |
 
 
 ## Get Webhook
@@ -7112,80 +7150,101 @@ By adding the ID received in the "Submit Employment" response in this API, it ca
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/submit/employment' \
---header 'Authorization: Bearer JWT_TOKEN'
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "run_mock": true,
+    "fail_check": false
+}'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+myHeaders.append("Content-Type", "application/json");
 
-fetch('https://api.us.springverify.com/employee/submit/employment', {
-    headers: {
-        'Authorization': 'Bearer JWT_TOKEN'
-    }
-});
+var raw = JSON.stringify({"run_mock":true,"fail_check":false});
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/submit/employment", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
-    'Authorization': 'Bearer JWT_TOKEN'
-};
-
 var options = {
-    url: 'https://api.us.springverify.com/employee/submit/employment',
-    headers: headers
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/employee/submit/employment',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({"run_mock":true,"fail_check":false})
+
 };
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
 ```
 
 ```php
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Authorization' => 'Bearer JWT_TOKEN'
-);
-$response = Requests::get('https://api.us.springverify.com/employee/submit/employment', $headers);
-```
-
-```python
-import requests
-
-headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/submit/employment');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
+));
+$request->setBody('{\n    "run_mock": true,\n    "fail_check": false\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
 }
-
-response = requests.get('https://api.us.springverify.com/employee/submit/employment', headers=headers)
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "net/http"
 
-uri = URI.parse("https://api.us.springverify.com/employee/submit/employment")
-request = Net::HTTP::Get.new(uri)
+url = URI("https://api.us.springverify.com/employee/submit/employment")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
 request["Authorization"] = "Bearer JWT_TOKEN"
+request["Content-Type"] = "application/json"
+request.body = "{\n    \"run_mock\": true,\n    \"fail_check\": false\n}"
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+response = https.request(request)
+puts response.read_body
 
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
 ```
 
 > Success Response
@@ -7212,6 +7271,13 @@ After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Educat
 <aside class="notice">
 If the employee doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
 </aside>
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| run_mock | `boolean` | (Optional) Run mock api |
+| fail_check | `boolean` | (Optional) Whether the employment check should fail or not |
 
 ## Add Employee's Education
 
@@ -7652,80 +7718,118 @@ This API is used to delete the education entry submitted in the previous API bef
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/submit/education' \
---header 'Authorization: Bearer JWT_TOKEN'
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "run_mock": true,
+    "fail_check": false
+}'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+myHeaders.append("Content-Type", "application/json");
 
-fetch('https://api.us.springverify.com/employee/submit/education', {
-    headers: {
-        'Authorization': 'Bearer JWT_TOKEN'
-    }
-});
+var raw = JSON.stringify({"run_mock":true,"fail_check":false});
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/submit/education", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
-    'Authorization': 'Bearer JWT_TOKEN'
-};
-
 var options = {
-    url: 'https://api.us.springverify.com/employee/submit/education',
-    headers: headers
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/employee/submit/education',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({"run_mock":true,"fail_check":false})
+
 };
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
 ```
 
 ```php
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Authorization' => 'Bearer JWT_TOKEN'
-);
-$response = Requests::get('https://api.us.springverify.com/employee/submit/education', $headers);
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/submit/education');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
+));
+$request->setBody('{\n    "run_mock": true,\n    "fail_check": false\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```python
 import requests
 
+url = "https://api.us.springverify.com/employee/submit/education"
+
+payload="{\n    \"run_mock\": true,\n    \"fail_check\": false\n}"
 headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
+  'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json'
 }
 
-response = requests.get('https://api.us.springverify.com/employee/submit/education', headers=headers)
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "net/http"
 
-uri = URI.parse("https://api.us.springverify.com/employee/submit/education")
-request = Net::HTTP::Get.new(uri)
+url = URI("https://api.us.springverify.com/employee/submit/education")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
 request["Authorization"] = "Bearer JWT_TOKEN"
+request["Content-Type"] = "application/json"
+request.body = "{\n    \"run_mock\": true,\n    \"fail_check\": false\n}"
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+response = https.request(request)
+puts response.read_body
 
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
 ```
 
 > Success Response
@@ -7751,6 +7855,13 @@ After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Educat
 <aside class="notice">
 If the employee doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
 </aside>
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| run_mock | `boolean` | (Optional) Run mock api |
+| fail_check | `boolean` | (Optional) Whether the education check should fail or not |
 
 ## Create Password
 
@@ -8936,6 +9047,25 @@ The password should be hashed using SHA256 beforehand.
 # Changelog
 
 All notable changes to the docs will be documented here.
+
+## Version 0.0.2
+
+Date: *December 16, 2020*
+
+### Added
+- If ID status changes to UNABLE_TO_VERIFY, company admin will receive a mail with the comment from ops team
+- Company admin will receive a mail when candidate verification is complete (overall status is VERIFIED / FAILED / DONE_WITH_EXCEPTION)
+- Optional fields first_name, middle_name, last_name, dob, phone_number have been to invite candidate API
+
+### Changed
+- Invite candidates api call will now require that company details like company name, address etc are filled. Company details can be registered at 'https://api.us.springverify.com/company'.
+- Tax Id field is now optional in company Sign Up api
+- For DEVELOPMENT and ACCEPTANCE environments, triggering of Employment Verification and Education Verification can be passed / rejected based on the request parameters run_mock and verify_id
+- Postman collection link was updated to include the changes in the APIs
+
+### Fixed
+- Previously, background verification request mail was sent to candidate on any status change on ID. Now it sent only if ID status changes to VERIFIED.
+- Fixed status mapping in candidate report
 
 ## Version 0.0.1
 
