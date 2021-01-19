@@ -23,15 +23,24 @@ code_clipboard: true
 
 This is the API documentation section of SpringVerify for customers and users located in the USA. It is divided into three sections for ease of navigation:
 
-1. Introductions - _where entities, environments, and authentication protocols are detailed._
-2. Company API flow - _where functions available to users logged in as company admins are detailed._
-3. User API flow - _where functions available to users logged in as employees are detailed._
+1. Introduction - _where entities, environments, and authentication protocols are detailed._
+2. Getting Started with the APIs - _where basic understanding of api structure and environments are detailed._
+3. Company API flow - _where functions available to users logged in as company admins are detailed._
+4. User API flow - _where functions available to users logged in as employees are detailed._
 
 ---
 
-## Introduction
+# Introduction
 
-SpringVerify currently has three environments -- stage, acceptance and production. All three environments have independent databases. While in the stage phase, it is mandatory to use the base URL of the stage environment.
+Welcome to SpringVerify where we offer you services to Know Your Customer better and run background check on multiple grounds through APIs available with maximum accuracy and minimum turn around.
+
+## User Flow
+
+Let’s get started by understanding how SpringVerify helps in solving multiple use cases of customers through this User Flow:
+
+# Getting started with the API's
+
+We provide API access to clients for ID and backgroung check verification. You are requested to integrate in our Test Mode first, and test the integration, before shifting to Live Mode.
 
 The language bindings are in cURL, node.js, and PHP. The API documentation is set up with a display area on the right to show examples.
 
@@ -42,6 +51,25 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 | Company | An entity that has users. These users can be employees who are **performing the verification** or are **being verified**. |
 | Admin | A user who is performing the verification. |
 | Employee | A user whose details are being verified on the platform. |
+| Package | Combination of multiple verification checks provided at a specific price. |
+| Action | Updates on a employee's verfication progress. |
+| Adverse Action | Adversities found on an employee's verification process. |
+| Webhook | Automated messages sent to client's url whenever any update happens on the resource. |
+| Consent | Permission given by the candidate to perform ID & background verification checks. |
+
+## Available checks
+
+- **ID** verification
+- **Employment** verification
+- **Education** verfication
+- **National Criminal** search
+- **Sex Offender** search
+- **SSN** trace
+- **Global Watchlist** search
+- **One County Criminal** search
+- **All County Criminal** search
+- **One County Civil Court** search
+- **Motor Vehicle Record** check
 
 ## Environment URLs
 
@@ -49,7 +77,7 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 https://stage.us.springverify.com  
 https://api-stage.us.springverify.com  
 
-**Acceptance**:
+**Acceptance**:  
 https://acceptance.us.springverify.com  
 https://api-acceptance.us.springverify.com
 
@@ -2380,22 +2408,38 @@ end
     "success": true,
     "data": [
         {
-            "id": "6d6d81f5-6f00-4a38-a7d7-249cc2127ab6",
-            "email": "johndoe@gmail.com",
-            "first_name": null,
-            "middle_name": null,
-            "last_name": null,
+            "id": "478543b4-43b0-45bd-82db-dc4ce0ff193c",
+            "email": "a13@yopmail.com",
+            "first_name": "Steven",
+            "middle_name": "Brandon",
+            "last_name": "Ward",
+            "status": "PENDING",
+            "employee_limit": {
+                "id": "63d34d43-794f-49c6-8de9-327935156076",
+                "employee_invite_group": {
+                    "id": "c35d4851-8f23-4779-9310-a913bda6b1af",
+                    "package": "bronze"
+                }
+            }
+        },
+        {
+            "id": "f29aebee-df87-4cae-8779-7e6c48345d1d",
+            "email": "testdata1@yopmail.com",
+            "first_name": "Steven",
+            "middle_name": "Brandon",
+            "last_name": "Ward",
             "status": null,
             "employee_limit": {
-                "id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
+                "id": "149913a5-8bf1-4ca5-ba5b-3fb412cd68fa",
                 "employee_invite_group": {
-                    "id": "4153a150-4157-48ab-b258-9a9b47a05fc2",
+                    "id": "f33cc6ab-c8d1-4535-b80a-b9f2cd45a319",
                     "package": "diamond"
                 }
             }
         }
     ]
 }
+
 ```
 
 This API searches and retrieves the profile of a specific employee that is already verified.
@@ -2404,7 +2448,7 @@ This API searches and retrieves the profile of a specific employee that is alrea
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| search | `string`| Contains the search term |
+| search | `string`| Search term which returns record after matching first name, middle name, last name or email |
 
 ## Get company action
 
