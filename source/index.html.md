@@ -4070,7 +4070,7 @@ For a specific employee whose verification has resulted in an adverse action, th
 ## Mark Adverse Action as Read
 
 ```shell
-curl --location --request PUT 'http://localhost:3080/company/action/adverse/mark-read' \
+curl --location --request PUT 'https://api.us.springverify.com/company/action/adverse/mark-read' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -4083,7 +4083,7 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/mark
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/action/adverse/mark-read', {
+fetch('https://api.us.springverify.com/company/action/adverse/mark-read', {
     method: 'POST',
     headers: {
         'Authorization': 'Bearer JWT_TOKEN',
@@ -4104,7 +4104,7 @@ var headers = {
 var dataString = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }';
 
 var options = {
-    url: 'http://localhost:3080/company/action/adverse/mark-read',
+    url: 'https://api.us.springverify.com/company/action/adverse/mark-read',
     method: 'POST',
     headers: headers,
     body: dataString
@@ -4128,7 +4128,7 @@ $headers = array(
     'Content-Type' => 'application/json'
 );
 $data = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }';
-$response = Requests::post('http://localhost:3080/company/action/adverse/mark-read', $headers, $data);
+$response = Requests::post('https://api.us.springverify.com/company/action/adverse/mark-read', $headers, $data);
 ```
 
 ```python
@@ -4141,14 +4141,14 @@ headers = {
 
 data = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }'
 
-response = requests.post('http://localhost:3080/company/action/adverse/mark-read', headers=headers, data=data)
+response = requests.post('https://api.us.springverify.com/company/action/adverse/mark-read', headers=headers, data=data)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/action/adverse/mark-read")
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/mark-read")
 request = Net::HTTP::Put.new(uri)
 request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
@@ -4185,7 +4185,7 @@ Once an admin has been notified of a list of adversity (of a single employee's p
 ## Clear or Send Adverse Action Notice
 
 ```shell
-curl --location --request PUT 'http://localhost:3080/company/action/adverse/pending' \
+curl --location --request PUT 'https://api.us.springverify.com/company/action/adverse/pending' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -4199,7 +4199,7 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/pend
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/action/adverse/pending', {
+fetch('https://api.us.springverify.com/company/action/adverse/pending', {
     method: 'POST',
     headers: {
         'Authorization': 'Bearer JWT_TOKEN',
@@ -4220,7 +4220,7 @@ var headers = {
 var dataString = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }';
 
 var options = {
-    url: 'http://localhost:3080/company/action/adverse/pending',
+    url: 'https://api.us.springverify.com/company/action/adverse/pending',
     method: 'POST',
     headers: headers,
     body: dataString
@@ -4244,7 +4244,7 @@ $headers = array(
     'Content-Type' => 'application/json'
 );
 $data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }';
-$response = Requests::post('http://localhost:3080/company/action/adverse/pending', $headers, $data);
+$response = Requests::post('https://api.us.springverify.com/company/action/adverse/pending', $headers, $data);
 ```
 
 ```python
@@ -4257,14 +4257,14 @@ headers = {
 
 data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }'
 
-response = requests.post('http://localhost:3080/company/action/adverse/pending', headers=headers, data=data)
+response = requests.post('https://api.us.springverify.com/company/action/adverse/pending', headers=headers, data=data)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/action/adverse/pending")
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/pending")
 request = Net::HTTP::Put.new(uri)
 request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
@@ -4303,7 +4303,7 @@ Once notified, an admin can decide to take an action on the adversity notified o
 ## Set Final Adverse Action Status
 
 ```shell
-curl --location --request PUT 'http://localhost:3080/company/action/adverse/final' \
+curl --location --request PUT 'https://api.us.springverify.com/company/action/adverse/final' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -4317,7 +4317,7 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/fina
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/action/adverse/final', {
+fetch('https://api.us.springverify.com/company/action/adverse/final', {
     method: 'POST',
     headers: {
         'Authorization': 'Bearer JWT_TOKEN',
@@ -4338,7 +4338,7 @@ var headers = {
 var dataString = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }';
 
 var options = {
-    url: 'http://localhost:3080/company/action/adverse/final',
+    url: 'https://api.us.springverify.com/company/action/adverse/final',
     method: 'POST',
     headers: headers,
     body: dataString
@@ -4362,7 +4362,7 @@ $headers = array(
     'Content-Type' => 'application/json'
 );
 $data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }';
-$response = Requests::post('http://localhost:3080/company/action/adverse/final', $headers, $data);
+$response = Requests::post('https://api.us.springverify.com/company/action/adverse/final', $headers, $data);
 ```
 
 ```python
@@ -4375,14 +4375,14 @@ headers = {
 
 data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }'
 
-response = requests.post('http://localhost:3080/company/action/adverse/final', headers=headers, data=data)
+response = requests.post('https://api.us.springverify.com/company/action/adverse/final', headers=headers, data=data)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/action/adverse/final")
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/final")
 request = Net::HTTP::Put.new(uri)
 request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
@@ -4420,7 +4420,7 @@ On an employee profile that is being processed for adversities, an admin can set
 ## Get Criminal Report
 
 ```shell
-curl --location --request GET 'http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3' \
+curl --location --request GET 'https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
@@ -4429,7 +4429,7 @@ curl --location --request GET 'http://localhost:3080/company/criminal/sjv/report
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', {
+fetch('https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', {
     headers: {
         'Authorization': 'Bearer JWT_TOKEN'
     }
@@ -4444,7 +4444,7 @@ var headers = {
 };
 
 var options = {
-    url: 'http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3',
+    url: 'https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3',
     headers: headers
 };
 
@@ -4464,7 +4464,7 @@ Requests::register_autoloader();
 $headers = array(
     'Authorization' => 'Bearer JWT_TOKEN'
 );
-$response = Requests::get('http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', $headers);
+$response = Requests::get('https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', $headers);
 ```
 
 ```python
@@ -4478,14 +4478,14 @@ params = (
     ('sjv_id', '0db2b92a-ec0d-4506-a356-fcb97f31e0c3'),
 )
 
-response = requests.get('http://localhost:3080/company/criminal/sjv/report', headers=headers, params=params)
+response = requests.get('https://api.us.springverify.com/company/criminal/sjv/report', headers=headers, params=params)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3")
+uri = URI.parse("https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3")
 request = Net::HTTP::Get.new(uri)
 request["Authorization"] = "Bearer JWT_TOKEN"
 
