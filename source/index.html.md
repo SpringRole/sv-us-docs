@@ -4070,7 +4070,7 @@ For a specific employee whose verification has resulted in an adverse action, th
 ## Mark Adverse Action as Read
 
 ```shell
-curl --location --request PUT 'http://localhost:3080/company/action/adverse/mark-read' \
+curl --location --request PUT 'https://api.us.springverify.com/company/action/adverse/mark-read' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -4083,7 +4083,7 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/mark
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/action/adverse/mark-read', {
+fetch('https://api.us.springverify.com/company/action/adverse/mark-read', {
     method: 'POST',
     headers: {
         'Authorization': 'Bearer JWT_TOKEN',
@@ -4104,7 +4104,7 @@ var headers = {
 var dataString = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }';
 
 var options = {
-    url: 'http://localhost:3080/company/action/adverse/mark-read',
+    url: 'https://api.us.springverify.com/company/action/adverse/mark-read',
     method: 'POST',
     headers: headers,
     body: dataString
@@ -4128,7 +4128,7 @@ $headers = array(
     'Content-Type' => 'application/json'
 );
 $data = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }';
-$response = Requests::post('http://localhost:3080/company/action/adverse/mark-read', $headers, $data);
+$response = Requests::post('https://api.us.springverify.com/company/action/adverse/mark-read', $headers, $data);
 ```
 
 ```python
@@ -4141,14 +4141,14 @@ headers = {
 
 data = '{ "IDs":["2504d7c7-3f68-47a7-b9dc-be2adb99936e"] }'
 
-response = requests.post('http://localhost:3080/company/action/adverse/mark-read', headers=headers, data=data)
+response = requests.post('https://api.us.springverify.com/company/action/adverse/mark-read', headers=headers, data=data)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/action/adverse/mark-read")
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/mark-read")
 request = Net::HTTP::Put.new(uri)
 request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
@@ -4185,7 +4185,7 @@ Once an admin has been notified of a list of adversity (of a single employee's p
 ## Clear or Send Adverse Action Notice
 
 ```shell
-curl --location --request PUT 'http://localhost:3080/company/action/adverse/pending' \
+curl --location --request PUT 'https://api.us.springverify.com/company/action/adverse/pending' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -4199,7 +4199,7 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/pend
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/action/adverse/pending', {
+fetch('https://api.us.springverify.com/company/action/adverse/pending', {
     method: 'POST',
     headers: {
         'Authorization': 'Bearer JWT_TOKEN',
@@ -4220,7 +4220,7 @@ var headers = {
 var dataString = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }';
 
 var options = {
-    url: 'http://localhost:3080/company/action/adverse/pending',
+    url: 'https://api.us.springverify.com/company/action/adverse/pending',
     method: 'POST',
     headers: headers,
     body: dataString
@@ -4244,7 +4244,7 @@ $headers = array(
     'Content-Type' => 'application/json'
 );
 $data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }';
-$response = Requests::post('http://localhost:3080/company/action/adverse/pending', $headers, $data);
+$response = Requests::post('https://api.us.springverify.com/company/action/adverse/pending', $headers, $data);
 ```
 
 ```python
@@ -4257,14 +4257,14 @@ headers = {
 
 data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"NOTICE_SENT" }'
 
-response = requests.post('http://localhost:3080/company/action/adverse/pending', headers=headers, data=data)
+response = requests.post('https://api.us.springverify.com/company/action/adverse/pending', headers=headers, data=data)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/action/adverse/pending")
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/pending")
 request = Net::HTTP::Put.new(uri)
 request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
@@ -4303,7 +4303,7 @@ Once notified, an admin can decide to take an action on the adversity notified o
 ## Set Final Adverse Action Status
 
 ```shell
-curl --location --request PUT 'http://localhost:3080/company/action/adverse/final' \
+curl --location --request PUT 'https://api.us.springverify.com/company/action/adverse/final' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -4317,7 +4317,7 @@ curl --location --request PUT 'http://localhost:3080/company/action/adverse/fina
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/action/adverse/final', {
+fetch('https://api.us.springverify.com/company/action/adverse/final', {
     method: 'POST',
     headers: {
         'Authorization': 'Bearer JWT_TOKEN',
@@ -4338,7 +4338,7 @@ var headers = {
 var dataString = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }';
 
 var options = {
-    url: 'http://localhost:3080/company/action/adverse/final',
+    url: 'https://api.us.springverify.com/company/action/adverse/final',
     method: 'POST',
     headers: headers,
     body: dataString
@@ -4362,7 +4362,7 @@ $headers = array(
     'Content-Type' => 'application/json'
 );
 $data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }';
-$response = Requests::post('http://localhost:3080/company/action/adverse/final', $headers, $data);
+$response = Requests::post('https://api.us.springverify.com/company/action/adverse/final', $headers, $data);
 ```
 
 ```python
@@ -4375,14 +4375,14 @@ headers = {
 
 data = '{ "adverse_action_id":"2504d7c7-3f68-47a7-b9dc-be2adb99936e", "status":"CLEAR" }'
 
-response = requests.post('http://localhost:3080/company/action/adverse/final', headers=headers, data=data)
+response = requests.post('https://api.us.springverify.com/company/action/adverse/final', headers=headers, data=data)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/action/adverse/final")
+uri = URI.parse("https://api.us.springverify.com/company/action/adverse/final")
 request = Net::HTTP::Put.new(uri)
 request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
@@ -4420,7 +4420,7 @@ On an employee profile that is being processed for adversities, an admin can set
 ## Get Criminal Report
 
 ```shell
-curl --location --request GET 'http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3' \
+curl --location --request GET 'https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
@@ -4429,7 +4429,7 @@ curl --location --request GET 'http://localhost:3080/company/criminal/sjv/report
 
 var fetch = require('node-fetch');
 
-fetch('http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', {
+fetch('https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', {
     headers: {
         'Authorization': 'Bearer JWT_TOKEN'
     }
@@ -4444,7 +4444,7 @@ var headers = {
 };
 
 var options = {
-    url: 'http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3',
+    url: 'https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3',
     headers: headers
 };
 
@@ -4464,7 +4464,7 @@ Requests::register_autoloader();
 $headers = array(
     'Authorization' => 'Bearer JWT_TOKEN'
 );
-$response = Requests::get('http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', $headers);
+$response = Requests::get('https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3', $headers);
 ```
 
 ```python
@@ -4478,14 +4478,14 @@ params = (
     ('sjv_id', '0db2b92a-ec0d-4506-a356-fcb97f31e0c3'),
 )
 
-response = requests.get('http://localhost:3080/company/criminal/sjv/report', headers=headers, params=params)
+response = requests.get('https://api.us.springverify.com/company/criminal/sjv/report', headers=headers, params=params)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("http://localhost:3080/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3")
+uri = URI.parse("https://api.us.springverify.com/company/criminal/sjv/report?sjv_id=0db2b92a-ec0d-4506-a356-fcb97f31e0c3")
 request = Net::HTTP::Get.new(uri)
 request["Authorization"] = "Bearer JWT_TOKEN"
 
@@ -4952,7 +4952,6 @@ This section covers the API details available for users logged in as _employees_
 curl --location --request POST 'https://api.us.springverify.com/employee/personal-details' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
 	"first_name":"John",
 	"middle_name":"David",
@@ -4961,7 +4960,7 @@ curl --location --request POST 'https://api.us.springverify.com/employee/persona
 	"ssn":"123456789",
 	"email":"johndoe@gmail.com",
     "house_number": "239",
-    "street_name": "Avea street"
+    "street_name": "Avea street",
 	"address":"236 Avea street",
 	"city":"Gotham",
 	"state":"CA",
@@ -4978,7 +4977,7 @@ var fetch = require('node-fetch');
 fetch('https://api.us.springverify.com/employee/personal-details', {
     method: 'POST',
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
     body: '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }'
@@ -4989,7 +4988,7 @@ fetch('https://api.us.springverify.com/employee/personal-details', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -5016,7 +5015,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $data = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }';
@@ -5027,7 +5026,7 @@ $response = Requests::post('https://api.us.springverify.com/employee/personal-de
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -5042,7 +5041,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/personal-details")
 request = Net::HTTP::Post.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
@@ -5063,30 +5062,32 @@ end
 {
     "success": true,
     "data": {
-        "id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
-        "access_id": "6e7d5f15-9456-430d-b9da-9df67a4d9996",
-        "email": "johndoe@gmail.com",
+        "id": "ee23f57c-ad7a-40fc-8845-18aa12d67a5e",
+        "access_id": "799bee32-72e6-480f-b023-883bde7aa34f",
+        "email": "johndoe@yopmail.com",
         "password_hash": null,
         "first_name": "John",
         "middle_name": "David",
         "last_name": "Doe",
         "name_verified": null,
-        "created_at": "2020-08-25T14:28:47.000Z",
-        "updated_at": "2020-08-25T14:32:46.785Z",
-        "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
-        "payment_id": "6c75e302-ac2a-4efa-9ba9-c5dfc97b941e",
+        "created_at": "2021-01-19T04:25:21.000Z",
+        "updated_at": "2021-01-19T04:25:48.157Z",
+        "employer_id": "64c5e04f-c9cc-43ca-bb6a-3bb70abb9d6a",
+        "payment_id": "11061087-7975-4ef9-8e3d-9f2c8dd44ad6",
         "email_sent": true,
-        "payment": false,
+        "payment": {
+            "charged": true
+        },
         "status": null,
         "flow_completed": null,
-        "company_created_by": "zed@max.com",
-        "employee_limit_id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
+        "company_created_by": "pooja@recrosoft.com",
+        "employee_limit_id": "8ff7ef5e-0182-46ba-847b-6b22bc65b408",
         "employments": [],
         "education": [],
         "cic_criminal_records": [],
         "professional_licenses": [],
         "employee_detail": {
-            "id": "efa4191a-331d-48c3-8e52-8915ed8167be",
+            "id": "5988dda2-66aa-4ecb-a239-398465e569ab",
             "access_id": null,
             "address": "236 Avea street",
             "address_verified": null,
@@ -5106,47 +5107,49 @@ end
             "phone_verified": null,
             "ssn": "6789",
             "ssn_verified": null,
-            "created_at": "2020-08-25T14:32:46.000Z",
-            "updated_at": "2020-08-25T14:32:46.000Z",
-            "employee_email": "johndoe@gmail.com"
+            "created_at": "2021-01-19T04:25:48.000Z",
+            "updated_at": "2021-01-19T04:25:48.000Z",
+            "employee_email": "johndoe@yopmail.com"
         },
         "employee_verification": null,
         "employee_limit": {
-            "id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
-            "employment": 2,
-            "education": 1,
+            "id": "8ff7ef5e-0182-46ba-847b-6b22bc65b408",
+            "employment": 0,
+            "mvr": false,
+            "education": 0,
             "professional_license": 0,
-            "all_county_criminal_search": true,
+            "all_county_criminal_search": false,
             "county_criminal_search": 0,
-            "civil_court": 1,
+            "civil_court": 0,
             "driving_license": 0,
             "package_id": null,
-            "created_at": "2020-08-25T14:28:47.000Z",
-            "updated_at": "2020-08-25T14:28:47.000Z",
-            "employee_invite_group_id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85",
+            "created_at": "2021-01-19T04:25:21.000Z",
+            "updated_at": "2021-01-19T04:25:21.000Z",
+            "employee_invite_group_id": "e38d60d3-e474-4710-aa84-847221f77910",
             "employee_invite_group": {
-                "id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85",
-                "package": "diamond",
+                "id": "e38d60d3-e474-4710-aa84-847221f77910",
+                "package": "bronze",
                 "active": true,
-                "created_at": "2020-08-25T14:28:47.000Z",
-                "updated_at": "2020-08-25T14:28:47.000Z",
-                "company_created_by": "zed@max.com",
-                "package_id": "5"
+                "created_at": "2021-01-19T04:25:21.000Z",
+                "updated_at": "2021-01-19T04:25:21.000Z",
+                "company_created_by": "pooja@recrosoft.com",
+                "package_id": "1"
             }
         },
         "kbaqna": null,
         "employee_flow": {
-            "id": 289,
+            "id": 274,
             "employment_flow": null,
             "education_flow": null,
             "professional_license_flow": null,
-            "created_at": "2020-08-25T14:32:40.000Z",
-            "updated_at": "2020-08-25T14:32:40.000Z",
-            "employee_email": "johndoe@gmail.com"
+            "created_at": "2021-01-19T04:25:47.000Z",
+            "updated_at": "2021-01-19T04:25:47.000Z",
+            "employee_email": "johndoe@yopmail.com"
         },
         "s3_files": [],
         "criminal_statuses": [],
-        "sjv_criminal_reports": []
+        "sjv_criminal_reports": [],
+        "motor_vehicle_record": null
     }
 }
 ```
@@ -5177,7 +5180,6 @@ An employee can submit their personal details using this API. It is of the utmos
 curl --location --request PUT 'https://api.us.springverify.com/employee/personal-details' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
 	"first_name":"John",
 	"middle_name":"David",
@@ -5186,7 +5188,7 @@ curl --location --request PUT 'https://api.us.springverify.com/employee/personal
 	"ssn":"123456789",
 	"email":"johndoe@gmail.com",
     "house_number": "239",
-    "street_name": "A clear street"
+    "street_name": "A clear street",
 	"address":"236 A clear street",
 	"city":"Gotham",
 	"state":"CA",
@@ -5203,7 +5205,7 @@ var fetch = require('node-fetch');
 fetch('https://api.us.springverify.com/employee/personal-details', {
     method: 'POST',
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
     body: '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "A clear street" "address":"236 A clear street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }'
@@ -5214,7 +5216,7 @@ fetch('https://api.us.springverify.com/employee/personal-details', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -5241,7 +5243,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $data = '{ "first_name":"John", "middle_name":"David", "last_name":"Doe", "dob":"12-11-1980", "ssn":"123456789", "email":"johndoe@gmail.com", "house_number": "239", "street_name": "Avea street" "address":"236 Avea street", "city":"Gotham", "state":"CA", "zip_code":"33433", "phone":"56-999222992" }';
@@ -5252,7 +5254,7 @@ $response = Requests::post('https://api.us.springverify.com/employee/personal-de
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -5267,7 +5269,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/personal-details")
 request = Net::HTTP::Put.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
@@ -5288,32 +5290,10 @@ end
 {
     "success": true,
     "data": {
-        "id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
-        "access_id": "2148fefc-d0db-466a-9f15-8234ce30c101",
-        "email": "johndoe@gmail.com",
-        "password_hash": null,
-        "first_name": "John",
-        "middle_name": "David",
-        "last_name": "Doe",
-        "name_verified": null,
-        "created_at": "2020-08-26T08:34:31.000Z",
-        "updated_at": "2020-08-26T12:58:23.488Z",
-        "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
-        "payment_id": "02247ac0-b3f0-402c-a413-df463dae52bb",
-        "email_sent": true,
-        "payment": false,
-        "status": null,
-        "flow_completed": null,
-        "company_created_by": "zed@max.com",
-        "employee_limit_id": "e4bdd91d-8509-4989-bafb-8b997cbb6d47",
-        "employments": [],
-        "education": [],
-        "cic_criminal_records": [],
-        "professional_licenses": [],
-        "employee_detail": {
-            "id": "41098fa9-cfd9-4ac7-a5e1-a8191c46edff",
+        "employee_details_resp": {
+            "id": "5988dda2-66aa-4ecb-a239-398465e569ab",
             "access_id": null,
-            "address": "236 A clear street",
+            "address": "236 Avea street",
             "address_verified": null,
             "driving_number": null,
             "driving_number_verified": null,
@@ -5331,136 +5311,100 @@ end
             "phone_verified": null,
             "ssn": "6789",
             "ssn_verified": null,
-            "created_at": "2020-08-26T10:19:02.000Z",
-            "updated_at": "2020-08-26T12:58:23.000Z",
-            "employee_email": "johndoe@gmail.com"
+            "created_at": "2021-01-19T04:25:48.000Z",
+            "updated_at": "2021-01-19T04:25:48.000Z",
+            "employee_email": "johndoe@yopmail.com"
         },
-        "employee_verification": {
-            "id": "40ac9a1a-5f1d-48c1-92e7-53dea339e5cf",
-            "s3_gov_id": "link",
-            "s3_gov_id_back": null,
-            "s3_gov_id_match": false,
-            "s3_web_img": null,
-            "s3_passport_verified": 2,
-            "passport_status": "FAILED",
-            "s3_dl_verified": null,
-            "dl_status": null,
-            "verification_type": "id",
-            "address": null,
-            "address_verified": null,
-            "city": null,
-            "city_verified": null,
-            "state": null,
-            "state_verified": null,
-            "zipcode": null,
-            "zipcode_verified": null,
-            "country": null,
-            "country_verified": null,
-            "birthdate": null,
-            "birthdate_verified": null,
-            "criminal_verified": null,
-            "global_watchlist_verified": null,
-            "created_at": "2020-08-26T10:19:46.000Z",
-            "updated_at": "2020-08-26T10:23:31.000Z",
-            "is_report_checked": false,
-            "summary_of_rights_accepted": true,
-            "background_check_disclosure_accepted": true,
-            "id_manual_review": null,
-            "super_admin_status": null,
-            "super_admin_status_new": null,
-            "consent_link": "link",
-            "spring_sign_ref_id": "5f46374017710d0014423b76",
-            "employee_email": "johndoe@gmail.com"
-        },
-        "employee_limit": {
-            "id": "e4bdd91d-8509-4989-bafb-8b997cbb6d47",
-            "employment": 2,
-            "education": 1,
-            "professional_license": 0,
-            "all_county_criminal_search": true,
-            "county_criminal_search": 0,
-            "civil_court": 1,
-            "driving_license": 0,
-            "package_id": null,
-            "created_at": "2020-08-26T08:34:31.000Z",
-            "updated_at": "2020-08-26T08:34:31.000Z",
-            "employee_invite_group_id": "bee68098-30b6-43a0-96d0-a45d8a18fc64",
-            "employee_invite_group": {
-                "id": "bee68098-30b6-43a0-96d0-a45d8a18fc64",
-                "package": "diamond",
-                "active": false,
-                "created_at": "2020-08-26T08:34:31.000Z",
-                "updated_at": "2020-08-26T12:13:14.000Z",
-                "company_created_by": "zed@max.com",
-                "package_id": "5"
-            }
-        },
-        "kbaqna": {
-            "id": "ac407a95-ca32-4fb7-832b-f8655ed1a5ef",
-            "access_id": "a8f67651-2206-46ab-be18-1d956ee662de",
-            "email": "johndoe@gmail.com",
-            "questions_flag": 1,
-            "kba_enabled": 1,
-            "question_count": "5",
-            "correct_answers": "4",
-            "verified": false,
-            "created_at": "2020-08-26T10:20:08.000Z",
-            "updated_at": "2020-08-26T10:21:08.000Z",
-            "idm_session_id": "8871924c3b585878",
-            "employee_email": "johndoe@gmail.com"
-        },
-        "employee_flow": {
-            "id": 290,
-            "employment_flow": null,
-            "education_flow": null,
-            "professional_license_flow": null,
-            "created_at": "2020-08-26T10:19:00.000Z",
-            "updated_at": "2020-08-26T10:19:00.000Z",
-            "employee_email": "johndoe@gmail.com"
-        },
-        "s3_files": [
-            {
-                "id": "70617497-2e00-422f-a1d8-0d652f87193b",
-                "type": "ID",
-                "sub_type": "FRONT",
-                "relation_id": "d0e2aefd-4266-4db0-90fa-9ec4e1a54291",
-                "link": "link",
-                "reference_id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
-                "status": null,
-                "comments": null,
-                "deleted_at": null,
-                "created_at": "2020-08-26T10:23:31.000Z",
-                "updated_at": "2020-08-26T10:23:31.000Z"
+        "employee_resp": {
+            "id": "ee23f57c-ad7a-40fc-8845-18aa12d67a5e",
+            "access_id": "799bee32-72e6-480f-b023-883bde7aa34f",
+            "email": "johndoe@yopmail.com",
+            "password_hash": null,
+            "first_name": "John",
+            "middle_name": "David",
+            "last_name": "Doe",
+            "name_verified": null,
+            "created_at": "2021-01-19T04:25:21.000Z",
+            "updated_at": "2021-01-19T04:25:48.000Z",
+            "employer_id": "64c5e04f-c9cc-43ca-bb6a-3bb70abb9d6a",
+            "payment_id": "11061087-7975-4ef9-8e3d-9f2c8dd44ad6",
+            "email_sent": true,
+            "payment": {
+                "charged": true
             },
-            {
-                "id": "b69a5b2d-3fc6-4f4b-ac30-7970b3bf84d2",
-                "type": "ID",
-                "sub_type": "FRONT",
-                "relation_id": "42fa4d1b-60e6-4ce9-b684-953b58a8dca9",
-                "link": "link",
-                "reference_id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
-                "status": null,
-                "comments": null,
-                "deleted_at": null,
-                "created_at": "2020-08-26T10:22:02.000Z",
-                "updated_at": "2020-08-26T10:22:02.000Z"
+            "status": null,
+            "flow_completed": null,
+            "company_created_by": "pooja@recrosoft.com",
+            "employee_limit_id": "8ff7ef5e-0182-46ba-847b-6b22bc65b408",
+            "employments": [],
+            "education": [],
+            "cic_criminal_records": [],
+            "professional_licenses": [],
+            "employee_detail": {
+                "id": "5988dda2-66aa-4ecb-a239-398465e569ab",
+                "access_id": null,
+                "address": "236 Avea street",
+                "address_verified": null,
+                "driving_number": null,
+                "driving_number_verified": null,
+                "city": "Gotham",
+                "city_verified": null,
+                "state": "CA",
+                "state_verified": null,
+                "zipcode": "33433",
+                "zipcode_verified": null,
+                "country": null,
+                "country_verified": null,
+                "birthdate": "12-11-1980",
+                "birthdate_verified": null,
+                "phone": "56-999222992",
+                "phone_verified": null,
+                "ssn": "6789",
+                "ssn_verified": null,
+                "created_at": "2021-01-19T04:25:48.000Z",
+                "updated_at": "2021-01-19T04:25:48.000Z",
+                "employee_email": "johndoe@yopmail.com"
             },
-            {
-                "id": "e7118fef-b778-418c-b8cc-3ce906b31482",
-                "type": "ID",
-                "sub_type": "FRONT",
-                "relation_id": "975059dd-69ef-4dd7-92e0-627290d76a9f",
-                "link": "link",
-                "reference_id": "cd0cbf74-a3a3-4270-98be-75b236dad50b",
-                "status": null,
-                "comments": null,
-                "deleted_at": null,
-                "created_at": "2020-08-26T10:22:53.000Z",
-                "updated_at": "2020-08-26T10:22:53.000Z"
-            }
-        ],
-        "criminal_statuses": [],
-        "sjv_criminal_reports": []
+            "employee_verification": null,
+            "employee_limit": {
+                "id": "8ff7ef5e-0182-46ba-847b-6b22bc65b408",
+                "employment": 0,
+                "mvr": false,
+                "education": 0,
+                "professional_license": 0,
+                "all_county_criminal_search": false,
+                "county_criminal_search": 0,
+                "civil_court": 0,
+                "driving_license": 0,
+                "package_id": null,
+                "created_at": "2021-01-19T04:25:21.000Z",
+                "updated_at": "2021-01-19T04:25:21.000Z",
+                "employee_invite_group_id": "e38d60d3-e474-4710-aa84-847221f77910",
+                "employee_invite_group": {
+                    "id": "e38d60d3-e474-4710-aa84-847221f77910",
+                    "package": "bronze",
+                    "active": true,
+                    "created_at": "2021-01-19T04:25:21.000Z",
+                    "updated_at": "2021-01-19T04:25:21.000Z",
+                    "company_created_by": "pooja@recrosoft.com",
+                    "package_id": "1"
+                }
+            },
+            "kbaqna": null,
+            "employee_flow": {
+                "id": 274,
+                "employment_flow": null,
+                "education_flow": null,
+                "professional_license_flow": null,
+                "created_at": "2021-01-19T04:25:47.000Z",
+                "updated_at": "2021-01-19T04:25:47.000Z",
+                "employee_email": "johndoe@yopmail.com"
+            },
+            "s3_files": [],
+            "criminal_statuses": [],
+            "sjv_criminal_reports": [],
+            "motor_vehicle_record": null
+        }
     }
 }
 ```
@@ -5491,100 +5435,118 @@ An employee who has created a profile can use this API to update their personal 
 curl --location --request POST 'https://api.us.springverify.com/employee/consent' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
-	 "summary_of_rights":true,
-     "background_check":true,
-     "report_checked":true,
-     "full_name":"John James Doe"
+    "summary_of_rights": true,
+    "background_check": true,
+    "report_checked": true,
+    "full_name": "John David Doe"
 }'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
 
-fetch('https://api.us.springverify.com/employee/consent', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'text/plain',
-        'Authorization': 'Bearer JWT_TOKEN'
-    },
-    body: JSON.stringify({ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" })
-});
+var raw = JSON.stringify({"summary_of_rights":true,"background_check":true,"report_checked":true,"full_name":"John David Doe"});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/consent", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
-    'Content-Type': 'text/plain',
-    'Authorization': 'Bearer JWT_TOKEN'
-};
-
-var dataString = '{ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" }';
-
 var options = {
-    url: 'https://api.us.springverify.com/employee/consent',
-    method: 'POST',
-    headers: headers,
-    body: dataString
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/employee/consent',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  },
+  body: JSON.stringify({"summary_of_rights":true,"background_check":true,"report_checked":true,"full_name":"John David Doe"})
+
 };
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
 ```
 
 ```php
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Content-Type' => 'text/plain',
-    'Authorization' => 'Bearer JWT_TOKEN'
-);
-$data = '{ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" }';
-$response = Requests::post('https://api.us.springverify.com/employee/consent', $headers, $data);
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/consent');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+$request->setBody('{\n    "summary_of_rights": true,\n    "background_check": true,\n    "report_checked": true,\n    "full_name": "John David Doe"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```python
 import requests
 
+url = "https://api.us.springverify.com/employee/consent"
+
+payload="{\n    \"summary_of_rights\": true,\n    \"background_check\": true,\n    \"report_checked\": true,\n    \"full_name\": \"John David Doe\"\n}"
 headers = {
-    'Content-Type': 'text/plain',
-    'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
 }
 
-data = '{ "summary_of_rights":true, "background_check":true, "report_checked":true, "full_name":"John James Doe" }'
+response = requests.request("POST", url, headers=headers, data=payload)
 
-response = requests.post('https://api.us.springverify.com/employee/consent', headers=headers, data=data)
+print(response.text)
+
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "net/http"
 
-uri = URI.parse("https://api.us.springverify.com/employee/consent")
-request = Net::HTTP::Post.new(uri)
-request.content_type = "text/plain"
+url = URI("https://api.us.springverify.com/employee/consent")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
+request.body = "{\n    \"summary_of_rights\": true,\n    \"background_check\": true,\n    \"report_checked\": true,\n    \"full_name\": \"John David Doe\"\n}"
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+response = https.request(request)
+puts response.read_body
 
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
 ```
 
 > Success Response
@@ -5791,7 +5753,6 @@ This API is used to generate a knowledge-based quiz about the employee to verify
 curl --location --request POST 'https://api.us.springverify.com/employee/kba/verify' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
 "qna":[
     {
@@ -5822,7 +5783,7 @@ var fetch = require('node-fetch');
 fetch('https://api.us.springverify.com/employee/kba/verify', {
     method: 'POST',
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
     body: JSON.stringify({ "qna":[ { "question_id": 1, "answer_id": 5 },{ "question_id": 2, "answer_id": 5 },{ "question_id": 3, "answer_id": 5 },{ "question_id": 4, "answer_id": 5 },{ "question_id": 5, "answer_id": 5 } ] })
@@ -5833,7 +5794,7 @@ fetch('https://api.us.springverify.com/employee/kba/verify', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -5860,7 +5821,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $data = '{ "qna":[ { "question_id": 1, "answer_id": 5 },{ "question_id": 2, "answer_id": 5 },{ "question_id": 3, "answer_id": 5 },{ "question_id": 4, "answer_id": 5 },{ "question_id": 5, "answer_id": 5 } ] }';
@@ -5871,7 +5832,7 @@ $response = Requests::post('https://api.us.springverify.com/employee/kba/verify'
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -5886,7 +5847,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/kba/verify")
 request = Net::HTTP::Post.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
@@ -6701,23 +6662,22 @@ This API returns all info pertaining to a candidate including all types of verif
 curl --location --request POST 'https://api.us.springverify.com/employee/employment' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
-"employer_name": "Stark Industries",
-"employer_address": "12, Manhattan Street",
-"employer_phone": "9911991199",
-"employer_town": "New York",
-"state": "New York",
-"zip_code": "129012",
-"country": "USA",
-"job_title": "Senior Manager",
-"start_date": "19-11-2000",
-"end_date": "19-11-2002",
-"supervisor_name": "Nick Fury",
-"current_employment": "0",
-"job_type": "Contract",
-"reason_for_leaving": "xyz",
-"supervisor_contact": "nickfury@starkindustries.com"
+    "employer_name": "Stark Industries",
+    "employer_address": "12, Manhattan Street",
+    "employer_phone": "9911991199",
+    "employer_town": "New York",
+    "state": "New York",
+    "zip_code": "129012",
+    "country": "USA",
+    "job_title": "Senior Manager",
+    "start_date": "19-11-2000",
+    "end_date": "19-11-2002",
+    "supervisor_name": "Nick Fury",
+    "current_employment": "0",
+    "job_type": "Contract",
+    "reason_for_leaving": "xyz",
+    "supervisor_contact": "nickfury@starkindustries.com"
 }'
 ```
 
@@ -6729,7 +6689,7 @@ var fetch = require('node-fetch');
 fetch('https://api.us.springverify.com/employee/employment', {
     method: 'POST',
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
     body: JSON.stringify({ "employer_name": "Stark Industries", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" })
@@ -6740,7 +6700,7 @@ fetch('https://api.us.springverify.com/employee/employment', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -6767,7 +6727,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $data = '{ "employer_name": "Stark Industries", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }';
@@ -6778,7 +6738,7 @@ $response = Requests::post('https://api.us.springverify.com/employee/employment'
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -6793,7 +6753,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/employment")
 request = Net::HTTP::Post.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
@@ -6966,7 +6926,6 @@ This API is used to delete the employment submitted in the "Add Candidate Employ
 curl --location --request POST 'https://api.us.springverify.com/employee/employment' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7",
 	"employer_name": "Stark Industries pvt ltd",
@@ -6995,7 +6954,7 @@ var fetch = require('node-fetch');
 fetch('https://api.us.springverify.com/employee/employment', {
     method: 'POST',
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
     body: JSON.stringify({ "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7", "employer_name": "Stark Industries pvt ltd", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" })
@@ -7006,7 +6965,7 @@ fetch('https://api.us.springverify.com/employee/employment', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -7033,7 +6992,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $data = '{ "id": "ef9e7612-3789-405a-be37-c7bc1871c1f7", "employer_name": "Stark Industries pvt ltd", "employer_address": "12, Manhattan Street", "employer_phone": "9911991199", "employer_town": "New York", "state": "New York", "zip_code": "129012", "country": "USA", "job_title": "Senior Manager", "start_date": "19-11-2000", "end_date": "19-11-2002", "supervisor_name": "Nick Fury", "current_employment": "0", "job_type": "Contract", "reason_for_leaving": "xyz", "supervisor_contact": "nickfury@starkindustries.com" }';
@@ -7044,7 +7003,7 @@ $response = Requests::post('https://api.us.springverify.com/employee/employment'
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -7059,7 +7018,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/employment")
 request = Net::HTTP::Post.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
@@ -7869,7 +7828,6 @@ If the employee doesn't call the <b>Create Password</b> API after calling the ab
 curl --location --request POST 'https://api.us.springverify.com/employee/create-password' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "token": "JWT_TOKEN"
 	"password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31"
@@ -7884,7 +7842,7 @@ var fetch = require('node-fetch');
 fetch('https://api.us.springverify.com/employee/create-password', {
     method: 'POST',
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
     body: '{ "token": "JWT_TOKEN" "password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31" }'
@@ -7895,7 +7853,7 @@ fetch('https://api.us.springverify.com/employee/create-password', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -7922,7 +7880,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $data = '{ "token": "JWT_TOKEN" "password_hash":"5c29a959abce4eda5f0e7a4e7ea53dce4fa0f0abbe8eaa63717e2fed5f193d31" }';
@@ -7933,7 +7891,7 @@ $response = Requests::post('https://api.us.springverify.com/employee/create-pass
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -7948,7 +7906,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/create-password")
 request = Net::HTTP::Post.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
@@ -8336,7 +8294,6 @@ The `Password` fields should be hashed using SHA256 beforehand.
 curl --location --request POST 'https://api.us.springverify.com/employee/reset-password' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 --data-raw '{
 	"password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e"
 }'
@@ -8350,7 +8307,7 @@ var fetch = require('node-fetch');
 fetch('https://api.us.springverify.com/employee/reset-password', {
     method: 'POST',
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
     body: JSON.stringify({ "password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e" })
@@ -8361,7 +8318,7 @@ fetch('https://api.us.springverify.com/employee/reset-password', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -8388,7 +8345,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $data = '{ "password":"ab0365e1c40ea17c8d1e7819c45a477ac836080b3b5fd1305ccb281acf24c62e" }';
@@ -8399,7 +8356,7 @@ $response = Requests::post('https://api.us.springverify.com/employee/reset-passw
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -8414,7 +8371,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/reset-password")
 request = Net::HTTP::Post.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
@@ -8456,7 +8413,6 @@ The `Password` fields should be hashed using SHA256 beforehand.
 curl --location --request GET 'https://api.us.springverify.com/employee/flow-completed' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: text/plain' \
 ```
 
 ```javascript
@@ -8466,7 +8422,7 @@ var fetch = require('node-fetch');
 
 fetch('https://api.us.springverify.com/employee/flow-completed', {
     headers: {
-        'Content-Type': 'text/plain',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     }
 });
@@ -8476,7 +8432,7 @@ fetch('https://api.us.springverify.com/employee/flow-completed', {
 var request = require('request');
 
 var headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
@@ -8499,7 +8455,7 @@ request(options, callback);
 include('vendor/rmccue/requests/library/Requests.php');
 Requests::register_autoloader();
 $headers = array(
-    'Content-Type' => 'text/plain',
+    'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
 $response = Requests::get('https://api.us.springverify.com/employee/flow-completed', $headers);
@@ -8509,7 +8465,7 @@ $response = Requests::get('https://api.us.springverify.com/employee/flow-complet
 import requests
 
 headers = {
-    'Content-Type': 'text/plain',
+    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
@@ -8523,7 +8479,7 @@ require 'uri'
 
 uri = URI.parse("https://api.us.springverify.com/employee/flow-completed")
 request = Net::HTTP::Get.new(uri)
-request.content_type = "text/plain"
+request.content_type = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
 req_options = {
