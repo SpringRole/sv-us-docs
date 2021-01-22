@@ -1103,7 +1103,6 @@ end
         "dl_limit": null,
         "s3_logo": "https://spring-verify-us.s3.amazonaws.com/company/wick.com/logo",
         "created_at": "2020-08-24T10:20:20.000Z",
-        "updated_at": "2020-08-24T10:31:49.000Z",
         "employee_invite_groups": []
     }
 }
@@ -1236,6 +1235,13 @@ end
 
 For a registered admin with a valid JWT, this API can be used to get the company's profile. This is different from the company details. A company's profile contains details of the company given during registration as well as the count of the employees whose profiles were verified, failed, or is pending.
 
+| Count type | Description |
+| --- | --- |
+| `null` | number of candidates in the given company from whom we are awaiting Input |
+| FAILED | number of candidates of the given company whose profile check has failed.
+| PENDING | number of candidates of the given company whose profile check is penfing.
+| VERIFIED | number of candidates of the given company whose profile check has been successfully verified..
+
 ## Get available packages
 
 ```shell
@@ -1339,7 +1345,6 @@ end
                 "global_watchlist": "1",
                 "price": "750",
                 "created_at": "2019-07-03T11:07:27.000Z",
-                "updated_at": "2019-11-11T11:53:38.000Z"
             },
             {
                 "id": "2",
@@ -1437,6 +1442,19 @@ end
 ```
 
 This API is used to get the available pricing plans and packages.
+
+| Checks included | Bronze | Silver | Gold | Platinum | Diamond | 
+| ... | ... | ... | ... | ... | ... |
+|ID Verification|Yes|Yes|Yes|Yes|Yes|
+|National Criminal Search (digitized countries only)|Yes|Yes|Yes|Yes|Yes|
+|Sex Offender Search|Yes|Yes|Yes|Yes|Yes|
+|SSN Trace|Yes|Yes|Yes|Yes|Yes|
+|Global Watchlist Search|Yes|Yes|Yes|Yes|Yes|
+|Work Experience Verification|-|1 check|2 checks|2 checks|2 checks|
+|Education Experience Verification|-|-|-|1 check|1 check|
+|One County Civil Court Search (Employment related only)|-|-|-|-|1 check|
+|One County Criminal Search (current residence)|-|-|1 check|-|-|
+|All County Criminal Search (7 years)|-|-|-|1 check|1 check|
 
 ## Invite candidates
 
@@ -1880,7 +1898,8 @@ curl --location --request POST 'https://api.us.springverify.com/payment/charge-u
 --header 'Authorization: Bearer JWT_TOKEN' \
 --data-raw '{
     "id": "2612d112-5827-4b1c-a177-03a85eabd03d",
-    "send_email": true
+    "send_email": true,
+    "couponCode": "COUPON-CODE"
 }'
 ```
 
@@ -2102,6 +2121,7 @@ Once a candidate has been invited to get themselves verified, the verification m
 | Parameter | Type | Description |
 | --- | --- | --- |
 | id | `string` | The reference ID retrieved from the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. |
+| couponCode | `string` | Optional field to mention coupon code while performing the transaction.
 | send_email | `boolean` | `true` -- sends emails to the candidates. |
 | | | `false` -- returns the verifications links of the candidates. |
 
@@ -2203,21 +2223,20 @@ end
     "data": {
         "employee": {
             "id": "6d6d81f5-6f00-4a38-a7d7-249cc2127ab6",
-            "access_id": null,
+            "access_id": "612d112-5827-4b1c-a177-03a85eabd03d",
             "email": "johndoe@gmail.com",
-            "password_hash": null,
-            "first_name": null,
-            "middle_name": null,
-            "last_name": null,
-            "name_verified": null,
+            "password_hash": "$2b$10$3euPcmQFCiblsZeEu5s7p.9OVHgeHWFDk9nhMqZ0m/3pd/lhwZgES",
+            "first_name": "John",
+            "middle_name": "Nathan",
+            "last_name": "Doe",
+            "name_verified": true,
             "created_at": "2020-08-24T10:57:01.000Z",
-            "updated_at": "2020-08-24T10:57:01.000Z",
             "employer_id": "fd725660-58f7-4a97-b626-5a4588e4ca31",
             "payment_id": "0e9a7695-91bd-4e60-aefc-ba47f80ab0f0",
             "email_sent": true,
             "payment": false,
             "status": null,
-            "flow_completed": null,
+            "flow_completed": false,
             "company_created_by": "john@wick.com",
             "employee_limit_id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
             "kbaqna": null,
@@ -2268,6 +2287,8 @@ end
 ```
 
 When the details of a specific candidate whose profile is already verified is to be retrieved, use this API. This API retrieves the details of the candidate that have been verified, as well as the pricing package in which the candidate's profile was verified, along with the date of the most recent verification.
+
+`null` indicates we are awaiting input.
 
 **URL Parameters**
 
@@ -2521,24 +2542,6 @@ end
       "email": "johndoe@gmail.com"
     },
     {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T05:59:02.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T05:59:02.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
       "string": "has successfully verified their identity. (using their driving license)",
       "time": "2020-08-27T05:57:03.000Z",
       "id": "9282698a-72ac-49df-a750-85c169bfe08e",
@@ -2573,33 +2576,6 @@ end
       "middle_name": "Mark",
       "last_name": "Smith",
       "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T04:29:02.000Z",
-      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T04:29:02.000Z",
-      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T04:29:02.000Z",
-      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
     }
   ]
 }
@@ -2607,11 +2583,13 @@ end
 
 This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
 
-* The candidate has been invited to provide their information to initiate the verification.
-* The candidate has entered their personal information.
-* The candidate has successfully uploaded their driver's license.
-* The candidate has successfully verified their identity using their driver's license.
-* The candidate has failed to verify their identity using their driver's license.
+| Response string | Scenario |
+| ... | ... |
+| "identity verification failed. (using their driving license)" | The candidate has failed to verify their identity using their driver's license.|
+| "has successfully verified their identity. (using their driving license)" |The candidate has successfully verified their identity using their driver's license|
+| "has uploaded their driving license." |The candidate has successfully uploaded their driver's license.|
+| "has entered personal details." |The candidate has entered their personal information.|
+| "has been added as a candidate and invited to enter his information." |The candidate has been invited to provide their information to initiate the verification.|
 
 ## Get Company Actions Pertaining to an employee
 
@@ -2797,14 +2775,15 @@ end
 
 This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
 
-* The candidate has been invited to provide their information to initiate the verification.
-* The candidate has entered their personal information.
-* The candidate has successfully uploaded their driver's license.
-* The candidate has successfully verified their identity using their driver's license.
-* The candidate has entered their education information.
-* The candidate has entered their employment information.
-* Verification for the education information has been initiated.
-* Verification for the employment information has been initiated.
+| Response string | Scenario |
+| "employment check is in progress." | Verification for the employment information has been initiated.|
+| "education check is in progress."|Verification for the education information has been initiated.|
+| "has entered their education." |The candidate has entered their education information.|
+| "has entered their employment." |The candidate has entered their employment information.|
+| "has successfully verified their identity. (using their driving license)" |The candidate has successfully verified their identity using their driver's license.|
+| "has uploaded their driving license." |The candidate has successfully uploaded their driver's license.|
+| "has entered personal details." |The candidate has entered their personal information.|
+| "has been added as a candidate and invited to enter his information." |The candidate has been invited to provide their information to initiate the verification.|
 
 ## Get Company Employees by Filter
 
@@ -2971,16 +2950,6 @@ end
                         "cleared": false,
                         "id": "af1cef6e-e38f-4545-8fc4-6a31c0886b37"
                     }
-                },
-                {
-                    "id": "ade7b7cd-c80c-4302-a2f0-6066f81322b3",
-                    "record_type": "SEX_OFFENDER",
-                    "reviewed": true,
-                    "adverse_action": {
-                        "status": "CLOSED",
-                        "cleared": false,
-                        "id": "af1cef6e-e38f-4545-8fc4-6a31c0886b37"
-                    }
                 }
             ],
             "sjv_criminal_reports": [{
@@ -2994,20 +2963,6 @@ end
                         "cleared": null,
                         "id": "350849d9-24c2-40ea-ad20-d5654854fac9"
                     }
-                },
-                {
-                    "id": "281edcbe-cdb4-411e-8d8e-87f7aea33b2a",
-                    "sjv_search_type": "COUNTY_CRIMINAL_NOTIFICATION",
-                    "county_name": null,
-                    "adverse_action": null
-                },
-                {
-                    "id": "96b6aef0-1114-4e5b-99a4-f9ed917504a2",
-                    "sjv_search_type": "NATIONAL_CRIMINAL",
-                    "county_name": {
-                        "county_name": "Palm Beach County"
-                    },
-                    "adverse_action": null
                 }
             ]
         }],
@@ -3023,6 +2978,8 @@ end
 | limit | `integer` | Page limit |
 | offset | `integer` | Page offset |
 | filter | `string` | ALL/COMPLETED/VERIFIED/PENDING/NULL(AWAITING EMPLOYEE INPUT)/FAILED.
+
+`null` response indicates awaiting input from the company.
 
 ### Get Company Adverse Action Counts
 
@@ -3769,8 +3726,8 @@ This API can be used to get a list of the adversities found across all the profi
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| limit | `integer` | _Raw file of the logo._ |
-| offset | `integer` | _Raw file of the logo._ |
+| limit | `integer` | Page limit |
+| offset | `integer` | Page offset |
 | status | `string` | Current status of the action: (PENDING/NOTICE_SENT/IN_REVIEW/FINAL_CALL/CLOSED)
 
 ### Adverse Action of Single Employee
@@ -3890,26 +3847,6 @@ end
                 "deleted_at": null,
                 "created_at": "2020-08-26T11:58:27.000Z",
                 "updated_at": "2020-08-26T11:58:27.000Z"
-            },
-            {
-                "id": "622008d7-2553-4c32-bca0-3f5c833d2b66",
-                "reference_id": "2504d7c7-3f68-47a7-b9dc-be2adb99936e",
-                "status": "PENDING",
-                "comments": null,
-                "cleared": null,
-                "deleted_at": null,
-                "created_at": "2020-08-25T08:17:24.000Z",
-                "updated_at": "2020-08-25T08:17:24.000Z"
-            },
-            {
-                "id": "6d0a88fb-a297-47ca-a892-f06257fe2e48",
-                "reference_id": "2504d7c7-3f68-47a7-b9dc-be2adb99936e",
-                "status": "CLOSED",
-                "comments": null,
-                "cleared": true,
-                "deleted_at": null,
-                "created_at": "2020-08-26T12:00:11.000Z",
-                "updated_at": "2020-08-26T12:00:11.000Z"
             }
         ],
         "adverse_action_comments": [],
@@ -3971,85 +3908,6 @@ end
                             "conviction_date": "11/27/1990",
                             "conviction_location": "ROCK, WI"
                         }
-                    }
-                }
-            },
-            {
-                "id": "63216b70-1c5e-4c46-bd5e-9d72ce7d78f5",
-                "employee_email_fk": "johndoe@gmail.com",
-                "cic_criminal_report_id_fk": "62b71576-8456-42db-8ce9-4d12b2d864cb",
-                "adverse_action_id_fk": "2504d7c7-3f68-47a7-b9dc-be2adb99936e",
-                "record_type": "SEX_OFFENDER",
-                "reviewed": false,
-                "deleted_at": null,
-                "created_at": "2020-08-13T14:24:42.000Z",
-                "updated_at": "2020-08-25T08:17:24.000Z",
-                "employee": {
-                    "id": "298af70a-b3a3-4605-8789-37387bb276a1",
-                    "access_id": "05065b6d-8272-4ba5-b31e-b9f576c0a44a",
-                    "email": "johndoe@gmail.com",
-                    "password_hash": "qwerty123",
-                    "first_name": "John",
-                    "middle_name": "Mark",
-                    "last_name": "Smith",
-                    "name_verified": null,
-                    "created_at": "2020-08-13T13:59:22.000Z",
-                    "updated_at": "2020-08-25T08:17:24.000Z",
-                    "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
-                    "payment_id": "3aa91fd2-aca5-456b-a375-cf4df6ededed",
-                    "email_sent": true,
-                    "payment": false,
-                    "status": "VERIFIED",
-                    "flow_completed": true,
-                    "company_created_by": "ajitesh.tiwari@springrole.com",
-                    "employee_limit_id": "0e3ee39a-32c2-4eb6-a7f2-61a3507a26ba"
-                },
-                "record_data": {
-                    "subject": {
-                        "full_name": "JONATHAN DOE",
-                        "dob": "12/04/1951",
-                        "category": "CRIMINAL",
-                        "source": "FL DEPT OF CORRECTIONS- INMATE",
-                        "sex": "MALE",
-                        "race": "BLACK",
-                        "hair_color": "BLACK",
-                        "eye_color": "BROWN",
-                        "weight": "240 LBS",
-                        "height": "5 FEET 10 INCHES",
-                        "age": 64,
-                        "scars_marks": "GLASSES",
-                        "case_number": 1550682,
-                        "state": "FL",
-                        "comments": "SENTENCE LENGTH: 13Y 0M 0D",
-                        "alias": "JONATHAN CONSUMER,JONATHAN QUINCY CONSUMER,JOSEPH QUINCY CONSUMER"
-                    },
-                    "offenses": {
-                        "offense": [
-                            {
-                                "description": "ROBB. GUN/DEADLY WPN(CONSPIRACY TO COMMIT)",
-                                "disposition": "NOT PROVIDED BY SOURCE",
-                                "disposition_date": "02-17-2012",
-                                "offense_date": "07-26-2010",
-                                "commitment_date": "03-12-2012",
-                                "release_date": "07-26-2023"
-                            },
-                            {
-                                "description": "2ND DEG.MURD,DANGEROUS ACT",
-                                "disposition": "NOT PROVIDED BY SOURCE",
-                                "disposition_date": "02-17-2012",
-                                "offense_date": "07-26-2010",
-                                "commitment_date": "03-12-2012",
-                                "release_date": "07-26-2023"
-                            },
-                            {
-                                "description": "ROBB. GUN/DEADLY WPN",
-                                "disposition": "NOT PROVIDED BY SOURCE",
-                                "disposition_date": "02-17-2012",
-                                "offense_date": "07-26-2010",
-                                "commitment_date": "03-12-2012",
-                                "release_date": "07-26-2023"
-                            }
-                        ]
                     }
                 }
             }
@@ -4291,7 +4149,7 @@ end
 }
 ```
 
-Once notified, an admin can decide to take an action on the adversity notified or ignore it. This is the initial action particular adverse action lifecycle for the Admin.
+Once notified, an admin can decide to take an action on the adversity notified or ignore it.  `status` field indicates if the adversity notice has been sent or has been ignored.  This is the initial action particular adverse action lifecycle for the Admin.
 
 **URL Parameters**
 
@@ -4408,13 +4266,13 @@ end
 }
 ```
 
-On an employee profile that is being processed for adversities, an admin can set a final adverse action using this API. This is the final action in a particular adverse action lifecycle for the Admin.
+On an employee profile that is being processed for adversities, an admin can set a final adverse action using this API. This is the final action in a particular adverse action lifecycle for the Admin.  CLEAR indicates the candidate has passed the verification, CONCERN indicates the candidate has been rejected.
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| status | `string` | Current status of the action: CLEAR/REJECT. |
+| status | `string` | Current status of the action: CLEAR/CONCERN. |
 | adverse_action_id | `string` | The ID of the adverse action whose status is being updated. |
 
 ## Get Criminal Report
@@ -4522,7 +4380,7 @@ end
 }
 ```
 
-On an employee profile that is being processed for adversities, an admin can get the criminal report using the SJV ID in the adverse action object of this API. This is a sample JSON response.
+On an employee profile that is being processed for adversities, an admin can get the criminal report using the SJV ID in the adverse action object of this API. This is a sample JSON response.  SJV ID can be retrived from the response of candidate details.  See [Get Single Candidate (or employee)](https://docs.us.springverify.com/#get-single-candidate-or-employee).
 
 **URL Parameters**
 
@@ -6147,7 +6005,7 @@ end
 
 This API records the Passport details of the employee and verifies its authenticity.
 
-This API is used to upload an image of the employee's passport that will be scanned and parsed. The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
+This API is used to upload an image of the employee's passport that will be scanned and parsed.  The file size limit is also capped at 2MB. Files greater than 2MB witll throw exception.  The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
 
 There are several variables that are more likely to cause a document to fail:
 1. The quality of the captured image - blurred images or images with reflections.
