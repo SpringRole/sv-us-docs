@@ -1239,8 +1239,8 @@ For a registered admin with a valid JWT, this API can be used to get the company
 | --- | --- |
 | `null` | number of candidates in the given company from whom we are awaiting Input |
 | FAILED | number of candidates of the given company whose profile check has failed.
-| PENDING | number of candidates of the given company whose profile check is penfing.
-| VERIFIED | number of candidates of the given company whose profile check has been successfully verified..
+| PENDING | number of candidates of the given company whose profile check is pending.
+| VERIFIED | number of candidates of the given company whose profile check has been successfully verified.
 
 ## Get available packages
 
@@ -5890,7 +5890,7 @@ This API records the ID of the user and verifies its authenticity.
 
 **Important Notes:**
 
-1. The maximum allowed size of the image uploaded (per image) is capped at 2MB. Uploading photos larger than 2MB will throw an exception.
+1. The maximum allowed size of the image uploaded (per image) is capped at 2 MB. Uploading photos larger than 2 MB will throw an exception.
 2. If using a mobile device, capturing a clear, non-blurry image is extremely important so that the ID can be processed accurately.
 3. At a minimum, a 5MP camera should be used to capture the images for the UploadID parameter.
 4. It is mandatory to have a contrast between the ID and the background. The background must be solid colored.
@@ -6005,7 +6005,7 @@ end
 
 This API records the Passport details of the employee and verifies its authenticity.
 
-This API is used to upload an image of the employee's passport that will be scanned and parsed.  The file size limit is also capped at 2MB. Files greater than 2MB witll throw exception.  The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
+This API is used to upload an image of the employee's passport that will be scanned and parsed.  The file size limit is also capped at 2 MB. Files greater than 2 MB will throw an exception.  The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
 
 There are several variables that are more likely to cause a document to fail:
 1. The quality of the captured image - blurred images or images with reflections.
