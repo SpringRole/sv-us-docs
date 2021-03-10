@@ -1643,7 +1643,6 @@ Employee will be getting email reminders for filling up the form.
 | package | `string` | Name of the package as retrieved from the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API |
 | employee_details | `object` | (Optional) Details of the candidate |
 | add_ons | `object` | To add additional services into the retrieved package |
-| coupon_code | `string` | Any coupon code that the admin has for a discounted pricing |
 
 **Response Parameters**
 
@@ -1908,7 +1907,8 @@ curl --location --request POST 'https://api.us.springverify.com/payment/charge-u
 --header 'Authorization: Bearer JWT_TOKEN' \
 --data-raw '{
     "id": "2612d112-5827-4b1c-a177-03a85eabd03d",
-    "send_email": true
+    "send_email": true,
+    "coupon_code": ""
 }'
 ```
 
@@ -1923,7 +1923,7 @@ fetch('https://api.us.springverify.com/payment/charge-user', {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer JWT_TOKEN'
     },
-    body: JSON.stringify({ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true })
+    body: JSON.stringify({ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" })
 });
 
 // REQUEST
@@ -1935,7 +1935,7 @@ var headers = {
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
-var dataString = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true }';
+var dataString = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }';
 
 var options = {
     url: 'https://api.us.springverify.com/payment/charge-user',
@@ -1961,7 +1961,7 @@ $headers = array(
     'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
 );
-$data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true }';
+$data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }';
 $response = Requests::post('https://api.us.springverify.com/payment/charge-user', $headers, $data);
 ```
 
@@ -1973,7 +1973,7 @@ headers = {
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
-data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true }'
+data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }'
 
 response = requests.post('https://api.us.springverify.com/payment/charge-user', headers=headers, data=data)
 ```
@@ -2123,7 +2123,11 @@ end
 }
 ```
 
-Once a candidate has been invited to get themselves verified, the verification must be paid for. This API is used for the payment purpose and must be called immediately after the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. Payments will be processed using the details from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments) API. The reference ID retrieved from the "Invite Candidates" API is used here. Emails to candidates requesting verification will be sent only after the payment is successful. If the `send_email` field is set to `false`, the API will return the verification links of the employees in the response.
+Once a candidate has been invited to get themselves verified, the verification must be paid for. This API is used for the payment purpose and must be called immediately after the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. Payments will be processed using the details from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments) API. The reference ID retrieved from the "Invite Candidates" API is used here. Emails to candidates requesting verification will be sent only after the payment is successful. 
+
+If the `send_email` field is set to `false`, the API will return the verification links of the employees in the response.
+
+If you have a coupon code you can enter it here.
 
 **URL Parameters**
 
@@ -2132,6 +2136,7 @@ Once a candidate has been invited to get themselves verified, the verification m
 | id | `string` | The reference ID retrieved from the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. |
 | send_email | `boolean` | `true` -- sends emails to the candidates. |
 | | | `false` -- returns the verifications links of the candidates. |
+| coupon_code | `string` | (Optional) Any coupon code that the admin has for discounted pricing |
 
 ## Get Single Candidate (or employee)
 
