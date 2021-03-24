@@ -26,7 +26,7 @@ This is the API documentation section of SpringVerify for customers and users lo
 1. Introduction - _where entities, environments, and authentication protocols are detailed._
 2. Getting Started with the APIs - _where basic understanding of api structure and environments are detailed._
 3. Company API flow - _where functions available to users logged in as company admins are detailed._
-4. User API flow - _where functions available to users logged in as employees are detailed._
+4. Candidate API flow - _where functions available to users logged in as candidates are detailed._
 
 ---
 
@@ -48,12 +48,12 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 
 | User Roles | Response |
 | ---------- | -------- |
-| Company | An entity that has users. These users can be employees who are **performing the verification** or are **being verified**. |
+| Company | An entity that has users. These users can be candidates who are **performing the verification** or are **being verified**. |
 | Admin | A user who is performing the verification. |
-| Employee | A user whose details are being verified on the platform. |
+| Candidate | A user whose details are being verified on the platform. |
 | Package | Combination of multiple verification checks provided at a specific price. |
-| Action | Updates on a employee's verfication progress. |
-| Adverse Action | Adversities found on an employee's verification process. |
+| Action | Updates on a candidate's verfication progress. |
+| Adverse Action | Adversities found on a candidate's verification process. |
 | Webhook | Automated messages sent to client's url whenever any update happens on the resource. |
 | Consent | Permission given by the candidate to perform ID & background verification checks. |
 
@@ -105,7 +105,7 @@ The user must replace `JWT_TOKEN` in the examples below with their personal toke
 
 # Company
 
-This section covers the API details available for users logged in as _admins_, i.e., users who wish to conduct background verification checks on employees (or prospective employees).
+This section covers the API details available for users logged in as _admins_, i.e., users who wish to conduct background verification checks on candidates (or prospective candidates).
 
 ## Signup
 
@@ -1137,7 +1137,7 @@ end
 }
 ```
 
-For a registered admin with a valid JWT, this API can be used to get the details of the company. This is different from the company profile. A company's profile contains details of the company given during registration as well as the count of the employees whose profiles were verified, failed or is pending.
+For a registered admin with a valid JWT, this API can be used to get the details of the company. This is different from the company profile. A company's profile contains details of the company given during registration as well as the count of the candidates whose profiles were verified, failed or is pending.
 
 ## Get company profile
 
@@ -1262,7 +1262,7 @@ end
 }
 ```
 
-For a registered admin with a valid JWT, this API can be used to get the company's profile. This is different from the company details. A company's profile contains details of the company given during registration as well as the count of the employees whose profiles were verified, failed, or is pending.
+For a registered admin with a valid JWT, this API can be used to get the company's profile. This is different from the company details. A company's profile contains details of the company given during registration as well as the count of the candidates whose profiles were verified, failed, or is pending.
 
 ## Get available packages
 
@@ -1625,21 +1625,21 @@ puts response.read_body
 }
 ```
 
-This API is used to invite existing and/or prospective employees to get their profiles verified. It can be used to invite employees in bulk. However, emails will be sent to the employees only once the payment is successfully completed.
+This API is used to invite existing and/or prospective candidates to get their profiles verified. It can be used to invite candidates in bulk. However, emails will be sent to the candidates only once the payment is successfully completed.
 
 <aside class="notice">
 This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
 </aside>
 
 <aside class="notice">
-Employee will be getting email reminders for filling up the form.
+Candidate will be getting email reminders for filling up the form.
 </aside>
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| email_list | `array` | Contains a list of the email addresses of the employees to be contacted |
+| email_list | `array` | Contains a list of the email addresses of the candidates to be contacted |
 | package | `string` | Name of the package as retrieved from the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API |
 | employee_details | `object` | (Optional) Details of the candidate |
 | add_ons | `object` | To add additional services into the retrieved package |
@@ -2125,7 +2125,7 @@ end
 
 Once a candidate has been invited to get themselves verified, the verification must be paid for. This API is used for the payment purpose and must be called immediately after the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. Payments will be processed using the details from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments) API. The reference ID retrieved from the "Invite Candidates" API is used here. Emails to candidates requesting verification will be sent only after the payment is successful. 
 
-If the `send_email` field is set to `false`, the API will return the verification links of the employees in the response.
+If the `send_email` field is set to `false`, the API will return the verification links of the candidates in the response.
 
 If you have a coupon code you can enter it here.
 
@@ -2138,7 +2138,7 @@ If you have a coupon code you can enter it here.
 | | | `false` -- returns the verifications links of the candidates. |
 | coupon_code | `string` | (Optional) Any coupon code that the admin has for discounted pricing |
 
-## Get Single Candidate (or employee)
+## Get Single Candidate
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID' \
@@ -2308,7 +2308,7 @@ When the details of a specific candidate whose profile is already verified is to
 | --- | --- | --- |
 |id | `uuid` | Contains the unique ID of the candidate. |
 
-## Search Employee
+## Search Candidate
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/company/employee/search' \
@@ -2447,7 +2447,7 @@ end
 
 ```
 
-This API searches and retrieves the profile of a specific employee that is already verified.
+This API searches and retrieves the profile of a specific candidate that is already verified.
 
 **URL Parameters**
 
@@ -2654,7 +2654,7 @@ end
 }
 ```
 
-This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
+This API informs an admin/s of the activities of a specific candidate in the following scenarios:
 
 * The candidate has been invited to provide their information to initiate the verification.
 * The candidate has entered their personal information.
@@ -2662,7 +2662,7 @@ This API informs an admin/s of the activities of a specific employee or a candid
 * The candidate has successfully verified their identity using their driver's license.
 * The candidate has failed to verify their identity using their driver's license.
 
-## Get Company Actions Pertaining to an employee
+## Get Company Actions Pertaining to a candidate
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/company/actions' \
@@ -2844,7 +2844,7 @@ end
 }
 ```
 
-This API informs an admin/s of the activities of a specific employee or a candidate in the following scenarios:
+This API informs an admin/s of the activities of a specific candidate in the following scenarios:
 
 * The candidate has been invited to provide their information to initiate the verification.
 * The candidate has entered their personal information.
@@ -2855,7 +2855,7 @@ This API informs an admin/s of the activities of a specific employee or a candid
 * Verification for the education information has been initiated.
 * Verification for the employment information has been initiated.
 
-## Get Company Employees by Filter
+## Get Company Candidates by Filter
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/company/employees' \
@@ -3071,7 +3071,7 @@ end
 | --- | --- | --- |
 | limit | `integer` | Page limit |
 | offset | `integer` | Page offset |
-| filter | `string` | ALL/COMPLETED/VERIFIED/PENDING/NULL(AWAITING EMPLOYEE INPUT)/FAILED.
+| filter | `string` | ALL/COMPLETED/VERIFIED/PENDING/NULL(AWAITING INPUT)/FAILED.
 
 ### Get Company Adverse Action Counts
 
@@ -3185,11 +3185,11 @@ end
 
 This API gives the count of the total adverse actions that are/have been:
 
-* closed -- the employee's response has been accepted or rejected and the verification is completed.
-* pending -- the employee is to be informed of the issue; or the employee's response is to be received.
-* being reviewed -- the employee's response is being reviewed.
-* sent a notice -- the employee has been informed of an issue with their verification.
-* taken a final call on -- a decision has been taken by the company on the adverse action and is to be informed to the employee.
+* closed -- the candidate's response has been accepted or rejected and the verification is completed.
+* pending -- the candidate is to be informed of the issue; or the candidate's response is to be received.
+* being reviewed -- the candidate's response is being reviewed.
+* sent a notice -- the candidate has been informed of an issue with their verification.
+* taken a final call on -- a decision has been taken by the company on the adverse action and is to be informed to the candidate.
 
 ## Get Company Adverse Actions
 
@@ -3822,7 +3822,7 @@ This API can be used to get a list of the adversities found across all the profi
 | offset | `integer` | _Raw file of the logo._ |
 | status | `string` | Current status of the action: (PENDING/NOTICE_SENT/IN_REVIEW/FINAL_CALL/CLOSED)
 
-### Adverse Action of Single Employee
+## Adverse Action of Single Candidate
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company/action/adverse?adverse_action_id=2504d7c7-3f68-47a7-b9dc-be2adb99936e' \
@@ -4108,7 +4108,7 @@ end
 }
 ```
 
-For a specific employee whose verification has resulted in an adverse action, this API can be used to get a list of the adversities found in the profile.
+For a specific candidate whose verification has resulted in an adverse action, this API can be used to get a list of the adversities found in the profile.
 
 **URL Parameters**
 
@@ -4223,7 +4223,7 @@ end
 }
 ```
 
-Once an admin has been notified of a list of adversity (of a single employee's profile or of multiple profiles), this API is used to let the admin mark the notification as "read".
+Once an admin has been notified of a list of adversity (of a single candidate's profile or of multiple profiles), this API is used to let the admin mark the notification as "read".
 
 **URL Parameters**
 
@@ -4457,7 +4457,7 @@ end
 }
 ```
 
-On an employee profile that is being processed for adversities, an admin can set a final adverse action using this API. This is the final action in a particular adverse action lifecycle for the Admin.
+On an candidate profile that is being processed for adversities, an admin can set a final adverse action using this API. This is the final action in a particular adverse action lifecycle for the Admin.
 
 **URL Parameters**
 
@@ -4571,7 +4571,7 @@ end
 }
 ```
 
-On an employee profile that is being processed for adversities, an admin can get the criminal report using the SJV ID in the adverse action object of this API. This is a sample JSON response.
+On an candidate profile that is being processed for adversities, an admin can get the criminal report using the SJV ID in the adverse action object of this API. This is a sample JSON response.
 
 **URL Parameters**
 
@@ -4991,9 +4991,9 @@ A company can delete a registered webhook using this API.
 
 ---
 
-# User (Employee)
+# Candidate
 
-This section covers the API details available for users logged in as _employees_ (or candidates), i.e., users who wish to get background verification checks performed on their profiles.
+This section covers the API details available for users logged in as candidates i.e., users who wish to get background verification checks performed on their profiles.
 
 ## Submit Personal Details
 
@@ -5203,25 +5203,25 @@ end
 }
 ```
 
-An employee can submit their personal details using this API. It is of the utmost importance that the details entered here are absolutely accurate. For creating the profile, the same email ID must be used to which the verification request was sent.
+A candidate can submit their personal details using this API. It is of the utmost importance that the details entered here are absolutely accurate. For creating the profile, the same email ID must be used to which the verification request was sent.
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| first_name | `string` | The employee's first name. |
-| middle_name | `string` | The employee's middle name. |
-| last_name | `string` | The employee's last name. |
-| dob | `string` | The employee's date of birth in the format DD-MM-YYYY. |
-| ssn | `string` | The employee's SSN. |
-| email | `string` | The employee's email address - must be the same address to which the verification request was sent. |
-| house_number | `integer` | The employee's house number. |
-| street_name | `string` | The name of the street where the employee's house is located. |
-| address | `string` | The employee's residential address. |
-| city | `string` | The city where the employee's house is located. |
-| state | `string` | The state where the employee's house is located. |
-| zip_code | `string` | The ZIP code of the postal district where the employee's house is located. |
-| phone | `string` | The employee's phone number. |
+| first_name | `string` | The candidate's first name. |
+| middle_name | `string` | The candidate's middle name. |
+| last_name | `string` | The candidate's last name. |
+| dob | `string` | The candidate's date of birth in the format DD-MM-YYYY. |
+| ssn | `string` | The candidate's SSN. |
+| email | `string` | The candidate's email address - must be the same address to which the verification request was sent. |
+| house_number | `integer` | The candidate's house number. |
+| street_name | `string` | The name of the street where the candidate's house is located. |
+| address | `string` | The candidate's residential address. |
+| city | `string` | The city where the candidate's house is located. |
+| state | `string` | The state where the candidate's house is located. |
+| zip_code | `string` | The ZIP code of the postal district where the candidate's house is located. |
+| phone | `string` | The candidate's phone number. |
 
 ## Update Personal Details
 
@@ -5458,25 +5458,25 @@ end
 }
 ```
 
-An employee who has created a profile can use this API to update their personal details. The updates can be made until the verification process is complete.
+A candidate who has created a profile can use this API to update their personal details. The updates can be made until the verification process is complete.
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| first_name | `string` | The employee's first name. |
-| middle_name | `string` | The employee's middle name. |
-| last_name | `string` | The employee's last name. |
-| dob | `string` | The employee's date of birth in the format DD-MM-YYYY. |
-| ssn | `string` | The employee's SSN. |
-| email | `string` | The employee's email address - must be the same address to which the verification request was sent. |
-| house_number | `integer` | The employee's house number. |
-| street_name | `string` | The name of the street where the employee's house is located. |
-| address | `string` | The employee's residential address. |
-| city | `string` | The city where the employee's house is located. |
-| state | `string` | The state where the employee's house is located. |
-| zip_code | `string` | The ZIP code of the postal district where the employee's house is located. |
-| phone | `string` | The employee's phone number. |
+| first_name | `string` | The candidate's first name. |
+| middle_name | `string` | The candidate's middle name. |
+| last_name | `string` | The candidate's last name. |
+| dob | `string` | The candidate's date of birth in the format DD-MM-YYYY. |
+| ssn | `string` | The candidate's SSN. |
+| email | `string` | The candidate's email address - must be the same address to which the verification request was sent. |
+| house_number | `integer` | The candidate's house number. |
+| street_name | `string` | The name of the street where the candidate's house is located. |
+| address | `string` | The candidate's residential address. |
+| city | `string` | The city where the candidate's house is located. |
+| state | `string` | The state where the candidate's house is located. |
+| zip_code | `string` | The ZIP code of the postal district where the candidate's house is located. |
+| phone | `string` | The candidate's phone number. |
 
 ## Provide Consent
 
@@ -5617,16 +5617,16 @@ puts response.read_body
 }
 ```
 
-After creating their profile, an employee needs to explicitly provide consent to allow background verification using this API. The name provided here should match the full name provided in the Submit Personal Details API.
+After creating their profile, a candidate needs to explicitly provide consent to allow background verification using this API. The name provided here should match the full name provided in the Submit Personal Details API.
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| summary_of_rights | `boolean` | Indicates that the employee has read the summary of rights. This flag can be "true" or "false". |
-| background_check | `boolean` | Indicates that the employee has agreed for a background check. This flag can be "true" or "false". |
-| report_checked | `boolean` | Indicates that the employee's report has been checked. This flag can be "true" or "false". |
-| full_name | `string` | The employee's full name. |
+| summary_of_rights | `boolean` | Indicates that the candidate has read the summary of rights. This flag can be "true" or "false". |
+| background_check | `boolean` | Indicates that the candidate has agreed for a background check. This flag can be "true" or "false". |
+| report_checked | `boolean` | Indicates that the candidate's report has been checked. This flag can be "true" or "false". |
+| full_name | `string` | The candidate's full name. |
 
 ## Knowledge Based Quiz
 
@@ -5794,7 +5794,7 @@ curl --location --request GET 'https://api.us.springverify.com/employee/kba/ques
 }
 ```
 
-This API is used to generate a knowledge-based quiz about the employee to verify authenticity. A series of questions relating to the employee's profile will be asked to which the employee is required to answer. Based on these answers, a score will be generated.
+This API is used to generate a knowledge-based quiz about the candidate to verify authenticity. A series of questions relating to the candidate's profile will be asked to which the candidate is required to answer. Based on these answers, a score will be generated.
 
 ## Submit KBA Quiz
 
@@ -5933,7 +5933,7 @@ end
 }
 ```
 
-This API is used to submit the employee's answers of the [Knowledge Based Quiz](https://docs.us.springverify.com/#knowledge-based-quiz).
+This API is used to submit the candidate's answers of the [Knowledge Based Quiz](https://docs.us.springverify.com/#knowledge-based-quiz).
 
 **URL Parameters**
 
@@ -6038,7 +6038,7 @@ end
 }
 ```
 
-This API records the ID of the user and verifies its authenticity.
+This API records the ID of the candidate and verifies its authenticity.
 
 **Important Notes:**
 
@@ -6155,9 +6155,9 @@ end
 }
 ```
 
-This API records the Passport details of the employee and verifies its authenticity.
+This API records the Passport details of the emcaployee and verifies its authenticity.
 
-This API is used to upload an image of the employee's passport that will be scanned and parsed. The image should have the employee's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
+This API is used to upload an image of the candidate's passport that will be scanned and parsed. The image should have the candidate's information on it on the first or the second page. It must be a single picture that captures both pages of the passport. This follows the same logic as the other uploadId endpoints -- the picture needs to be clear with minimal glare and must have sufficient lighting.
 
 There are several variables that are more likely to cause a document to fail:
 1. The quality of the captured image - blurred images or images with reflections.
@@ -6357,7 +6357,7 @@ end
 }
 ```
 
-This API will provide the number of tries that an employee has made for uploading the Driving License ID, the Passport and also the number of tries an employee has made on the KBA (Knowledge Based Quiz). The maximum allowed limit is 2 per method per candidate.
+This API will provide the number of tries that a candidate has made for uploading the Driving License ID, the Passport and also the number of tries a candidate has made on the KBA (Knowledge Based Quiz). The maximum allowed limit is 2 per method per candidate.
 
 ## Get Candidate Info
 
@@ -6846,7 +6846,7 @@ end
 }
 ```
 
-This API will be used to submit the Employment records for the Employee.
+This API will be used to submit the Employment records for the candidate.
 
 **URL Parameters**
 
@@ -6862,8 +6862,8 @@ This API will be used to submit the Employment records for the Employee.
 | job_title | `string` | Job title of the latest employment. |
 | start_date | `string` | Start Date of the employment. |
 | end_date | `string` | End Date of the employment. |
-| supervisor_name | `string` | The name of the employee's supervisor in this employment. |
-| current_employment | `string` | Is this the employee's current employment? |
+| supervisor_name | `string` | The name of the candidate's supervisor in this employment. |
+| current_employment | `string` | Is this the candidate's current employment? |
 | job_type | `string` | Is this a contract or a full-time employment? |
 | reason_for_leaving | `string` | Reason for leaving the job (optional). |
 | supervisor_contact | `string` | Contact details of the supervisor. |
@@ -7148,8 +7148,8 @@ By adding the ID received in the "Submit Employment" response in this API, it ca
 | job_title | `string` | Job title of the latest employment. |
 | start_date | `string` | Start Date of the employment. |
 | end_date | `string` | End Date of the employment. |
-| supervisor_name | `string` | The name of the employee's supervisor in this employment. |
-| current_employment | `string` | Is this the employee's current employment? |
+| supervisor_name | `string` | The name of the candidate's supervisor in this employment. |
+| current_employment | `string` | Is this the candidate's current employment? |
 | job_type | `string` | Is this a contract or a full-time employment? |
 | reason_for_leaving | `string` | Reason for leaving the job (optional). |
 | supervisor_contact | `string` | Contact details of the supervisor. |
@@ -7273,11 +7273,11 @@ puts response.read_body
 Once the employment records have been submitted and finalized, an Employment Verification request can be triggered using this API.
 
 <aside class="notice">
-After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Education Verification</b> APIs the employee flow is considered as complete and the checks will begin to run.
+After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Education Verification</b> APIs the candidate flow is considered as complete and the checks will begin to run.
 </aside>
 
 <aside class="notice">
-If the employee doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
+If the candidate doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
 </aside>
 
 **URL Parameters**
@@ -7287,7 +7287,7 @@ If the employee doesn't call the <b>Create Password</b> API after calling the ab
 | run_mock | `boolean` | (Optional) Run mock api |
 | fail_check | `boolean` | (Optional) Whether the employment check should fail or not |
 
-## Add Employee's Education
+## Add Candidate's Education
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/employee/education' \
@@ -7421,26 +7421,26 @@ end
 # response.body
 ```
 
-This API will be used to submit the education records of the employee.
+This API will be used to submit the education records of the candidate.
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| school_name | `string` | The name of the employee's school. |
-| school_type | `string` | The type of the employee's school. |
-| school_campus | `string` | The campus of the employee's school. |
-| address | `string` | The address of the employee's school. |
-| city | `string` | The city where the employee's school is located. |
-| state | `string` | The state where the employee's school is located. |
-| zip_code | `string` | The ZIP code of the postal district where the employee's school is located. |
-| country | `string` | The country where the employee's school is located. |
+| school_name | `string` | The name of the candidate's school. |
+| school_type | `string` | The type of the candidate's school. |
+| school_campus | `string` | The campus of the candidate's school. |
+| address | `string` | The address of the candidate's school. |
+| city | `string` | The city where the candidate's school is located. |
+| state | `string` | The state where the candidate's school is located. |
+| zip_code | `string` | The ZIP code of the postal district where the candidate's school is located. |
+| country | `string` | The country where the candidate's school is located. |
 | start_date | `string` | Start date of the course. |
 | end_date | `string` | End date of the course. |
 | degree | `string` | Official degree of the course. |
-| currently_attending | `string` | This flag will be set to 1 if the employee is currently attending the course, else it will be set to 0. |
-| completed_successfully | `string` | This flag will be set to 1 if the employee has successfully completed the course, else it will be set to 0. |
-| major | `string` | The field in which the employee has majored. |
+| currently_attending | `string` | This flag will be set to 1 if the candidate is currently attending the course, else it will be set to 0. |
+| completed_successfully | `string` | This flag will be set to 1 if the candidate has successfully completed the course, else it will be set to 0. |
+| major | `string` | The field in which the candidate has majored. |
 
 ## Edit Education Entry
 
@@ -7599,27 +7599,27 @@ end
 }
 ```
 
-This API will be used to edit the education records for the Employee. The id parameter passed will be the same as received at the time of Education Entry submission.
+This API will be used to edit the education records for the Candidate. The id parameter passed will be the same as received at the time of Education Entry submission.
 
 **URL Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
 | id | `uuid` | UUID of the education entry. |
-| school_name | `string` | The name of the employee's school. |
-| school_type | `string` | The type of the employee's school. |
-| school_campus | `string` | The campus of the employee's school. |
-| address | `string` | The address of the employee's school. |
-| city | `string` | The city where the employee's school is located. |
-| state | `string` | The state where the employee's school is located. |
-| zip_code | `string` | The ZIP code of the postal district where the employee's school is located. |
-| country | `string` | The country where the employee's school is located. |
+| school_name | `string` | The name of the candidate's school. |
+| school_type | `string` | The type of the candidate's school. |
+| school_campus | `string` | The campus of the candidate's school. |
+| address | `string` | The address of the candidate's school. |
+| city | `string` | The city where the candidate's school is located. |
+| state | `string` | The state where the candidate's school is located. |
+| zip_code | `string` | The ZIP code of the postal district where the candidate's school is located. |
+| country | `string` | The country where the candidate's school is located. |
 | start_date | `string` | Start date of the course. |
 | end_date | `string` | End date of the course. |
 | degree | `string` | Official degree of the course. |
-| currently_attending | `string` | This flag will be set to 1 if the employee is currently attending the course, else it will be set to 0. |
-| completed_successfully | `string` | This flag will be set to 1 if the employee has successfully completed the course, else it will be set to 0. |
-| major | `string` | The field in which the employee has majored. |
+| currently_attending | `string` | This flag will be set to 1 if the candidate is currently attending the course, else it will be set to 0. |
+| completed_successfully | `string` | This flag will be set to 1 if the candidate has successfully completed the course, else it will be set to 0. |
+| major | `string` | The field in which the candidate has majored. |
 
 ## Delete Education
 
@@ -7857,11 +7857,11 @@ puts response.read_body
 Once the education records have been submitted and finalized, an Education Verification request can be triggered using this API.
 
 <aside class="notice">
-After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Education Verification</b> APIs the employee flow is considered as complete and the checks will begin to run.
+After calling both, <b>Trigger Employment Verification</b> and <b>Trigger Education Verification</b> APIs the candidate flow is considered as complete and the checks will begin to run.
 </aside>
 
 <aside class="notice">
-If the employee doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
+If the candidate doesn't call the <b>Create Password</b> API after calling the above two APIs, he will start getting email reminders for filling up the password.
 </aside>
 
 **URL Parameters**
@@ -8324,7 +8324,7 @@ end
 }
 ```
 
-After all the previously mentioned checks have been successfully submitted and triggered, the employee can create a password for their profile using this API.
+After all the previously mentioned checks have been successfully submitted and triggered, the candidate can create a password for their profile using this API.
 
 <aside class="notice">
 The `Password` fields should be hashed using SHA256 beforehand.
@@ -8444,7 +8444,7 @@ end
 }
 ```
 
-This API is used to reset the employee profile password.
+This API is used to reset the candidate profile password.
 
 <aside class="notice">
 The `Password` fields should be hashed using SHA256 beforehand.
@@ -8456,7 +8456,7 @@ The `Password` fields should be hashed using SHA256 beforehand.
 | --- | --- | --- |
 | password | `string` | Hash of the password. (8 characters minimum). |
 
-## Complete Employee Flow
+## Complete Candidate Flow
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/employee/flow-completed' \
@@ -8899,9 +8899,9 @@ end
 }
 ```
 
-This API is used to let the system know that employee form has been submitted successfully.
+This API is used to let the system know that candidate form has been submitted successfully.
 
-## Employee Login
+## Candidate Login
 
 ```shell
 curl --location --request POST 'https://api.us.springverify.com/auth/login' \
@@ -9033,7 +9033,7 @@ end
 
 For logging in, the aim is to generate a JSON web token that is to be used in all subsequent API calls. The JWT generated will be valid for one hour.
 
-To call the subsequent APIs, the user will need to send the JWT successfully in the header of those APIs.
+To call the subsequent APIs, the candidate will need to send the JWT successfully in the header of those APIs.
 
 <aside class="notice">
 The password should be hashed using SHA256 beforehand.
@@ -9043,8 +9043,8 @@ The password should be hashed using SHA256 beforehand.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| email | `string` | The email address used by the employee to register with SpringVerify. |
-| password | `string` | The password used by the employee to register with SpringVerify. (Hashed, 8 characters minimum). |
+| email | `string` | The email address used by the candidate to register with SpringVerify. |
+| password | `string` | The password used by the candidate to register with SpringVerify. (Hashed, 8 characters minimum). |
 | role | `string` | The role of the user being logged in - in this case, `employee`. |
 
 ---
@@ -9078,8 +9078,8 @@ Date: *December 2, 2020*
 
 ### Added
 - Three new APIs: Create, Get and Delete Webhook
-- Employee will receive email reminders to start filling up the form after getting invited from company
-- Once employee signs up, he will receive email reminders to create a password for his account
+- Candidate will receive email reminders to start filling up the form after getting invited from company
+- Once candidate signs up, he will receive email reminders to create a password for his account
 
 ### Changed
 - Postman collection link was updated to include the new APIs
