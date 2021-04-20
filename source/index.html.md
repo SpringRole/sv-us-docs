@@ -38,6 +38,8 @@ Welcome to SpringVerify where we offer you services to Know Your Customer better
 
 Let’s get started by understanding how SpringVerify helps in solving multiple use cases of customers through this User Flow:
 
+![image](./images/flowchart.jpeg "Flow chart")
+
 # Getting started with the API's
 
 We provide API access to clients for ID and backgroung check verification. You are requested to integrate in our Test Mode first, and test the integration, before shifting to Live Mode.
@@ -100,6 +102,53 @@ Authenticating in SpringVerify is done on the basis of JSON Web Tokens. Once reg
 <aside class="notice">
 The user must replace `JWT_TOKEN` in the examples below with their personal token.
 </aside>
+
+---
+
+# Mock Apis
+
+Mock apis have been integrated into **Stage** and **Acceptance** environment. The details on how to get different response from mock apis are mentioned below.
+
+## Knowledge Based Quiz
+
+This api mocks mocks [Knowledge Based Quiz](https://docs.us.springverify.com/#knowledge-based-quiz) api.
+
+This api will pass/fail to get the quiz questions based on the SSN (last 4 digits) entered in [Submit Personal Details](https://docs.us.springverify.com/#submit-personal-details) api.
+
+**Mock details**
+
+| SSN (last 4 digits) | Response type | Description |
+| --- | --- | --- |
+| 1111 | `error` | KBA Quiz already verified  |
+| 2222 | `error` | Restricted due to uncertainty of true identity |
+| 3333 | `error` | Incorrect or insufficient information |
+| 4444 | `success` | Successfully gets the question for knowledge based quiz |
+| 5555 | `success` | Successfully gets the question for knowledge based quiz |
+
+## Submit KBA Quiz
+
+This api mocks mocks [Submit KBA Quiz](https://docs.us.springverify.com/#submit-kba-quiz) api.
+
+This api will pass/fail the quiz based on the SSN (last 4 digits) entered in [Submit Personal Details](https://docs.us.springverify.com/#submit-personal-details) api.
+
+**Mock details**
+
+| SSN (last 4 digits) | Response type | Description |
+| --- | --- | --- |
+| 4444 | `success` | Successfully passes the knowledge based quiz |
+| 5555 | `error` | Fails the knowledge based quiz |
+
+## Upload and Verify ID
+
+The Driving License check will pass/fail based on the image provided for the check. The images are available in the link given below.
+
+[Download Images](https://drive.google.com/drive/folders/1Yd3Jlc0LC890W4N6Um5NXbaQPd-pDIRr?usp=sharing)
+
+## Upload and Verify Passport
+
+The Passport check will pass/fail based on the image provided for the check. The images are available in the link given below.
+
+[Download Images](https://drive.google.com/drive/folders/1Yd3Jlc0LC890W4N6Um5NXbaQPd-pDIRr?usp=sharing)
 
 ---
 
@@ -9052,6 +9101,14 @@ The password should be hashed using SHA256 beforehand.
 # Changelog
 
 All notable changes to the docs will be documented here.
+
+## Version 0.0.3
+
+Date: *April 20, 2021*
+
+### Added
+- Details on how to use mock apis (Upload ID, Upload Passport, Get KBQNA quiz, Submit KBQNA quiz)
+- Flow chart for user flow
 
 ## Version 0.0.2
 
