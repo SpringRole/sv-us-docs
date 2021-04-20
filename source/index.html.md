@@ -38,7 +38,7 @@ Welcome to SpringVerify where we offer you services to Know Your Customer better
 
 Let’s get started by understanding how SpringVerify helps in solving multiple use cases of customers through this User Flow:
 
-![image](./images/flowchart.jpeg "Flow chart")
+![image](./images/flowchart.png "Flow chart")
 
 # Getting started with the API's
 
