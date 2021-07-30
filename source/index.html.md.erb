@@ -5155,7 +5155,10 @@ puts response.read_body
             {
                 "email": "johndoe@gmail.com",
                 "event_type": "overall_status_update",
-                "response": null,
+                "response": {
+                    "code":200,
+                    "description":"OK"
+                    },
                 "response_code": 200,
                 "curl": "curl \"https://webhook.site/be9bcd8c-c819-4b5a-9652-0984e6dfa282\" \\n-H \"cache-control: no-cache\" \\n-H \"content-type: application/json\" \\n-H \"secret-token: null\" \\n-H \"authorization: Bearer JWT_TOKEN\" \\n-H \"accept: application/json\" \\n--data-binary \"{\"\"data\"\":{\"\"employee_email\"\":\"\"johndoe@gmail.com\"\",\"\"overall_status\"\":\"\"PENDING\"\"},\"\"event_type\"\":\"\"overall_status_update\"\",\"\"company_id\"\":126}\" --compressed",
                 "id": "61026a761e331e43541d7925",
@@ -5168,6 +5171,17 @@ puts response.read_body
 ```
 
 A company can get the logs of a registered webhook using this API.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| status | `string` | ALL/SUCCESS/ERROR |
+| search | `string` | Search term which returns record after matching email of the candidate |
+| limit | `integer` | Page Limit |
+| offset | `integer` | Page Offset |
+
+
 
 ---
 
