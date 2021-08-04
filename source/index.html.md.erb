@@ -5038,6 +5038,151 @@ puts response.read_body
 
 A company can delete a registered webhook using this API.
 
+## Get Webhook Logs
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/company/webhook/logs' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/company/webhook/logs", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/company/webhook/logs',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/company/webhook/logs');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/company/webhook/logs"
+
+payload={}
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+```ruby
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/company/webhook/logs")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "logs": [
+            {
+                "email": "johndoe@gmail.com",
+                "event_type": "overall_status_update",
+                "response": {
+                    "code":200,
+                    "description":"OK"
+                    },
+                "response_code": 200,
+                "curl": "curl \"https://webhook.site/be9bcd8c-c819-4b5a-9652-0984e6dfa282\" \\n-H \"cache-control: no-cache\" \\n-H \"content-type: application/json\" \\n-H \"secret-token: null\" \\n-H \"authorization: Bearer JWT_TOKEN\" \\n-H \"accept: application/json\" \\n--data-binary \"{\"\"data\"\":{\"\"employee_email\"\":\"\"johndoe@gmail.com\"\",\"\"overall_status\"\":\"\"PENDING\"\"},\"\"event_type\"\":\"\"overall_status_update\"\",\"\"company_id\"\":126}\" --compressed",
+                "id": "61026a761e331e43541d7925",
+                "created_at": "2021-07-29T08:44:38.242Z"
+            }
+        ],
+        "count": 1
+    }
+}
+```
+
+A company can get the logs of a registered webhook using this API.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| status | `string` | ALL/SUCCESS/ERROR |
+| search | `string` | Search term which returns record after matching email of the candidate |
+| limit | `integer` | Page Limit |
+| offset | `integer` | Page Offset |
+
+
+
 ---
 
 # Candidate
