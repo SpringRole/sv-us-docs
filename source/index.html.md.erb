@@ -38,7 +38,7 @@ Welcome to SpringVerify where we offer you services to Know Your Customer better
 
 Let’s get started by understanding how SpringVerify helps in solving multiple use cases of customers through this User Flow:
 
-![image](./images/flowchart.png "Flow chart")
+<%= image_tag "images/flowchart.png" %>
 
 # Getting started with the API's
 
@@ -54,7 +54,7 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 | Admin | A user who is performing the verification. |
 | Candidate | A user whose details are being verified on the platform. |
 | Package | Combination of multiple verification checks provided at a specific price. |
-| Action | Updates on a candidate's verfication progress. |
+| Action | Updates on a candidate's verification progress. |
 | Adverse Action | Adversities found on a candidate's verification process. |
 | Webhook | Automated messages sent to client's url whenever any update happens on the resource. |
 | Consent | Permission given by the candidate to perform ID & background verification checks. |
@@ -63,7 +63,7 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 
 - **ID** verification
 - **Employment** verification
-- **Education** verfication
+- **Education** verification
 - **National Criminal** search
 - **Sex Offender** search
 - **SSN** trace
@@ -3122,7 +3122,7 @@ end
 | offset | `integer` | Page offset |
 | filter | `string` | ALL/COMPLETED/VERIFIED/PENDING/NULL(AWAITING INPUT)/FAILED.
 
-### Get Company Adverse Action Counts
+## Get Company Adverse Action Counts
 
 ```shell
 curl --location --request GET 'https://api.us.springverify.com/company/action/adverse/counts' \
