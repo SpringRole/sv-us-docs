@@ -2281,71 +2281,218 @@ end
 
 ```json
 {
-    "success": true,
-    "data": {
-        "employee": {
-            "id": "6d6d81f5-6f00-4a38-a7d7-249cc2127ab6",
-            "access_id": null,
-            "email": "johndoe@gmail.com",
-            "password_hash": null,
-            "first_name": null,
-            "middle_name": null,
-            "last_name": null,
-            "name_verified": null,
-            "created_at": "2020-08-24T10:57:01.000Z",
-            "updated_at": "2020-08-24T10:57:01.000Z",
-            "employer_id": "fd725660-58f7-4a97-b626-5a4588e4ca31",
-            "payment_id": "0e9a7695-91bd-4e60-aefc-ba47f80ab0f0",
-            "email_sent": true,
-            "payment": false,
-            "status": null,
-            "flow_completed": null,
-            "company_created_by": "john@wick.com",
-            "employee_limit_id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
-            "kbaqna": null,
-            "employments": [],
-            "education": [],
-            "professional_licenses": [],
-            "employee_limit": {
-                "id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
-                "employment": 2,
-                "education": 1,
-                "professional_license": 0,
-                "all_county_criminal_search": true,
-                "county_criminal_search": 0,
-                "civil_court": 1,
-                "driving_license": 0,
-                "package_id": null,
-                "created_at": "2020-08-24T10:57:01.000Z",
-                "updated_at": "2020-08-24T10:57:01.000Z",
-                "employee_invite_group_id": "4153a150-4157-48ab-b258-9a9b47a05fc2",
-                "employee_invite_group": {
-                    "id": "4153a150-4157-48ab-b258-9a9b47a05fc2",
-                    "package": "diamond",
-                    "active": true,
-                    "created_at": "2020-08-24T10:57:00.000Z",
-                    "updated_at": "2020-08-24T10:57:00.000Z",
-                    "company_created_by": "john@wick.com",
-                    "package_id": "5"
-                }
-            },
-            "employee_detail": null,
-            "employee_verification": null,
-            "s3_files": [],
-            "criminal_statuses": [],
-            "cic_criminal_records": [],
-            "sjv_criminal_reports": []
+  "success": true,
+  "data": {
+    "employee": {
+      "id": "cc712be5-d433-414e-b5aa-00d65d9f0e4a",
+      "email": "johndoe@email.com",
+      "first_name": "Employee",
+      "middle_name": "M",
+      "last_name": "One",
+      "created_at": "2021-07-03T08:44:03.000Z",
+      "employer_id": "df74c56d-8a9e-4106-9c6f-4e456822481a",
+      "status": "PENDING",
+      "flow_completed": true,
+      "company_created_by": null,
+      "added_by_fk": {
+        "email": "karthik.raj+ca@springworks.in",
+        "first_name": "Karthik",
+        "last_name": "Raj"
+      },
+      "deleted_at": null,
+      "pricing": {
+        "package": "bronze",
+        "package_price": 750,
+        "total_price": 4700,
+        "add_on_price": {
+          "employment": {
+            "count": 1,
+            "price": 750
+          },
+          "education": {
+            "count": 1,
+            "price": 750
+          },
+          "professional_license": {
+            "count": 1,
+            "price": 500
+          },
+          "all_county_criminal_search": {
+            "count": 0,
+            "price": 0
+          },
+          "county_criminal_search": {
+            "count": 0,
+            "price": 0
+          },
+          "civil_court": {
+            "count": 1,
+            "price": 1000
+          },
+          "driving_license": {
+            "count": 0,
+            "price": 0
+          },
+          "mvr": {
+            "count": 1,
+            "price": 350,
+            "state_fee": 600
+          },
+          "professional_reference": {
+            "count": null,
+            "price": 0
+          }
         },
-        "review": [],
-        "criminal_status": {
-            "national_criminal": "PENDING",
-            "sex_offender": "PENDING",
-            "global_watchlist": "PENDING",
-            "county_criminal_search": "PENDING",
-            "civil_court": "PENDING",
-            "overall_criminal_status": "PENDING"
+        "charged_price": {
+          "total": 4700,
+          "total_without_additional_charge": 4100,
+          "coupon": null,
+          "discount": 0,
+          "discount_amount": 0
         }
-    }
+      },
+      "refund_amount": 4100,
+      "bgv_link": BGV_LINK,
+      "checks": {
+        "criminal_check_last_run": "2021-07-03T09:03:21.000Z",
+        "criminal_checks": {
+          "national_criminal": {
+            "status": "PENDING"
+          },
+          "sex_offender": {
+            "status": "PENDING"
+          },
+          "global_watchlist": {
+            "status": "PENDING"
+          },
+          "country_criminal_search": {},
+          "civil_court": {
+            "status": "ACTION_PENDING",
+            "adverse_action": {
+              "cleared": null,
+              "id": "cbbcefa7-1b68-44e3-a690-d5907f5a158d"
+            },
+            "sjv_criminal_reports": []
+          }
+        },
+        "employments": [
+          {
+            "id": "ececd24c-9e5a-4cf2-b407-cd3000e0c4ac",
+            "email": "johndoe@email.com",
+            "employer_name": "Company1",
+            "employer_phone": "1-4567434567",
+            "employer_address": "Texarkana, TX, USA",
+            "employer_town": "Texarkana",
+            "state": "TX",
+            "employer_country": "United States",
+            "job_title": "QA",
+            "start_date": "01-01-2000",
+            "end_date": "01-01-2011",
+            "supervisor_name": "contact1",
+            "supervisor_contact": "contact1@company1.com",
+            "consent": false,
+            "adverse_action": {
+              "status": "PENDING",
+              "cleared": null,
+              "id": "fe52c032-8641-4fea-8ce4-0b3e8c81c583"
+            },
+            "status": "ACTION_PENDING"
+          }
+        ],
+        "professional_references": [],
+        "educations": [],
+        "professional_licenses": [],
+        "motor_vehicle_record": {
+          "status": "FINAL_CALL",
+          "id": "e2d7d3d5-c56a-46a8-a940-945fb91725ce",
+          "license_number": "123123123",
+          "state": "AZ",
+          "authenticating_response": "{\"state\":\"FL\",\"record_type\":\"THREE YEAR\",\"product\":\"DL\",\"first_name\":\"JOHN\",\"last_name\":\"DOE\",\"birth_date\":\"1960-01-30T00:00:00.000Z\",\"is_clear\":\"N\",\"valid\":\"Y\",\"returned_date\":\"31-10-2020\",\"current_license\":{\"license_number\":\"W544781114100\",\"license_number_verified\":true,\"issue_date\":\"11-12-2000\",\"issue_date_verified\":true,\"expiration_date\":\"10-12-2010\",\"expiration_date_verified\":true,\"class_description\":\"REGULAR OPERATOR\",\"class_description_verified\":true,\"class_code\":\"E\",\"class_code_verified\":true,\"has_driver_training\":null,\"status\":\"REVOKED\"},\"violations\":[{\"common\":{\"subtype\":\"VIOL\",\"state\":{\"abbrev\":\"AK\",\"full\":\"ALASKA\"},\"date\":{\"year\":2005,\"month\":9,\"day\":10},\"location\":\"FAIRBANKS\",\"iscommercial\":\"N\",\"docketnumber\":\"B1220012\"},\"descriptionlist\":{\"descriptionitem\":{\"adrlargedescription\":\"IMP/NO SAFETY BELT\",\"adrsmalldescription\":\"IMP/NO SAFETY BELT\",\"statedescription\":\"IMP/NO SAFETY BELT\",\"acd\":\"F04\",\"avd1\":\"EB02\",\"avd2\":\"EB02\"}},\"violation\":{\"convictiondate\":{\"year\":2005,\"month\":9,\"day\":26},\"courttype\":\"DISTRICT COURT\",\"fineamount\":\"$15\"}},{\"common\":{\"subtype\":\"VIOL\",\"state\":{\"abbrev\":\"AK\",\"full\":\"ALASKA\"},\"date\":{\"year\":2006,\"month\":1,\"day\":22},\"iscommercial\":\"N\",\"docketnumber\":\"A0000221\"},\"descriptionlist\":{\"descriptionitem\":{\"adrlargedescription\":\"RECKLESS DRIVING\",\"adrsmalldescription\":\"RECKLESS DRIVING\",\"statedescription\":\"RECKLESS DRIVING\",\"acd\":\"M84\",\"avd1\":\"MK05\",\"avd2\":\"MK05\"}},\"violation\":{\"convictiondate\":{\"year\":2006,\"month\":6,\"day\":2},\"courttype\":\"DISTRICT COURT\",\"fineamount\":\"$500\"}},{\"common\":{\"subtype\":\"REVOCATION\",\"state\":{\"abbrev\":\"AK\",\"full\":\"ALASKA\"},\"date\":{\"year\":2003,\"month\":12,\"day\":5},\"location\":\"NORTH POLE\"},\"descriptionlist\":{\"descriptionitem\":{\"adrlargedescription\":\"ADMIN PER SE .08\",\"adrsmalldescription\":\"ADMIN PER SE .08\",\"statedescription\":\"ADMIN PER SE .08\",\"acd\":\"A90\",\"avd1\":\"CB10\",\"avd2\":\"CB10\"}},\"action\":{\"cleardate\":{\"year\":2004,\"month\":3,\"day\":3},\"offensedate\":{\"year\":2003,\"month\":8,\"day\":23}}},{\"common\":{\"subtype\":\"REVOCATION\",\"state\":{\"abbrev\":\"AK\",\"full\":\"ALASKA\"},\"date\":{\"year\":2006,\"month\":5,\"day\":27}},\"descriptionlist\":{\"descriptionitem\":{\"adrlargedescription\":\"ADMIN PER SE .08\",\"adrsmalldescription\":\"ADMIN PER SE .08\",\"statedescription\":\"ADMIN PER SE .08\",\"acd\":\"A90\",\"avd1\":\"CB10\",\"avd2\":\"CB10\"}},\"action\":{\"cleardate\":{\"year\":2006,\"month\":8,\"day\":24},\"offensedate\":{\"year\":2006,\"month\":1,\"day\":22}}},{\"common\":{\"subtype\":\"REVOCATION\",\"state\":{\"abbrev\":\"AK\",\"full\":\"ALASKA\"},\"date\":{\"year\":2006,\"month\":5,\"day\":27},\"docketnumber\":\"A0000221\"},\"descriptionlist\":{\"descriptionitem\":{\"adrlargedescription\":\"RECKLESS DRIVING\",\"adrsmalldescription\":\"RECKLESS DRIVING\",\"statedescription\":\"RECKLESS DRIVING\",\"acd\":\"M84\",\"avd1\":\"MK05\",\"avd2\":\"MK05\"}},\"action\":{\"cleardate\":{\"year\":2006,\"month\":8,\"day\":24},\"offensedate\":{\"year\":2006,\"month\":1,\"day\":22}}},{\"common\":{\"subtype\":\"WARNING\",\"state\":{\"abbrev\":\"AK\",\"full\":\"ALASKA\"},\"date\":{\"year\":2006,\"month\":8,\"day\":5}},\"descriptionlist\":{\"descriptionitem\":{\"adrlargedescription\":\"POINT SYS WARNING\",\"adrsmalldescription\":\"POINT SYS WARNING\",\"statedescription\":\"POINT SYS WARNING\",\"acd\":\"W01\",\"avd1\":\"UH19\",\"avd2\":\"UH24\"}}}]}",
+          "mvr_manual_review": {
+            "id": "a31e272a-e69e-443a-85ee-83fb687e21c1",
+            "reason": null,
+            "manual_review": {
+              "id": "4ad6e4df-9443-47ab-bd22-a933b75931a3"
+            }
+          },
+          "adverse_action": {
+            "id": "1ef15e2c-16f3-4c93-991d-3f53952e6962",
+            "check_id": "e2d7d3d5-c56a-46a8-a940-945fb91725ce",
+            "status": "FINAL_CALL",
+            "type": "MVR",
+            "cleared": null,
+            "comments": null,
+            "created_at": "2021-07-29T05:52:13.000Z",
+            "updated_at": "2021-07-29T07:14:26.000Z",
+            "deleted_at": null
+          }
+        }
+      },
+      "employee_limit": {
+        "id": "4dd3e5b2-1df2-4004-a1a5-714bac305a3c",
+        "employment": 1,
+        "mvr": true,
+        "education": 1,
+        "professional_license": 1,
+        "all_county_criminal_search": false,
+        "county_criminal_search": 0,
+        "civil_court": 1,
+        "driving_license": 0,
+        "package_id": null,
+        "professional_reference": null,
+        "employee_invite_group": {
+          "id": "f337cac5-0b91-4463-8cfd-2a4005df11ab",
+          "package": "bronze"
+        }
+      },
+      "employee_detail": {
+        "id": "46db165e-737a-4107-80fd-3648b08e390b",
+        "address": "2233, street",
+        "city": "city",
+        "state": "IN",
+        "zipcode": "12345",
+        "country": null,
+        "birthdate": "01-01-1990",
+        "phone": "1-8765433223",
+        "ssn": "6789"
+      },
+      "employee_verification": {
+        "id": "7b22379e-7368-4676-a54e-905e864b6165",
+        "verification_type": "id",
+        "address": null,
+        "city": null,
+        "state": null,
+        "zipcode": null,
+        "country": null,
+        "birthdate": null,
+        "global_watchlist_verified": null,
+        "is_report_checked": false,
+        "summary_of_rights_accepted": true,
+        "background_check_disclosure_accepted": true,
+        "id_manual_review": null,
+        "consent_link": "CONSENT_LINK",
+        "verified_id_type": "PASSPORT",
+        "id_status": "VERIFIED"
+      },
+      "s3_files": [
+        {
+          "id": "2096d257-d6e5-41ed-a47f-6e3680c14e87",
+          "type": "ID",
+          "sub_type": "FRONT",
+          "link": "S3_LINK",
+          "deleted_at": null,
+          "file_name": "success-b5ac7a51-db2a-40f4-9f94-21bce793b4e9-passport.jpg",
+          "id_type": "PASSPORT"
+        }
+      ],
+      "archived_by": null,
+      "bgv_form_progress": {
+        "total": 6,
+        "filled": 0
+      }
+    },
+    "adverse_action_pending_count": 3
+  }
 }
 ```
 
@@ -6788,262 +6935,499 @@ end
 
 ```json
 {
-    "success": true,
-    "data": {
-        "employee": {
-            "id": "9ca37df2-1d81-40df-90aa-b88e081b8103",
-            "access_id": "ba92f24e-796e-4de4-8907-675f0ee77d58",
-            "email": "johndoe@gmail.com",
-            "password_hash": "100d5fcb45dc552d1a9011e2707b937904f79df410199fcb7a1e2b3c022d9911",
-            "first_name": "John",
-            "middle_name": "David",
-            "last_name": "Doe",
-            "name_verified": null,
-            "created_at": "2020-08-25T14:28:47.000Z",
-            "updated_at": "2020-08-26T09:56:22.000Z",
-            "employer_id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
-            "payment_id": "6c75e302-ac2a-4efa-9ba9-c5dfc97b941e",
-            "email_sent": true,
-            "payment": false,
+  "success": true,
+  "data": {
+    "employee": {
+      "id": "cc712be5-d433-414e-b5aa-00d65d9f0e4a",
+      "access_id": "b5584283-a2a3-4067-be33-62f340101b44",
+      "email": "johndoe@email.com",
+      "password_hash": "932f3c1b56257ce8539ac269d7aab42550dacf8818d075f0bdf1990562aae3ef",
+      "first_name": "Employee",
+      "middle_name": "M",
+      "last_name": "One",
+      "name_verified": null,
+      "created_at": "2021-07-03T08:44:03.000Z",
+      "updated_at": "2021-07-03T09:46:23.000Z",
+      "employer_id": "df74c56d-8a9e-4106-9c6f-4e456822481a",
+      "payment_id": "87296312-974b-4aab-ae62-83049e2719ee",
+      "email_sent": true,
+      "payment": false,
+      "status": "PENDING",
+      "flow_completed": true,
+      "company_created_by": null,
+      "company_id_fk": 126,
+      "added_by_fk": "karthik.raj+ca@springworks.in",
+      "archived_by": null,
+      "deleted_at": null,
+      "employee_limit_id": "4dd3e5b2-1df2-4004-a1a5-714bac305a3c",
+      "employments": [
+        {
+          "id": "ececd24c-9e5a-4cf2-b407-cd3000e0c4ac",
+          "email": "johndoe@email.com",
+          "access_id": null,
+          "employer_name": "Company1",
+          "employer_name_verified": 0,
+          "employer_phone": "1-4567434567",
+          "employer_phone_verified": null,
+          "employer_address": "Texarkana, TX, USA",
+          "employer_address_verified": 0,
+          "employer_town": "Texarkana",
+          "employer_town_verified": 0,
+          "state": "TX",
+          "state_verified": null,
+          "zipcode": "75001",
+          "zipcode_verified": null,
+          "employer_country": "United States",
+          "employer_country_verified": 0,
+          "job_title": "QA",
+          "job_title_verified": 0,
+          "start_date": "01-01-2000",
+          "start_date_verified": 0,
+          "end_date": "01-01-2011",
+          "end_date_verified": 0,
+          "supervisor_name": "contact1",
+          "supervisor_contact": "contact1@company1.com",
+          "current_employment": "0",
+          "current_employment_verified": 0,
+          "contract_type": null,
+          "contract_type_verified": "0",
+          "source": null,
+          "created_at": "2021-07-03T09:45:40.000Z",
+          "updated_at": "2021-07-29T07:16:28.000Z",
+          "job_type": "full time employee",
+          "reason_for_leaving": null,
+          "status": null,
+          "status_new": "MANUAL_REVIEW",
+          "super_admin_status": null,
+          "super_admin_status_new": "FAILED",
+          "consent": false,
+          "employee_id_fk": "cc712be5-d433-414e-b5aa-00d65d9f0e4a",
+          "deleted_at": null,
+          "adverse_action": {
+            "id": "fe52c032-8641-4fea-8ce4-0b3e8c81c583",
+            "check_id": "ececd24c-9e5a-4cf2-b407-cd3000e0c4ac",
             "status": "PENDING",
-            "flow_completed": true,
-            "company_created_by": "zed@max.com",
-            "employee_limit_id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
-            "employments": [
-                {
-                    "id": "d0284d0b-eae8-4f0c-a574-66d39ad9d548",
-                    "email": "johndoe@gmail.com",
-                    "access_id": null,
-                    "employer_name": "Stark Industries pvt ltd",
-                    "employer_name_verified": null,
-                    "employer_phone": "9911991199",
-                    "employer_phone_verified": null,
-                    "employer_address": "12, Manhattan Street",
-                    "employer_address_verified": null,
-                    "employer_town": "New York",
-                    "employer_town_verified": null,
-                    "state": "New York",
-                    "state_verified": null,
-                    "zipcode": "129012",
-                    "zipcode_verified": null,
-                    "employer_country": "USA",
-                    "employer_country_verified": null,
-                    "job_title": "Senior Manager",
-                    "job_title_verified": null,
-                    "start_date": "19-11-2000",
-                    "start_date_verified": null,
-                    "end_date": "19-11-2002",
-                    "end_date_verified": null,
-                    "supervisor_name": "Nick Fury",
-                    "supervisor_contact": "nickfury@starkindustries.com",
-                    "current_employment": "0",
-                    "current_employment_verified": null,
-                    "contract_type": null,
-                    "contract_type_verified": null,
-                    "source": null,
-                    "created_at": "2020-08-26T06:24:25.000Z",
-                    "updated_at": "2020-08-26T06:26:07.000Z",
-                    "job_type": "Full time",
-                    "reason_for_leaving": "xyz",
-                    "status": 0,
-                    "status_new": null,
-                    "super_admin_status": null,
-                    "super_admin_status_new": null,
-                    "consent": null,
-                    "adverse_action": null
-                }
-            ],
-            "education": [
-                {
-                    "id": "18304027-e78a-426c-aae5-db9c677c1704",
-                    "email": "johndoe@gmail.com",
-                    "access_id": null,
-                    "employee_alias_name": null,
-                    "employee_alias_name_verified": null,
-                    "school_name": "MIT",
-                    "school_name_verified": null,
-                    "school_campus": "Boston",
-                    "school_campus_verified": null,
-                    "phone": null,
-                    "phone_verified": null,
-                    "address": "New street east block",
-                    "address_verified": null,
-                    "town": null,
-                    "town_verified": null,
-                    "city": "Boston",
-                    "city_verified": null,
-                    "state": "Massachusetts",
-                    "state_verified": null,
-                    "zipcode": "129012",
-                    "zipcode_verified": null,
-                    "country": "USA",
-                    "country_verified": null,
-                    "start_date": "28-12-1991",
-                    "start_date_verified": null,
-                    "end_date": "12-28-1996",
-                    "end_date_verified": null,
-                    "degree": "Engineering",
-                    "degree_verified": null,
-                    "major": "Biotech",
-                    "major_verified": null,
-                    "school_type": "University",
-                    "source": null,
-                    "created_at": "2020-08-26T07:15:58.000Z",
-                    "updated_at": "2020-08-26T07:16:55.000Z",
-                    "currently_attending": 0,
-                    "completed_successfully": 1,
-                    "status": 0,
-                    "status_new": null,
-                    "super_admin_status": null,
-                    "super_admin_status_new": null,
-                    "adverse_action": null
-                }
-            ],
-            "kbaqna": {
-                "id": "71f4dda4-2949-4f23-97ae-26d158c082a2",
-                "access_id": "6e7d5f15-9456-430d-b9da-9df67a4d9996",
-                "email": "johndoe@gmail.com",
-                "questions_flag": 1,
-                "kba_enabled": 1,
-                "question_count": "5",
-                "correct_answers": "4",
-                "verified": false,
-                "created_at": "2020-08-25T15:06:19.000Z",
-                "updated_at": "2020-08-25T15:11:49.000Z",
-                "idm_session_id": "91b59885191b01f5",
-                "employee_email": "johndoe@gmail.com"
-            },
-            "professional_licenses": [],
-            "employee_limit": {
-                "id": "e1e2fef4-a1dd-4be2-8dd1-b0ab8ec29ff8",
-                "employment": 2,
-                "education": 1,
-                "professional_license": 0,
-                "all_county_criminal_search": true,
-                "county_criminal_search": 0,
-                "civil_court": 1,
-                "driving_license": 0,
-                "package_id": null,
-                "created_at": "2020-08-25T14:28:47.000Z",
-                "updated_at": "2020-08-25T14:28:47.000Z",
-                "employee_invite_group_id": "b630d0ec-e8d6-49a0-bbf2-8fd26a791a85"
-            },
-            "employee_detail": {
-                "id": "efa4191a-331d-48c3-8e52-8915ed8167be",
-                "access_id": null,
-                "address": "236 Avea street",
-                "address_verified": null,
-                "driving_number": null,
-                "driving_number_verified": null,
-                "city": "Gotham",
-                "city_verified": null,
-                "state": "CA",
-                "state_verified": null,
-                "zipcode": "33433",
-                "zipcode_verified": null,
-                "country": null,
-                "country_verified": null,
-                "birthdate": "12-11-1980",
-                "birthdate_verified": null,
-                "phone": "56-999222992",
-                "phone_verified": null,
-                "ssn": "6789",
-                "ssn_verified": null,
-                "created_at": "2020-08-25T14:32:46.000Z",
-                "updated_at": "2020-08-26T09:52:33.000Z",
-                "employee_email": "johndoe@gmail.com"
-            },
-            "employee_verification": {
-                "id": "c068d1da-9615-4b8e-a7a7-5daf624ed8d1",
-                "s3_gov_id": "link",
-                "s3_gov_id_back": "link",
-                "s3_gov_id_match": false,
-                "s3_web_img": null,
-                "s3_passport_verified": 1,
-                "passport_status": "VERIFIED",
-                "s3_dl_verified": 1,
-                "dl_status": "VERIFIED",
-                "verification_type": "id",
-                "address": null,
-                "address_verified": null,
-                "city": null,
-                "city_verified": null,
-                "state": null,
-                "state_verified": null,
-                "zipcode": null,
-                "zipcode_verified": null,
-                "country": null,
-                "country_verified": null,
-                "birthdate": null,
-                "birthdate_verified": null,
-                "criminal_verified": null,
-                "global_watchlist_verified": null,
-                "created_at": "2020-08-25T14:48:27.000Z",
-                "updated_at": "2020-08-26T09:52:59.000Z",
-                "is_report_checked": false,
-                "summary_of_rights_accepted": true,
-                "background_check_disclosure_accepted": true,
-                "id_manual_review": null,
-                "super_admin_status": null,
-                "super_admin_status_new": null,
-                "consent_link": "link",
-                "spring_sign_ref_id": "5f4630f817710d0014423b74",
-                "employee_email": "johndoe@gmail.com"
-            },
-            "employee_flow": {
-                "id": 289,
-                "employment_flow": "SUBMITTED",
-                "education_flow": "SUBMITTED",
-                "professional_license_flow": null,
-                "created_at": "2020-08-25T14:32:40.000Z",
-                "updated_at": "2020-08-26T07:36:45.000Z",
-                "employee_email": "johndoe@gmail.com"
-            },
-            "criminal_statuses": {
-                "national_criminal": "PENDING",
-                "sex_offender": "PENDING",
-                "global_watchlist": "PENDING",
-                "county_criminal_search": "PENDING",
-                "civil_court": "PENDING",
-                "overall_criminal_status": "PENDING"
-            },
-            "employer": {
-                "id": "1d4fb8ba-09ac-412c-aa62-58970b4d7472",
-                "active": true,
-                "email": "zed@max.com",
-                "domain": "springrole.com",
-                "role": "ADMIN",
-                "password": "$2b$10$WbyPfKtgYGSgU36arbbqnOpivH9hBFKuORLJ0iF.Dln6f289v3IvW",
-                "first_name": "Zed",
-                "last_name": "Max",
-                "phone_number": "1-2132143213",
-                "stripe_id": "cus_Bu8MQZ5BNDiij0",
-                "email_sent_time": null,
-                "created_at": "2019-07-23T11:32:51.000Z",
-                "updated_at": "2020-08-26T08:34:45.000Z",
-                "company": {
-                    "id": 1,
-                    "created_by": "zed@max.com",
-                    "name": "Google",
-                    "address": "Address",
-                    "city": "reqbodycity",
-                    "state": "reqbodystate",
-                    "zipcode": "12345",
-                    "tax_id_number": "reqbodytaxIdNumber",
-                    "credits": 496250,
-                    "domain": "springrole.com",
-                    "employment_limit": null,
-                    "education_limit": null,
-                    "license_limit": null,
-                    "civilcourt_limit": null,
-                    "dl_limit": null,
-                    "s3_logo": "link",
-                    "created_at": "2019-07-23T11:33:04.000Z",
-                    "updated_at": "2020-08-20T08:25:09.000Z"
-                }
-            }
+            "type": "EMPLOYMENT",
+            "cleared": null,
+            "comments": null,
+            "created_at": "2021-07-29T07:16:28.000Z",
+            "updated_at": "2021-07-29T07:16:28.000Z",
+            "deleted_at": null
+          }
         }
+      ],
+      "professional_references": [],
+      "education": [],
+      "kbaqna": {
+        "id": "53628a7e-c4d3-4ccc-b43d-941010e955e7",
+        "access_id": "b5584283-a2a3-4067-be33-62f340101b44",
+        "email": "johndoe@email.com",
+        "questions_flag": 1,
+        "kba_enabled": 1,
+        "question_count": "5",
+        "correct_answers": null,
+        "verified": null,
+        "created_at": "2021-07-06T13:21:26.000Z",
+        "updated_at": "2021-07-06T13:21:26.000Z",
+        "idm_session_id": "8453244f2469e58a",
+        "deleted_at": null,
+        "employee_email": "johndoe@email.com"
+      },
+      "employee_limit": {
+        "id": "4dd3e5b2-1df2-4004-a1a5-714bac305a3c",
+        "employment": 1,
+        "mvr": true,
+        "education": 1,
+        "professional_license": 1,
+        "all_county_criminal_search": false,
+        "county_criminal_search": 0,
+        "civil_court": 1,
+        "driving_license": 0,
+        "package_id": null,
+        "professional_reference": null,
+        "created_at": "2021-07-03T08:44:03.000Z",
+        "updated_at": "2021-07-03T08:44:03.000Z",
+        "employee_invite_group_id": "f337cac5-0b91-4463-8cfd-2a4005df11ab"
+      },
+      "employee_detail": {
+        "id": "46db165e-737a-4107-80fd-3648b08e390b",
+        "access_id": null,
+        "address": "2233, street",
+        "address_verified": null,
+        "driving_number": null,
+        "driving_number_verified": null,
+        "city": "city",
+        "city_verified": null,
+        "state": "IN",
+        "state_verified": null,
+        "zipcode": "12345",
+        "zipcode_verified": null,
+        "country": null,
+        "country_verified": null,
+        "birthdate": "01-01-1990",
+        "birthdate_verified": null,
+        "phone": "1-8765433223",
+        "phone_verified": null,
+        "ssn": "6789",
+        "ssn_verified": 1,
+        "employee_id_fk": null,
+        "created_at": "2021-07-03T09:00:10.000Z",
+        "updated_at": "2021-07-03T09:03:21.000Z",
+        "deleted_at": null,
+        "employee_email": "johndoe@email.com"
+      },
+      "employee_verification": {
+        "id": "7b22379e-7368-4676-a54e-905e864b6165",
+        "s3_gov_id": "https://spring-verify-us.s3.amazonaws.com/env_localhost/employee-id/karthik.raj%2Be1%40springworks.in/success-b5ac7a51-db2a-40f4-9f94-21bce793b4e9-passport.jpg",
+        "s3_gov_id_back": null,
+        "s3_gov_id_match": false,
+        "s3_web_img": null,
+        "s3_passport_verified": 0,
+        "passport_status": "VERIFIED",
+        "s3_dl_verified": null,
+        "dl_status": null,
+        "verification_type": "id",
+        "address": null,
+        "address_verified": null,
+        "city": null,
+        "city_verified": null,
+        "state": null,
+        "state_verified": null,
+        "zipcode": null,
+        "zipcode_verified": null,
+        "country": null,
+        "country_verified": null,
+        "birthdate": null,
+        "birthdate_verified": null,
+        "criminal_verified": null,
+        "global_watchlist_verified": null,
+        "created_at": "2021-07-03T09:02:41.000Z",
+        "updated_at": "2021-07-03T09:03:21.000Z",
+        "is_report_checked": false,
+        "summary_of_rights_accepted": true,
+        "background_check_disclosure_accepted": true,
+        "id_manual_review": null,
+        "super_admin_status": null,
+        "super_admin_status_new": null,
+        "consent_link": "https://pdf-reports-springrole.s3.amazonaws.com/DocumentsDev/680730131.pdf",
+        "spring_sign_ref_id": "60e027b07900a60012fb36ce",
+        "deleted_at": null,
+        "employee_email": "johndoe@email.com"
+      },
+      "employee_flow": {
+        "id": 549,
+        "employment_flow": "SUBMITTED",
+        "education_flow": null,
+        "mvr_flow": "SUBMITTED",
+        "professional_license_flow": null,
+        "professional_reference_flow": null,
+        "details_filled_on": null,
+        "id_filled_on": null,
+        "edu_filled_on": null,
+        "emp_filled_on": null,
+        "mvr_filled_on": null,
+        "pl_filled_on": null,
+        "pr_filled_on": null,
+        "created_at": "2021-07-03T09:00:10.000Z",
+        "updated_at": "2021-07-03T09:46:05.000Z",
+        "deleted_at": null,
+        "employee_email": "johndoe@email.com"
+      },
+      "criminal_statuses": {
+        "national_criminal": "PENDING",
+        "sex_offender": "PENDING",
+        "global_watchlist": "PENDING",
+        "civil_court": "FAILED",
+        "overall_criminal_status": "PENDING"
+      },
+      "motor_vehicle_record": {
+        "id": "e2d7d3d5-c56a-46a8-a940-945fb91725ce",
+        "status": "FAILED",
+        "license_number": "123123123",
+        "state": "AZ",
+        "authenticating_response": {
+          "state": "FL",
+          "record_type": "THREE YEAR",
+          "product": "DL",
+          "first_name": "JOHN",
+          "last_name": "DOE",
+          "birth_date": "1960-01-30T00:00:00.000Z",
+          "is_clear": "N",
+          "valid": "Y",
+          "returned_date": "31-10-2020",
+          "current_license": {
+            "license_number": "W544781114100",
+            "license_number_verified": true,
+            "issue_date": "11-12-2000",
+            "issue_date_verified": true,
+            "expiration_date": "10-12-2010",
+            "expiration_date_verified": true,
+            "class_description": "REGULAR OPERATOR",
+            "class_description_verified": true,
+            "class_code": "E",
+            "class_code_verified": true,
+            "has_driver_training": null,
+            "status": "REVOKED"
+          },
+          "violations": [
+            {
+              "common": {
+                "subtype": "VIOL",
+                "state": {
+                  "abbrev": "AK",
+                  "full": "ALASKA"
+                },
+                "date": {
+                  "year": 2005,
+                  "month": 9,
+                  "day": 10
+                },
+                "location": "FAIRBANKS",
+                "iscommercial": "N",
+                "docketnumber": "B1220012"
+              },
+              "descriptionlist": {
+                "descriptionitem": {
+                  "adrlargedescription": "IMP/NO SAFETY BELT",
+                  "adrsmalldescription": "IMP/NO SAFETY BELT",
+                  "statedescription": "IMP/NO SAFETY BELT",
+                  "acd": "F04",
+                  "avd1": "EB02",
+                  "avd2": "EB02"
+                }
+              },
+              "violation": {
+                "convictiondate": {
+                  "year": 2005,
+                  "month": 9,
+                  "day": 26
+                },
+                "courttype": "DISTRICT COURT",
+                "fineamount": "$15"
+              }
+            },
+            {
+              "common": {
+                "subtype": "VIOL",
+                "state": {
+                  "abbrev": "AK",
+                  "full": "ALASKA"
+                },
+                "date": {
+                  "year": 2006,
+                  "month": 1,
+                  "day": 22
+                },
+                "iscommercial": "N",
+                "docketnumber": "A0000221"
+              },
+              "descriptionlist": {
+                "descriptionitem": {
+                  "adrlargedescription": "RECKLESS DRIVING",
+                  "adrsmalldescription": "RECKLESS DRIVING",
+                  "statedescription": "RECKLESS DRIVING",
+                  "acd": "M84",
+                  "avd1": "MK05",
+                  "avd2": "MK05"
+                }
+              },
+              "violation": {
+                "convictiondate": {
+                  "year": 2006,
+                  "month": 6,
+                  "day": 2
+                },
+                "courttype": "DISTRICT COURT",
+                "fineamount": "$500"
+              }
+            },
+            {
+              "common": {
+                "subtype": "REVOCATION",
+                "state": {
+                  "abbrev": "AK",
+                  "full": "ALASKA"
+                },
+                "date": {
+                  "year": 2003,
+                  "month": 12,
+                  "day": 5
+                },
+                "location": "NORTH POLE"
+              },
+              "descriptionlist": {
+                "descriptionitem": {
+                  "adrlargedescription": "ADMIN PER SE .08",
+                  "adrsmalldescription": "ADMIN PER SE .08",
+                  "statedescription": "ADMIN PER SE .08",
+                  "acd": "A90",
+                  "avd1": "CB10",
+                  "avd2": "CB10"
+                }
+              },
+              "action": {
+                "cleardate": {
+                  "year": 2004,
+                  "month": 3,
+                  "day": 3
+                },
+                "offensedate": {
+                  "year": 2003,
+                  "month": 8,
+                  "day": 23
+                }
+              }
+            },
+            {
+              "common": {
+                "subtype": "REVOCATION",
+                "state": {
+                  "abbrev": "AK",
+                  "full": "ALASKA"
+                },
+                "date": {
+                  "year": 2006,
+                  "month": 5,
+                  "day": 27
+                }
+              },
+              "descriptionlist": {
+                "descriptionitem": {
+                  "adrlargedescription": "ADMIN PER SE .08",
+                  "adrsmalldescription": "ADMIN PER SE .08",
+                  "statedescription": "ADMIN PER SE .08",
+                  "acd": "A90",
+                  "avd1": "CB10",
+                  "avd2": "CB10"
+                }
+              },
+              "action": {
+                "cleardate": {
+                  "year": 2006,
+                  "month": 8,
+                  "day": 24
+                },
+                "offensedate": {
+                  "year": 2006,
+                  "month": 1,
+                  "day": 22
+                }
+              }
+            },
+            {
+              "common": {
+                "subtype": "REVOCATION",
+                "state": {
+                  "abbrev": "AK",
+                  "full": "ALASKA"
+                },
+                "date": {
+                  "year": 2006,
+                  "month": 5,
+                  "day": 27
+                },
+                "docketnumber": "A0000221"
+              },
+              "descriptionlist": {
+                "descriptionitem": {
+                  "adrlargedescription": "RECKLESS DRIVING",
+                  "adrsmalldescription": "RECKLESS DRIVING",
+                  "statedescription": "RECKLESS DRIVING",
+                  "acd": "M84",
+                  "avd1": "MK05",
+                  "avd2": "MK05"
+                }
+              },
+              "action": {
+                "cleardate": {
+                  "year": 2006,
+                  "month": 8,
+                  "day": 24
+                },
+                "offensedate": {
+                  "year": 2006,
+                  "month": 1,
+                  "day": 22
+                }
+              }
+            },
+            {
+              "common": {
+                "subtype": "WARNING",
+                "state": {
+                  "abbrev": "AK",
+                  "full": "ALASKA"
+                },
+                "date": {
+                  "year": 2006,
+                  "month": 8,
+                  "day": 5
+                }
+              },
+              "descriptionlist": {
+                "descriptionitem": {
+                  "adrlargedescription": "POINT SYS WARNING",
+                  "adrsmalldescription": "POINT SYS WARNING",
+                  "statedescription": "POINT SYS WARNING",
+                  "acd": "W01",
+                  "avd1": "UH19",
+                  "avd2": "UH24"
+                }
+              }
+            }
+          ]
+        },
+        "adverse_action": {
+          "id": "1ef15e2c-16f3-4c93-991d-3f53952e6962",
+          "status": "FINAL_CALL",
+          "type": "MVR",
+          "cleared": null
+        }
+      },
+      "professional_licenses": [],
+      "employer": {
+        "id": "df74c56d-8a9e-4106-9c6f-4e456822481a",
+        "active": true,
+        "email": "karthik.raj+ca@springworks.in",
+        "domain": "springworks.in",
+        "role": "ADMIN",
+        "password": "$2b$10$bOatzkQowjKeWs.rS1WkTObO2DkHlvwfEKHEAgk.IgYgUKpkpEMyW",
+        "first_name": "Karthik",
+        "last_name": "Raj",
+        "phone_number": "1-3456789444",
+        "stripe_id": null,
+        "email_sent_time": null,
+        "company_id_fk": 126,
+        "join_date": null,
+        "is_demo_done": true,
+        "created_at": "2021-07-03T08:36:58.000Z",
+        "updated_at": "2021-07-03T08:40:14.000Z",
+        "deleted_at": null,
+        "company": {
+          "id": 126,
+          "created_by": "karthik.raj+ca@springworks.in",
+          "name": "Springworkstest",
+          "address": "1447, 2nd Streetsecond line",
+          "city": "Santa Monica",
+          "state": "IA",
+          "country": "US",
+          "zipcode": "90401",
+          "tax_id_number": null,
+          "credits": 1500,
+          "domain": "springworks.in",
+          "employment_limit": null,
+          "education_limit": null,
+          "license_limit": null,
+          "civilcourt_limit": null,
+          "dl_limit": null,
+          "s3_logo": null,
+          "stripe_cust_id": "cus_Jmdki8RL6djOxX",
+          "created_at": "2021-07-03T08:37:35.000Z",
+          "updated_at": "2021-08-05T04:00:07.000Z"
+        }
+      }
     }
+  }
 }
 ```
 
