@@ -5181,7 +5181,157 @@ A company can get the logs of a registered webhook using this API.
 | limit | `integer` | Page Limit |
 | offset | `integer` | Page Offset |
 
+## Get BGV Progress
 
+```shell
+curl --location --request GET 'https://api.us.springverify.com/company/employee/bgv-progress?id=cc712be5-d433-414e-b5aa-00d65d9f0e4a' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/company/employee/bgv-progress?id=cc712be5-d433-414e-b5aa-00d65d9f0e4a", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/company/employee/bgv-progress?id=cc712be5-d433-414e-b5aa-00d65d9f0e4a',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/company/employee/bgv-progress?id=cc712be5-d433-414e-b5aa-00d65d9f0e4a');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/company/employee/bgv-progress?id=cc712be5-d433-414e-b5aa-00d65d9f0e4a"
+
+payload={}
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/company/employee/bgv-progress?id=cc712be5-d433-414e-b5aa-00d65d9f0e4a")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "personal_details": {
+            "name": "personal_details",
+            "skip": false,
+            "date": null
+        },
+        "id_verification": {
+            "name": "id_verification",
+            "skip": false,
+            "date": null
+        },
+        "employment": {
+            "name": "employment",
+            "skip": false,
+            "date": null
+        },
+        "education": {
+            "name": "education",
+            "skip": true,
+            "date": null
+        },
+        "professional_license": {
+            "name": "professional_license",
+            "skip": true,
+            "date": null
+        },
+        "mvr": {
+            "name": "mvr",
+            "skip": false,
+            "date": null
+        }
+    }
+}
+```
+
+Using this API, a company can know how much the candidate has completed and how much is left to complete in BGV form.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `string` | Employee ID |
 
 ---
 
@@ -9241,6 +9391,444 @@ The password should be hashed using SHA256 beforehand.
 | password | `string` | The password used by the candidate to register with SpringVerify. (Hashed, 8 characters minimum). |
 | role | `string` | The role of the user being logged in - in this case, `employee`. |
 
+## Add Professional Reference
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/employee/professional-reference' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--data-raw '{
+    "employment_ref_id": "5e312a56-aa69-4e3d-8ecb-d869f0a2d57f",
+    "name": "John doe",
+    "relationship": "manager",
+    "phone": "1-3244233434",
+    "email": "johndoe@email.com"
+}'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var raw = JSON.stringify({
+  "employment_ref_id": "5e312a56-aa69-4e3d-8ecb-d869f0a2d57f",
+  "name": "John doe",
+  "relationship": "manager",
+  "phone": "1-3244233434",
+  "email": "johndoe@email.com"
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/professional-reference", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/employee/professional-reference',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  },
+  body: JSON.stringify({
+    "employment_ref_id": "5e312a56-aa69-4e3d-8ecb-d869f0a2d57f",
+    "name": "John doe",
+    "relationship": "manager",
+    "phone": "1-3244233434",
+    "email": "johndoe@email.com"
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/professional-reference');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+$request->setBody('{\n    "employment_ref_id": "5e312a56-aa69-4e3d-8ecb-d869f0a2d57f",\n    "name": "John doe",\n    "relationship": "manager",\n    "phone": "1-3244233434",\n    "email": "johndoe@email.com"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/employee/professional-reference"
+
+payload = json.dumps({
+  "employment_ref_id": "5e312a56-aa69-4e3d-8ecb-d869f0a2d57f",
+  "name": "John doe",
+  "relationship": "manager",
+  "phone": "1-3244233434",
+  "email": "johndoe@email.com"
+})
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+```ruby
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/employee/professional-reference")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+request.body = JSON.dump({
+  "employment_ref_id": "5e312a56-aa69-4e3d-8ecb-d869f0a2d57f",
+  "name": "John doe",
+  "relationship": "manager",
+  "phone": "1-3244233434",
+  "email": "johndoe@email.com"
+})
+
+response = http.request(request)
+puts response.read_body
+```
+> Success Response
+
+```json
+{
+    "success":true,
+    "data":{
+        "id":"aefeb790-2b72-47e9-a86b-d9b5191b9a8b",
+        "employee_id_fk":"cae5ad0d-65ec-40ee-83c8-9f30f4d79867",
+        "employment_id_fk":"912fc305-0636-42b4-b12c-b859a192e099",
+        "status":"PENDING",
+        "email":"johndoe@email.com",
+        "name":"John Doe","phone":"1-2288337743",
+        "relation":"Manager",
+        "updated_at":"2021-08-05T04:05:04.611Z",
+        "created_at":"2021-08-05T04:05:04.611Z"
+    }
+}
+```
+| Parameter | Type | Description |
+| --- | --- | --- |
+| employement-ref-id | `string` | The email address used by the candidate to register with SpringVerify. |
+| name | `string` | Name of the reference. |
+| relationship | `string` | Relationship of the candidate to the reference. |
+| phone | `string` | Contact number of the reference. |
+| email | `string` | Email ID of the reference. |
+
+## Update Professional Reference
+
+```shell
+curl --location --request PATCH 'https://api.us.springverify.com/employee/professional-reference?id=aefeb790-2b72-47e9-a86b-d9b5191b9a8b' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--data-raw '{
+    "name": "John doe",
+    "relationship": "manager",
+    "phone": "1-3244233434",
+    "email": "johndoe@email.com"
+}'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var raw = JSON.stringify({
+  "name": "John doe",
+  "relationship": "manager",
+  "phone": "1-3244233434",
+  "email": "johndoe@email.com"
+});
+
+var requestOptions = {
+  method: 'PATCH',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/professional-reference?id=aefeb790-2b72-47e9-a86b-d9b5191b9a8b", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'PATCH',
+  'url': 'https://api.us.springverify.com/employee/professional-reference?id=aefeb790-2b72-47e9-a86b-d9b5191b9a8b',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  },
+  body: JSON.stringify({
+    "name": "John doe",
+    "relationship": "manager",
+    "phone": "1-3244233434",
+    "email": "johndoe@email.com"
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/professional-reference?id=aefeb790-2b72-47e9-a86b-d9b5191b9a8b');
+$request->setMethod('PATCH');
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+$request->setBody('{\n    "name": "John doe",\n    "relationship": "manager",\n    "phone": "1-3244233434",\n    "email": "johndoe@email.com"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/employee/professional-reference?id=aefeb790-2b72-47e9-a86b-d9b5191b9a8b"
+
+payload = json.dumps({
+  "name": "John doe",
+  "relationship": "manager",
+  "phone": "1-3244233434",
+  "email": "johndoe@email.com"
+})
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("PATCH", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/employee/professional-reference?id=aefeb790-2b72-47e9-a86b-d9b5191b9a8b")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Patch.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+request.body = JSON.dump({
+  "name": "John doe",
+  "relationship": "manager",
+  "phone": "1-3244233434",
+  "email": "johndoe@email.com"
+})
+
+response = http.request(request)
+puts response.read_body
+
+```
+> Success Response
+
+```json
+{
+    "success":true,
+    "data":[1]
+}
+```
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `string` | Reference Id |
+| name | `string` | Name of the reference. |
+| relationship | `string` | Relationship of the candidate to the reference. |
+| phone | `string` | Contact number of the reference. |
+| email | `string` | Email ID of the reference. |
+
+## Delete Professional Reference
+
+```shell
+curl --location --request DELETE 'https://api.us.springverify.com/employee/professional-reference/aefeb790-2b72-47e9-a86b-d9b5191b9a8b' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/professional-reference/aefeb790-2b72-47e9-a86b-d9b5191b9a8b", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'DELETE',
+  'url': 'https://api.us.springverify.com/employee/professional-reference/aefeb790-2b72-47e9-a86b-d9b5191b9a8b',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/professional-reference/aefeb790-2b72-47e9-a86b-d9b5191b9a8b');
+$request->setMethod(HTTP_Request2::METHOD_DELETE);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/employee/professional-reference/aefeb790-2b72-47e9-a86b-d9b5191b9a8b"
+
+payload={}
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/employee/professional-reference/aefeb790-2b72-47e9-a86b-d9b5191b9a8b")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Delete.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+```
+> Success Response
+
+```json
+{
+    "success":true,
+    "data":[1]
+}
+```
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `string` | Reference Id |
 ---
 
 # Changelog
