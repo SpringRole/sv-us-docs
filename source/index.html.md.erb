@@ -74,11 +74,7 @@ The language bindings are in cURL, node.js, and PHP. The API documentation is se
 - **Motor Vehicle Record** check
 
 ## Environment URLs
-
-**Stage**:  
-https://stage.us.springverify.com  
-https://api-stage.us.springverify.com  
-
+ 
 **Acceptance**:  
 https://acceptance.us.springverify.com  
 https://api-acceptance.us.springverify.com
@@ -1191,41 +1187,43 @@ For a registered admin with a valid JWT, this API can be used to get the details
 ## Get company profile
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/profile' \
+curl --location --request GET 'https://api.us.springverify.com/v2-api/company/profile' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Authorization", 'Bearer JWT_TOKEN');
 
-fetch('https://api.us.springverify.com/profile', {
-    headers: {
-        'Authorization': 'Bearer JWT_TOKEN'
-    }
-});
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/profile", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
-    'Authorization': 'Bearer JWT_TOKEN'
-};
-
 var options = {
-    url: 'https://api.us.springverify.com/profile',
-    headers: headers
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/v2-api/company/profile',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
 };
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
+var request = require('request');
 ```
 
 ```php
@@ -1235,7 +1233,7 @@ Requests::register_autoloader();
 $headers = array(
     'Authorization' => 'Bearer JWT_TOKEN'
 );
-$response = Requests::get('https://api.us.springverify.com/profile', $headers);
+$response = Requests::get('https://api.us.springverify.com/v2-api/company/profile', $headers);
 ```
 
 ```python
@@ -1245,14 +1243,14 @@ headers = {
     'Authorization': 'Bearer JWT_TOKEN',
 }
 
-response = requests.get('https://api.us.springverify.com/profile', headers=headers)
+response = requests.get('https://api.us.springverify.com/v2-api/company/profile', headers=headers)
 ```
 
 ```ruby
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("https://api.us.springverify.com/profile")
+uri = URI.parse("https://api.us.springverify.com/v2-api/company/profile")
 request = Net::HTTP::Get.new(uri)
 request["Authorization"] = "Bearer JWT_TOKEN"
 
@@ -1274,123 +1272,137 @@ end
 {
     "success": true,
     "data": {
-        "first_name": "John",
-        "last_name": "Wick",
-        "phone": "999999999",
-        "email": "john@wick.com",
-        "domain": "wick.com",
-        "stripe_id": null,
+        "admin": {
+            "first_name": "Nitya",
+            "last_name": "Arora",
+            "email": "pooja@recrosoft.com",
+            "phone": "1-9767898764",
+            "role": "ADMIN",
+            "is_demo_done": true
+        },
         "company": {
-            "name": "SmartBrains",
+            "name": "Recrosoft",
             "address": "901, Downtown Manhattan",
             "city": "NY",
             "state": "NY",
             "zipcode": "91319",
-            "tax_id_number": "1234567890",
-            "s3_logo": "https://spring-verify-us.s3.amazonaws.com/company/wick.com/logo"
+            "tax_id_number": "12345678",
+            "logo": "https://spring-verify-us.s3.amazonaws.com/company/recrosoft.com/logo",
+            "stripe_id": "cus_JywzdHRSP1NFPV",
+            "domain": "recrosoft.com"
         },
-        "count": [
-            {
-                "count": 0,
-                "type": null
-            },
-            {
-                "count": 0,
-                "type": "FAILED"
-            },
-            {
-                "count": 0,
-                "type": "PENDING"
-            },
-            {
-                "count": 0,
-                "type": "VERIFIED"
-            }
-        ]
+        "count": {
+            "awaiting": 195,
+            "verified": 38,
+            "pending": 151,
+            "failed": 13
+        }
     }
 }
 ```
 
 For a registered admin with a valid JWT, this API can be used to get the company's profile. This is different from the company details. A company's profile contains details of the company given during registration as well as the count of the candidates whose profiles were verified, failed, or is pending.
 
+<aside class="notice">
+This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
+
 ## Get available packages
 
 ```shell
-curl --location --request GET 'http://api-stage.us.springverify.com/company/package' \
+curl --location --request GET 'http://api-stage.us.springverify.com/v2-api/company/packages' \
         --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Authorization", 'Bearer JWT_TOKEN');
 
-fetch('http://api-stage.us.springverify.com/company/package', {
-    headers: {
-        'Authorization': 'Bearer JWT_TOKEN'
-    }
-});
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/packages", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
-    'Authorization': 'Bearer JWT_TOKEN'
-};
-
 var options = {
-    url: 'http://api-stage.us.springverify.com/company/package',
-    headers: headers
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/v2-api/company/packages',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
 };
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 ```
 
 ```php
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Authorization' => 'Bearer JWT_TOKEN'
-);
-$response = Requests::get('http://api-stage.us.springverify.com/company/package', $headers);
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/packages');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```python
+
 import requests
 
+url = "https://api.us.springverify.com/v2-api/company/packages"
+
+payload={}
 headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
+  'Authorization': 'Bearer JWT_TOKEN'
 }
 
-response = requests.get('http://api-stage.us.springverify.com/company/package', headers=headers)
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
 
-uri = URI.parse("http://api-stage.us.springverify.com/company/package")
-request = Net::HTTP::Get.new(uri)
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/v2-api/company/packages")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
 request["Authorization"] = "Bearer JWT_TOKEN"
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
-
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
+response = http.request(request)
+puts response.read_body
 ```
 
 > Success Response:
@@ -1403,7 +1415,7 @@ end
             {
                 "id": "1",
                 "name": "bronze",
-                "employment": null,
+                "employment": "0",
                 "education": "0",
                 "professional_license": "0",
                 "civil_court": "0",
@@ -1414,14 +1426,13 @@ end
                 "sex_offender_search": "1",
                 "ssn_trace": "1",
                 "global_watchlist": "1",
-                "price": "750",
-                "created_at": "2019-07-03T11:07:27.000Z",
-                "updated_at": "2019-11-11T11:53:38.000Z"
+                "professional_reference": "0",
+                "price": "500"
             },
             {
                 "id": "2",
                 "name": "silver",
-                "employment": null,
+                "employment": "1",
                 "education": "0",
                 "professional_license": "0",
                 "civil_court": "0",
@@ -1432,14 +1443,13 @@ end
                 "sex_offender_search": "1",
                 "ssn_trace": "1",
                 "global_watchlist": "1",
-                "price": "1500",
-                "created_at": "2019-07-03T11:07:27.000Z",
-                "updated_at": "2019-11-11T11:53:38.000Z"
+                "professional_reference": "0",
+                "price": "1000"
             },
             {
                 "id": "3",
                 "name": "gold",
-                "employment": null,
+                "employment": "2",
                 "education": "0",
                 "professional_license": "0",
                 "civil_court": "0",
@@ -1450,14 +1460,13 @@ end
                 "sex_offender_search": "1",
                 "ssn_trace": "1",
                 "global_watchlist": "1",
-                "price": "2000",
-                "created_at": "2019-07-03T11:07:27.000Z",
-                "updated_at": "2019-11-11T11:53:39.000Z"
+                "professional_reference": "0",
+                "price": "2000"
             },
             {
                 "id": "4",
                 "name": "platinum",
-                "employment": null,
+                "employment": "2",
                 "education": "1",
                 "professional_license": "0",
                 "civil_court": "0",
@@ -1468,14 +1477,13 @@ end
                 "sex_offender_search": "1",
                 "ssn_trace": "1",
                 "global_watchlist": "1",
-                "price": "3000",
-                "created_at": "2019-07-03T11:07:27.000Z",
-                "updated_at": "2019-11-11T11:53:39.000Z"
+                "professional_reference": "0",
+                "price": "3000"
             },
             {
                 "id": "5",
                 "name": "diamond",
-                "employment": null,
+                "employment": "2",
                 "education": "1",
                 "professional_license": "0",
                 "civil_court": "1",
@@ -1486,9 +1494,8 @@ end
                 "sex_offender_search": "1",
                 "ssn_trace": "1",
                 "global_watchlist": "1",
-                "price": "4000",
-                "created_at": "2019-07-03T11:07:27.000Z",
-                "updated_at": "2019-11-11T11:53:39.000Z"
+                "professional_reference": "0",
+                "price": "4000"
             }
         ],
         "prices": {
@@ -1499,13 +1506,16 @@ end
             "enhanced_driving_license": 200,
             "kba": 400,
             "employment": 750,
+            "mvr": 350,
             "education": 750,
             "professional_license": 500,
             "civil_court": 1000,
             "one_county_criminal_search": 1000,
-            "all_county_criminal_search": 1000,
+            "all_county_criminal_search": 2000,
             "county_criminal_search": 1000,
             "package": "",
+            "professional_reference": 500,
+            "rerun_criminal": 100,
             "created_at": "2019-07-03T11:07:27.000Z",
             "updated_at": "2019-09-18T13:27:52.000Z"
         }
@@ -1515,12 +1525,16 @@ end
 
 This API is used to get the available pricing plans and packages.
 
+<aside class="notice">
+This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
+
 ## Invite candidates
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
---header 'Content-Type: application/json' \
+curl --location --request POST 'https://api.us.springverify.com/v2-api/company/employee/invite' \
 --header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
 --data-raw '{
     "email_list": [
         "venunath2@gmail.com"
@@ -1553,10 +1567,35 @@ curl --location --request POST 'https://api.us.springverify.com/employee/invite'
 // FETCH
 
 var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+myHeaders.append("Content-Type", "application/json");
 
-var raw = JSON.stringify({"email_list":["venunath2@gmail.com"],"employee_details":[{"email":"venunath2@gmail.com","first_name":"abcd","last_name":"xyc","middle_name":"zxcz","phone":"21321313","birthdate":"12-12-2012"}],"package":"bronze","addOns":{"employment":0,"education":0,"license":0,"driving_license":0,"civil_court":0,"all_county_criminal_search":false,"county_criminal_search":0,"MVR":false}});
+var raw = JSON.stringify({
+  "email_list": [
+    "venunath2@gmail.com"
+  ],
+  "employee_details": [
+    {
+      "email": "venunath2@gmail.com",
+      "first_name": "abcd",
+      "last_name": "xyc",
+      "middle_name": "zxcz",
+      "phone": "21321313",
+      "birthdate": "12-12-2012"
+    }
+  ],
+  "package": "bronze",
+  "addOns": {
+    "employment": 0,
+    "education": 0,
+    "license": 0,
+    "driving_license": 0,
+    "civil_court": 0,
+    "all_county_criminal_search": false,
+    "county_criminal_search": 0,
+    "MVR": false
+  }
+});
 
 var requestOptions = {
   method: 'POST',
@@ -1565,7 +1604,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("https://api.us.springverify.com/employee/invite", requestOptions)
+fetch("https://api.us.springverify.com/v2-api/company/employee/invite", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
@@ -1575,35 +1614,85 @@ fetch("https://api.us.springverify.com/employee/invite", requestOptions)
 var request = require('request');
 var options = {
   'method': 'POST',
-  'url': 'https://api.us.springverify.com/employee/invite',
+  'url': 'https://api.us.springverify.com/v2-api/company/employee/invite',
   'headers': {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer JWT_TOKEN'
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
   },
-  body: JSON.stringify({"email_list":["venunath2@gmail.com"],"employee_details":[{"email":"venunath2@gmail.com","first_name":"abcd","last_name":"xyc","middle_name":"zxcz","phone":"21321313","birthdate":"12-12-2012"}],"package":"bronze","addOns":{"employment":0,"education":0,"license":0,"driving_license":0,"civil_court":0,"all_county_criminal_search":false,"county_criminal_search":0,"MVR":false}})
+  body: JSON.stringify({
+    "email_list": [
+      "venunath2@gmail.com"
+    ],
+    "employee_details": [
+      {
+        "email": "venunath2@gmail.com",
+        "first_name": "abcd",
+        "last_name": "xyc",
+        "middle_name": "zxcz",
+        "phone": "21321313",
+        "birthdate": "12-12-2012"
+      }
+    ],
+    "package": "bronze",
+    "addOns": {
+      "employment": 0,
+      "education": 0,
+      "license": 0,
+      "driving_license": 0,
+      "civil_court": 0,
+      "all_county_criminal_search": false,
+      "county_criminal_search": 0,
+      "MVR": false
+    }
+  })
 
 };
 request(options, function (error, response) {
   if (error) throw new Error(error);
   console.log(response.body);
 });
-
 ```
 
 ```php
+
 <?php
 require_once 'HTTP/Request2.php';
 $request = new HTTP_Request2();
-$request->setUrl('https://api.us.springverify.com/employee/invite');
+$request->setUrl('https://api.us.springverify.com/v2-api/company/employee/invite');
 $request->setMethod(HTTP_Request2::METHOD_POST);
 $request->setConfig(array(
   'follow_redirects' => TRUE
 ));
 $request->setHeader(array(
-  'Content-Type' => 'application/json',
-  'Authorization' => 'Bearer JWT_TOKEN'
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
 ));
-$request->setBody('{\n    "email_list": [\n        "venunath2@gmail.com"\n    ],\n    "employee_details": [\n        {\n            "email": "venunath2@gmail.com",\n            "first_name": "abcd",\n            "last_name": "xyc",\n            "middle_name": "zxcz",\n            "phone": "21321313",\n            "birthdate": "12-12-2012"\n        }\n    ],\n    "package": "bronze",\n    "addOns": {\n        "employment": 0,\n        "education": 0,\n        "license": 0,\n        "driving_license": 0,\n        "civil_court": 0,\n        "all_county_criminal_search": false,\n        "county_criminal_search": 0,\n        "MVR": false\n    }\n}');
+$request->setBody('{
+\n    "email_list": [
+\n        "venunath2@gmail.com"
+\n    ],
+\n    "employee_details": [
+\n        {
+\n            "email": "venunath2@gmail.com",
+\n            "first_name": "abcd",
+\n            "last_name": "xyc",
+\n            "middle_name": "zxcz",
+\n            "phone": "21321313",
+\n            "birthdate": "12-12-2012"
+\n        }
+\n    ],
+\n    "package": "bronze",
+\n    "addOns": {
+\n        "employment": 0,
+\n        "education": 0,
+\n        "license": 0,
+\n        "driving_license": 0,
+\n        "civil_court": 0,
+\n        "all_county_criminal_search": false,
+\n        "county_criminal_search": 0,
+\n        "MVR": false
+\n    }
+\n}');
 try {
   $response = $request->send();
   if ($response->getStatus() == 200) {
@@ -1620,39 +1709,89 @@ catch(HTTP_Request2_Exception $e) {
 ```
 
 ```python
+
 import requests
+import json
 
-url = "https://api.us.springverify.com/employee/invite"
+url = "https://api.us.springverify.com/v2-api/company/employee/invite"
 
-payload="{\n    \"email_list\": [\n        \"venunath2@gmail.com\"\n    ],\n    \"employee_details\": [\n        {\n            \"email\": \"venunath2@gmail.com\",\n            \"first_name\": \"abcd\",\n            \"last_name\": \"xyc\",\n            \"middle_name\": \"zxcz\",\n            \"phone\": \"21321313\",\n            \"birthdate\": \"12-12-2012\"\n        }\n    ],\n    \"package\": \"bronze\",\n    \"addOns\": {\n        \"employment\": 0,\n        \"education\": 0,\n        \"license\": 0,\n        \"driving_license\": 0,\n        \"civil_court\": 0,\n        \"all_county_criminal_search\": false,\n        \"county_criminal_search\": 0,\n        \"MVR\": false\n    }\n}"
+payload = json.dumps({
+  "email_list": [
+    "venunath2@gmail.com"
+  ],
+  "employee_details": [
+    {
+      "email": "venunath2@gmail.com",
+      "first_name": "abcd",
+      "last_name": "xyc",
+      "middle_name": "zxcz",
+      "phone": "21321313",
+      "birthdate": "12-12-2012"
+    }
+  ],
+  "package": "bronze",
+  "addOns": {
+    "employment": 0,
+    "education": 0,
+    "license": 0,
+    "driving_license": 0,
+    "civil_court": 0,
+    "all_county_criminal_search": False,
+    "county_criminal_search": 0,
+    "MVR": False
+  }
+})
 headers = {
-  'Content-Type': 'application/json',
-  'Authorization': 'Bearer JWT_TOKEN'
+  'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json'
 }
 
 response = requests.request("POST", url, headers=headers, data=payload)
 
 print(response.text)
-
 ```
 
 ```ruby
+
 require "uri"
+require "json"
 require "net/http"
 
-url = URI("https://api.us.springverify.com/employee/invite")
+url = URI("https://api.us.springverify.com/v2-api/company/employee/invite")
 
-https = Net::HTTP.new(url.host, url.port)
-https.use_ssl = true
-
+http = Net::HTTP.new(url.host, url.port);
 request = Net::HTTP::Post.new(url)
-request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
-request.body = "{\n    \"email_list\": [\n        \"venunath2@gmail.com\"\n    ],\n    \"employee_details\": [\n        {\n            \"email\": \"venunath2@gmail.com\",\n            \"first_name\": \"abcd\",\n            \"last_name\": \"xyc\",\n            \"middle_name\": \"zxcz\",\n            \"phone\": \"21321313\",\n            \"birthdate\": \"12-12-2012\"\n        }\n    ],\n    \"package\": \"bronze\",\n    \"addOns\": {\n        \"employment\": 0,\n        \"education\": 0,\n        \"license\": 0,\n        \"driving_license\": 0,\n        \"civil_court\": 0,\n        \"all_county_criminal_search\": false,\n        \"county_criminal_search\": 0,\n        \"MVR\": false\n    }\n}"
+request["Content-Type"] = "application/json"
+request.body = JSON.dump({
+  "email_list": [
+    "venunath2@gmail.com"
+  ],
+  "employee_details": [
+    {
+      "email": "venunath2@gmail.com",
+      "first_name": "abcd",
+      "last_name": "xyc",
+      "middle_name": "zxcz",
+      "phone": "21321313",
+      "birthdate": "12-12-2012"
+    }
+  ],
+  "package": "bronze",
+  "addOns": {
+    "employment": 0,
+    "education": 0,
+    "license": 0,
+    "driving_license": 0,
+    "civil_court": 0,
+    "all_county_criminal_search": false,
+    "county_criminal_search": 0,
+    "MVR": false
+  }
+})
 
-response = https.request(request)
+response = http.request(request)
 puts response.read_body
-
 ```
 
 >Success Response:
@@ -1661,12 +1800,12 @@ puts response.read_body
 {
     "success": true,
     "data": {
-        "price": 750,
-        "id": "0aa10b4e-e4fc-460b-95dc-6f0ca80be061",
+        "price": 500,
+        "id": "494a8419-b0f1-4985-8bc5-1cc495c36a57",
         "count": 1,
         "employees": [
             {
-                "id": "48d18330-408e-40ff-b898-dac10cb32ce4",
+                "id": "144b531c-d1d3-40f6-ac1a-07c36352068b",
                 "email": "venunath2@gmail.com"
             }
         ]
@@ -1682,6 +1821,10 @@ This API is to be used only after using the [Get available packages](https://doc
 
 <aside class="notice">
 Candidate will be getting email reminders for filling up the form.
+</aside>
+
+<aside class="notice">
+NOTE: This is a new api (V2), for old api please visit "Old Apis" section below
 </aside>
 
 **URL Parameters**
@@ -1842,99 +1985,107 @@ This API is used to register the credit card with Stripe for payments. If this A
 ## Save payment info
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/payment/save-card' \
+curl --location --request POST 'https://api.us.springverify.com/v2-api/company/payment/save-card' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer JWT_TOKEN' \
 --data-raw '{
-	"source":"tok_1EkXOa4wweuFtc0nQd0eOOhs"
+    "source": "tok_1JVaS4Fq1aDrrzKzGgJoW577"
 }'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-fetch('https://api.us.springverify.com/payment/save-card', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer JWT_TOKEN'
-    },
-    body: JSON.stringify({ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" })
+myHeaders.append("Authorization", "Bearer");
+var raw = JSON.stringify({
+  "source": "tok_1JVaS4Fq1aDrrzKzGgJoW577"
 });
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/payment/save-card", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
+var options = {
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/v2-api/company/payment/save-card',
 var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
 };
 
-var dataString = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }';
+body: JSON.stringify({
+    "source": "tok_1JVaS4Fq1aDrrzKzGgJoW577"
+  })
 
-var options = {
-    url: 'https://api.us.springverify.com/payment/save-card',
-    method: 'POST',
-    headers: headers,
-    body: dataString
 };
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 ```
 
 ```php
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/payment/save-card');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+
+$request->setHeader(array(
     'Content-Type' => 'application/json',
     'Authorization' => 'Bearer JWT_TOKEN'
-);
-$data = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }';
-$response = Requests::post('https://api.us.springverify.com/payment/save-card', $headers, $data);
-```
-
-```python
-import requests
-
-headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer JWT_TOKEN',
+));
+$request->setBody('{\n    "source": "tok_1JVaS4Fq1aDrrzKzGgJoW577"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
 }
-
-data = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }'
-
-response = requests.post('https://api.us.springverify.com/payment/save-card', headers=headers, data=data)
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "json"
+require "net/http"
 
-uri = URI.parse("https://api.us.springverify.com/payment/save-card")
-request = Net::HTTP::Post.new(uri)
-request.content_type = "application/json"
+url = URI("https://api.us.springverify.com/v2-api/company/payment/save-card")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+request.body = JSON.dump({
+  "source": "tok_1JVaS4Fq1aDrrzKzGgJoW577"
+})
 
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
+response = http.request(request)
+puts response.read_body
 ```
 
 > Success Response
@@ -1942,233 +2093,153 @@ end
 ```json
 {
     "success": true,
-    "data": "card saved for the specified user"
+    "data": {
+        "id": "091cfd15-bf84-4d6d-b842-5e0f37e0c20b",
+        "company_id_fk": 53,
+        "stripe_card_id": "card_1JVaS4Fq1aDrrzKzPT0xUbQO",
+        "default": true,
+        "updated_at": "2021-09-03T11:21:25.446Z",
+        "created_at": "2021-09-03T11:21:25.446Z"
+    }
 }
 ```
 
 To save the token received from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments), use this API.
 
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+|source | `token` | Token is genrated when you save payment details to stripe. |
+
+<aside class="notice">
+NOTE: This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
+
 ## Payment For Invites
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/payment/charge-user' \
---header 'Content-Type: application/json' \
+curl --location --request POST 'https://api.us.springverify.com/v2-api/company/payment/charge-user' \
 --header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
 --data-raw '{
-    "id": "2612d112-5827-4b1c-a177-03a85eabd03d",
-    "send_email": true,
-    "coupon_code": ""
+    "id": "009656e5-a327-4513-9a0c-d588a4ed2fdc",
+    "send_email": false
 }'
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
 
-fetch('https://api.us.springverify.com/payment/charge-user', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer JWT_TOKEN'
-    },
-    body: JSON.stringify({ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" })
+myHeaders.append("Authorization":'Bearer JWT_TOKEN');
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "id": "009656e5-a327-4513-9a0c-d588a4ed2fdc",
+  "send_email": false
 });
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/payment/charge-user", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer JWT_TOKEN'
-};
-
-var dataString = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }';
-
 var options = {
-    url: 'https://api.us.springverify.com/payment/charge-user',
-    method: 'POST',
-    headers: headers,
-    body: dataString
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/v2-api/company/payment/charge-user',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "id": "009656e5-a327-4513-9a0c-d588a4ed2fdc",
+    "send_email": false
+  })
+
 };
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 ```
 
 ```php
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Content-Type' => 'application/json',
-    'Authorization' => 'Bearer JWT_TOKEN'
-);
-$data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }';
-$response = Requests::post('https://api.us.springverify.com/payment/charge-user', $headers, $data);
-```
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/payment/charge-user');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
 
-```python
-import requests
-
-headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer JWT_TOKEN',
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
+));
+$request->setBody('{
+\n    "id": "009656e5-a327-4513-9a0c-d588a4ed2fdc",
+\n    "send_email": false
+\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
 }
-
-data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }'
-
-response = requests.post('https://api.us.springverify.com/payment/charge-user', headers=headers, data=data)
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "json"
+require "net/http"
 
-uri = URI.parse("https://api.us.springverify.com/payment/charge-user")
-request = Net::HTTP::Post.new(uri)
-request.content_type = "application/json"
-request["Authorization"] = "Bearer JWT_TOKEN"
+url = URI("https://api.us.springverify.com/v2-api/company/payment/charge-user")
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+request["Authorization"] = 'Bearer JWT_TOKEN'
+request["Content-Type"] = "application/json"
+request.body = JSON.dump({
+  "id": "009656e5-a327-4513-9a0c-d588a4ed2fdc",
+  "send_email": false
+})
 
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
+response = http.request(request)
+puts response.read_body
 
-# response.code
-# response.body
 ```
 
 >Success Response
 
 ```json
 {
-    "success": true,
-    "data": {
-        "id": "ch_1HJdvnFq1aDrrzKzZE6729eZ",
-        "object": "charge",
-        "amount": 9999,
-        "amount_refunded": 0,
-        "application": null,
-        "application_fee": null,
-        "application_fee_amount": null,
-        "balance_transaction": "txn_1HJdvnFq1aDrrzKzbZXCgvAO",
-        "billing_details": {
-            "address": {
-                "city": null,
-                "country": null,
-                "line1": null,
-                "line2": null,
-                "postal_code": "42424",
-                "state": null
-            },
-            "email": null,
-            "name": "johndoe@gmail.com",
-            "phone": null
-        },
-        "calculated_statement_descriptor": "SPRINGVERIFY.COM",
-        "captured": true,
-        "created": 1598268823,
-        "currency": "usd",
-        "customer": "cus_HjgWvwfPN7bKob",
-        "description": null,
-        "destination": null,
-        "dispute": null,
-        "disputed": false,
-        "failure_code": null,
-        "failure_message": null,
-        "fraud_details": {},
-        "invoice": null,
-        "livemode": false,
-        "metadata": {},
-        "on_behalf_of": null,
-        "order": null,
-        "outcome": {
-            "network_status": "approved_by_network",
-            "reason": null,
-            "risk_level": "normal",
-            "risk_score": 28,
-            "seller_message": "Payment complete.",
-            "type": "authorized"
-        },
-        "paid": true,
-        "payment_intent": null,
-        "payment_method": "card_1HAD9gFq1aDrrzKzPZUtu418",
-        "payment_method_details": {
-            "card": {
-                "brand": "visa",
-                "checks": {
-                    "address_line1_check": null,
-                    "address_postal_code_check": "pass",
-                    "cvc_check": null
-                },
-                "country": "US",
-                "exp_month": 4,
-                "exp_year": 2024,
-                "fingerprint": "IpgpMeLB1qGPPEnT",
-                "funding": "credit",
-                "installments": null,
-                "last4": "4242",
-                "network": "visa",
-                "three_d_secure": null,
-                "wallet": null
-            },
-            "type": "card"
-        },
-        "receipt_email": "johndoe@gmail.com",
-        "receipt_number": null,
-        "receipt_url": "receipt_url_link",
-        "refunded": false,
-        "refunds": {
-            "object": "list",
-            "data": [],
-            "has_more": false,
-            "total_count": 0,
-            "url": "/v1/charges/ch_1HJdvnFq1aDrrzKzZE6729eZ/refunds"
-        },
-        "review": null,
-        "shipping": null,
-        "source": {
-            "id": "card_1HAD9gFq1aDrrzKzPZUtu418",
-            "object": "card",
-            "address_city": null,
-            "address_country": null,
-            "address_line1": null,
-            "address_line1_check": null,
-            "address_line2": null,
-            "address_state": null,
-            "address_zip": "42424",
-            "address_zip_check": "pass",
-            "brand": "Visa",
-            "country": "US",
-            "customer": "cus_HjgWvwfPN7bKob",
-            "cvc_check": null,
-            "dynamic_last4": null,
-            "exp_month": 4,
-            "exp_year": 2024,
-            "fingerprint": "IygpMeLB1qGPPEnT",
-            "funding": "credit",
-            "last4": "4242",
-            "metadata": {},
-            "name": "johndoe@gmail.com",
-            "tokenization_method": null
-        },
-        "source_transfer": null,
-        "statement_descriptor": null,
-        "statement_descriptor_suffix": null,
-        "status": "succeeded",
-        "transfer_data": null,
-        "transfer_group": null
-    }
+    "links": [
+        {
+            "email": "www@yopmail.com",
+            "link": "http://localhost:3000/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoid3d3QHlvcG1haWwuY29tIiwiaWF0IjoxNjMwNjYzNTYyLCJleHAiOjE2MzQyNjM1NjJ9.mh1i6wApq14FDYAymRZ7lYMUnrcP2imUmX-UTkMBhO8",
+            "id": "f75beef7-a8ee-44d4-a15d-0b5d4391c135"
+        }
+    ]
 }
 ```
 
@@ -2187,272 +2258,115 @@ If you have a coupon code you can enter it here.
 | | | `false` -- returns the verifications links of the candidates. |
 | coupon_code | `string` | (Optional) Any coupon code that the admin has for discounted pricing |
 
-## Get Single Candidate
+
+<aside class="notice">
+NOTE: This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
+
+## Get company action
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID' \
---header 'Authorization: Bearer JWT_TOKEN' \
---data-raw ''
-```
-
-```javascript
-// FETCH
-
-var fetch = require('node-fetch');
-
-fetch('https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID', {
-    method: 'POST',
-    headers: {
-        'Authorization': 'Bearer JWT_TOKEN'
-    }
-});
-
-// REQUEST
-
-var request = require('request');
-
-var headers = {
-    'Authorization': 'Bearer JWT_TOKEN'
-};
-
-var options = {
-    url: 'https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID',
-    method: 'POST',
-    headers: headers
-};
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
-```
-
-```php
-<?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Authorization' => 'Bearer JWT_TOKEN'
-);
-$data = array(
-
-);
-$response = Requests::post('https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID', $headers, $data);
-```
-
-```python
-import requests
-
-headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
-}
-
-params = (
-    ('id', 'EMPLOYEE_ID'),
-)
-
-response = requests.post('https://api.us.springverify.com/company/employee', headers=headers, params=params)
-```
-
-```ruby
-require 'net/http'
-require 'uri'
-
-uri = URI.parse("https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID")
-request = Net::HTTP::Get.new(uri)
-request["Authorization"] = "Bearer JWT_TOKEN"
-
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
-
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
-```
-
-> Success Response
-
-```json
-{
-    "success": true,
-    "data": {
-        "employee": {
-            "id": "6d6d81f5-6f00-4a38-a7d7-249cc2127ab6",
-            "access_id": null,
-            "email": "johndoe@gmail.com",
-            "password_hash": null,
-            "first_name": null,
-            "middle_name": null,
-            "last_name": null,
-            "name_verified": null,
-            "created_at": "2020-08-24T10:57:01.000Z",
-            "updated_at": "2020-08-24T10:57:01.000Z",
-            "employer_id": "fd725660-58f7-4a97-b626-5a4588e4ca31",
-            "payment_id": "0e9a7695-91bd-4e60-aefc-ba47f80ab0f0",
-            "email_sent": true,
-            "payment": false,
-            "status": null,
-            "flow_completed": null,
-            "company_created_by": "john@wick.com",
-            "employee_limit_id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
-            "kbaqna": null,
-            "employments": [],
-            "education": [],
-            "professional_licenses": [],
-            "employee_limit": {
-                "id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
-                "employment": 2,
-                "education": 1,
-                "professional_license": 0,
-                "all_county_criminal_search": true,
-                "county_criminal_search": 0,
-                "civil_court": 1,
-                "driving_license": 0,
-                "package_id": null,
-                "created_at": "2020-08-24T10:57:01.000Z",
-                "updated_at": "2020-08-24T10:57:01.000Z",
-                "employee_invite_group_id": "4153a150-4157-48ab-b258-9a9b47a05fc2",
-                "employee_invite_group": {
-                    "id": "4153a150-4157-48ab-b258-9a9b47a05fc2",
-                    "package": "diamond",
-                    "active": true,
-                    "created_at": "2020-08-24T10:57:00.000Z",
-                    "updated_at": "2020-08-24T10:57:00.000Z",
-                    "company_created_by": "john@wick.com",
-                    "package_id": "5"
-                }
-            },
-            "employee_detail": null,
-            "employee_verification": null,
-            "s3_files": [],
-            "criminal_statuses": [],
-            "cic_criminal_records": [],
-            "sjv_criminal_reports": []
-        },
-        "review": [],
-        "criminal_status": {
-            "national_criminal": "PENDING",
-            "sex_offender": "PENDING",
-            "global_watchlist": "PENDING",
-            "county_criminal_search": "PENDING",
-            "civil_court": "PENDING",
-            "overall_criminal_status": "PENDING"
-        }
-    }
-}
-```
-
-When the details of a specific candidate whose profile is already verified is to be retrieved, use this API. This API retrieves the details of the candidate that have been verified, as well as the pricing package in which the candidate's profile was verified, along with the date of the most recent verification.
-
-**URL Parameters**
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-|id | `uuid` | Contains the unique ID of the candidate. |
-
-## Search Candidate
-
-```shell
-curl --location --request POST 'https://api.us.springverify.com/company/employee/search' \
---header 'Authorization: Bearer JWT_TOKEN' \
+curl --location --request GET 'https://api.us.springverify.com/v2-api/company/actions?limit=10&offset=0' \
 --header 'Content-Type: application/json' \
---data-raw '{
-    "search":"johndoe@gmail.com"
-}'
+--header 'Content-Type: application/json' \
 ```
 
 ```javascript
 // FETCH
 
-var fetch = require('node-fetch');
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", 'Bearer JWT_TOKEN');
 
-fetch('https://api.us.springverify.com/company/employee/search', {
-    method: 'POST',
-    headers: {
-        'Authorization': 'Bearer JWT_TOKEN',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ "search":"johndoe@gmail.com" })
-});
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/actions?limit=10&offset=0", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 // REQUEST
 
 var request = require('request');
-
-var headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
-    'Content-Type': 'application/json'
-};
-
-var dataString = '{ "search":"johndoe@gmail.com" }';
-
 var options = {
-    url: 'https://api.us.springverify.com/company/employee/search',
-    method: 'POST',
-    headers: headers,
-    body: dataString
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/v2-api/company/actions?limit=10&offset=0',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN''
+  }
 };
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
 ```
 
 ```php
+
 <?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Authorization' => 'Bearer JWT_TOKEN',
-    'Content-Type' => 'application/json'
-);
-$data = '{ "search":"johndoe@gmail.com" }';
-$response = Requests::post('https://api.us.springverify.com/company/employee/search', $headers, $data);
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/actions?limit=10&offset=0');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
 ```
 
 ```python
-import requests
 
+import requests
+import json
+
+url = "https://api.us.springverify.com/v2-api/company/actions?limit=10&offset=0"
+
+payload={}
 headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
-    'Content-Type': 'application/json',
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
 }
 
-data = '{ "search":"johndoe@gmail.com" }'
+response = requests.request("GET", url, headers=headers, data=payload)
 
-response = requests.post('https://api.us.springverify.com/company/employee/search', headers=headers, data=data)
+print(response.text)
 ```
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "json"
+require "net/http"
 
-uri = URI.parse("https://api.us.springverify.com/company/employee/search")
-request = Net::HTTP::Post.new(uri)
-request.content_type = "application/json"
+url = URI("https://api.us.springverify.com/v2-api/company/actions?limit=10&offset=0")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Content-Type"] = "application/json"
 request["Authorization"] = "Bearer JWT_TOKEN"
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
-
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
+response = http.request(request)
+puts response.read_body
 ```
 
 > Success Response
@@ -2462,244 +2376,76 @@ end
     "success": true,
     "data": [
         {
-            "id": "478543b4-43b0-45bd-82db-dc4ce0ff193c",
-            "email": "a13@yopmail.com",
-            "first_name": "Steven",
-            "middle_name": "Brandon",
-            "last_name": "Ward",
-            "status": "PENDING",
-            "employee_limit": {
-                "id": "63d34d43-794f-49c6-8de9-327935156076",
-                "employee_invite_group": {
-                    "id": "c35d4851-8f23-4779-9310-a913bda6b1af",
-                    "package": "bronze"
-                }
-            }
+            "employee_name": "",
+            "action": "Follow up email sent to candidate to complete the BGV form",
+            "time": "2021-08-24T14:05:21.000Z",
+            "id": "32e953b2-1150-43b8-a4de-ea8f89ff7e93",
+            "email": "pehaty@digital10network.com"
         },
         {
-            "id": "f29aebee-df87-4cae-8779-7e6c48345d1d",
-            "email": "testdata1@yopmail.com",
-            "first_name": "Steven",
-            "middle_name": "Brandon",
-            "last_name": "Ward",
-            "status": null,
-            "employee_limit": {
-                "id": "149913a5-8bf1-4ca5-ba5b-3fb412cd68fa",
-                "employee_invite_group": {
-                    "id": "f33cc6ab-c8d1-4535-b80a-b9f2cd45a319",
-                    "package": "diamond"
-                }
-            }
+            "employee_name": "",
+            "action": "Follow up email sent to candidate to complete the BGV form",
+            "time": "2021-08-24T13:56:20.000Z",
+            "id": "32e953b2-1150-43b8-a4de-ea8f89ff7e93",
+            "email": "pehaty@digital10network.com"
+        },
+        {
+            "employee_name": "",
+            "action": "Follow up email sent to candidate to complete the BGV form",
+            "time": "2021-08-24T13:52:21.000Z",
+            "id": "32e953b2-1150-43b8-a4de-ea8f89ff7e93",
+            "email": "pehaty@digital10network.com"
+        },
+        {
+            "employee_name": "",
+            "action": "has been added as a candidate and invited to enter his information.",
+            "time": "2021-08-24T13:51:20.000Z",
+            "id": "32e953b2-1150-43b8-a4de-ea8f89ff7e93",
+            "email": "pehaty@digital10network.com"
+        },
+        {
+            "employee_name": "",
+            "action": "Follow up email sent to candidate to complete the BGV form",
+            "time": "2021-08-24T10:01:59.000Z",
+            "id": "a8e8356f-b321-43d8-95c7-e7832cf26fac",
+            "email": "filybedo@thichanthit.com"
+        },
+        {
+            "employee_name": "",
+            "action": "Follow up email sent to candidate to complete the BGV form",
+            "time": "2021-08-24T09:52:59.000Z",
+            "id": "a8e8356f-b321-43d8-95c7-e7832cf26fac",
+            "email": "filybedo@thichanthit.com"
+        },
+        {
+            "employee_name": "",
+            "action": "Follow up email sent to candidate to complete the BGV form",
+            "time": "2021-08-24T09:48:59.000Z",
+            "id": "a8e8356f-b321-43d8-95c7-e7832cf26fac",
+            "email": "filybedo@thichanthit.com"
+        },
+        {
+            "employee_name": "",
+            "action": "has been added as a candidate and invited to enter his information.",
+            "time": "2021-08-24T09:47:58.000Z",
+            "id": "a8e8356f-b321-43d8-95c7-e7832cf26fac",
+            "email": "filybedo@thichanthit.com"
+        },
+        {
+            "employee_name": "Steven Brandon Ward",
+            "action": "has successfully verified their identity. (via Knowledge based authentication)",
+            "time": "2021-08-20T11:35:23.000Z",
+            "id": "5ea00d51-3214-4572-a802-a67ccc18cf33",
+            "email": "abcd1@yopmail.com"
+        },
+        {
+            "employee_name": "Steven Brandon Ward",
+            "action": "has entered kba answers.",
+            "time": "2021-08-20T11:35:22.000Z",
+            "id": "5ea00d51-3214-4572-a802-a67ccc18cf33",
+            "email": "abcd1@yopmail.com"
         }
     ]
-}
-
-```
-
-This API searches and retrieves the profile of a specific candidate that is already verified.
-
-**URL Parameters**
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| search | `string`| Search term which returns record after matching first name, middle name, last name or email |
-
-## Get company action
-
-```shell
-curl --location --request POST 'https://api.us.springverify.com/company/actions' \
---header 'Authorization: Bearer JWT_TOKEN' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "limit":10,
-    "offset":0
-}'
-```
-
-```javascript
-// FETCH
-
-var fetch = require('node-fetch');
-
-fetch('https://api.us.springverify.com/company/actions', {
-    method: 'POST',
-    headers: {
-        'Authorization': 'Bearer JWT_TOKEN',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ "limit":10, "offset":0 })
-});
-
-// REQUEST
-
-var request = require('request');
-
-var headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
-    'Content-Type': 'application/json'
-};
-
-var dataString = '{ "limit":10, "offset":0 }';
-
-var options = {
-    url: 'https://api.us.springverify.com/company/actions',
-    method: 'POST',
-    headers: headers,
-    body: dataString
-};
-
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
-
-request(options, callback);
-```
-
-```php
-<?php
-include('vendor/rmccue/requests/library/Requests.php');
-Requests::register_autoloader();
-$headers = array(
-    'Authorization' => 'Bearer JWT_TOKEN',
-    'Content-Type' => 'application/json'
-);
-$data = '{ "limit":10, "offset":0 }';
-$response = Requests::post('https://api.us.springverify.com/company/actions', $headers, $data);
-```
-
-```python
-import requests
-
-headers = {
-    'Authorization': 'Bearer JWT_TOKEN',
-    'Content-Type': 'application/json',
-}
-
-data = '{ "limit":10, "offset":0 }'
-
-response = requests.post('https://api.us.springverify.com/company/actions', headers=headers, data=data)
-```
-
-```ruby
-require 'net/http'
-require 'uri'
-
-uri = URI.parse("https://api.us.springverify.com/company/actions")
-request = Net::HTTP::Post.new(uri)
-request.content_type = "application/json"
-request["Authorization"] = "Bearer JWT_TOKEN"
-
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
-
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
-
-# response.code
-# response.body
-```
-
-> Success Response
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T05:59:02.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T05:59:02.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T05:59:02.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "has successfully verified their identity. (using their driving license)",
-      "time": "2020-08-27T05:57:03.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "has uploaded their driving license.",
-      "time": "2020-08-27T05:56:44.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "has entered personal details.",
-      "time": "2020-08-27T05:55:40.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "has been added as a candidate and invited to enter his information.",
-      "time": "2020-08-27T05:54:24.000Z",
-      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T04:29:02.000Z",
-      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T04:29:02.000Z",
-      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    },
-    {
-      "string": "identity verification failed. (using their driving license)",
-      "time": "2020-08-27T04:29:02.000Z",
-      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
-      "first_name": "John",
-      "middle_name": "Mark",
-      "last_name": "Smith",
-      "email": "johndoe@gmail.com"
-    }
-  ]
 }
 ```
 
@@ -2710,6 +2456,11 @@ This API informs an admin/s of the activities of a specific candidate in the fol
 * The candidate has successfully uploaded their driver's license.
 * The candidate has successfully verified their identity using their driver's license.
 * The candidate has failed to verify their identity using their driver's license.
+
+
+<aside class="notice">
+NOTE: This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
 
 ## Get Company Actions Pertaining to a candidate
 
@@ -4628,6 +4379,1047 @@ On an candidate profile that is being processed for adversities, an admin can ge
 | --- | --- | --- |
 | sjv_id | `string` | The SJV ID of the criminal report. |
 
+
+## Verify-coupon
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/v2-api/company/verify-coupon' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "amount": 750,
+    "coupon_code": "100OFF"
+}'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "amount": 750,
+  "coupon_code": "100OFF"
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/verify-coupon", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/v2-api/company/verify-coupon',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "amount": 750,
+    "coupon_code": "100OFF"
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/verify-coupon');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
+));
+$request->setBody('{
+\n    "amount": 750,
+\n    "coupon_code": "100OFF"
+\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/v2-api/company/verify-coupon"
+
+payload="json.dumps({
+    "amount": 750,
+    "coupon_code": "100OFF"
+  })"
+headers = {
+  'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/v2-api/company/verify-coupon")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Post.new(url)
+
+request["Authorization"] = "Bearer JWT_TOKEN"
+request["Content-Type"] = "application/json"
+request.body = JSON.dump({
+  "amount": 750,
+  "coupon_code": "100OFF"
+})
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": 100
+}
+```
+
+A company can Verify the coupon code.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| coupon code | `string` | The Coupon code which you want to verify. |
+
+
+## Get Single Candidate
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/v2-api/company/employee?id=3eda99f8-7196-4af4-9b71-0d1db2afe02c' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/employee?id=3eda99f8-7196-4af4-9b71-0d1db2afe02c", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/v2-api/company/employee?id=3eda99f8-7196-4af4-9b71-0d1db2afe02c',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/employee?id=3eda99f8-7196-4af4-9b71-0d1db2afe02c');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
+));
+
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/v2-api/company/employee?id=3eda99f8-7196-4af4-9b71-0d1db2afe02c"
+
+payload={}
+headers = {
+  'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+print(response.text)
+
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/v2-api/company/employee?id=3eda99f8-7196-4af4-9b71-0d1db2afe02c")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "employee": {
+            "id": "3eda99f8-7196-4af4-9b71-0d1db2afe02c",
+            "email": "a13@yopmail.com",
+            "first_name": "Steven",
+            "middle_name": "Brandon",
+            "last_name": "Ward",
+            "created_at": "2021-01-15T11:54:42.000Z",
+            "employer_id": "0120d104-cd48-4d00-a2a4-6fb9ee1d2f42",
+            "status": "AWAITING_INPUT",
+            "flow_completed": null,
+            "company_created_by": "pooja@recrosoft.com",
+            "added_by_fk": {
+                "email": "pooja@recrosoft.com",
+                "first_name": "Nitya",
+                "last_name": "Arora"
+            },
+            "deleted_at": null,
+            "pricing": {
+                "package": "bronze",
+                "package_price": 500,
+                "total_price": null,
+                "add_on_price": {
+                    "employment": {
+                        "count": 0,
+                        "price": 0
+                    },
+                    "education": {
+                        "count": 0,
+                        "price": 0
+                    },
+                    "professional_license": {
+                        "count": 0,
+                        "price": 0
+                    },
+                    "all_county_criminal_search": {
+                        "count": 0,
+                        "price": 0
+                    },
+                    "county_criminal_search": {
+                        "count": 0,
+                        "price": 0
+                    },
+                    "civil_court": {
+                        "count": 0,
+                        "price": 0
+                    },
+                    "driving_license": {
+                        "count": null,
+                        "price": null
+                    },
+                    "mvr": {
+                        "count": 0,
+                        "price": 0,
+                        "state_fee": 0
+                    },
+                    "professional_reference": {
+                        "count": 0,
+                        "price": 0
+                    }
+                },
+                "charged_price": {
+                    "total": null,
+                    "total_without_additional_charge": null,
+                    "coupon": null,
+                    "discount": 0,
+                    "discount_amount": 0
+                }
+            },
+            "refund_amount": 750,
+            "bgv_link": "https://api.us.springverify.com/candidate/personal-details?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiYTEzQHlvcG1haWwuY29tIiwiaWF0IjoxNjMwNjU3Njk3LCJleHAiOjE2MzQyNTc2OTd9.iyA183UdaFDmXTj_3o7r7JKtb49CXfLbPa_NAnooXmk",
+            "checks": {
+                "criminal_check_last_run": null,
+                "criminal_checks": {
+                    "national_criminal": {},
+                    "sex_offender": {},
+                    "global_watchlist": {},
+                    "country_criminal_search": {},
+                    "civil_court": {}
+                },
+                "employments": [],
+                "professional_references": [],
+                "educations": [],
+                "professional_licenses": [],
+                "motor_vehicle_record": null
+            },
+            "employee_limit": {
+                "id": "94833ca9-f051-4e7b-9c69-6842d1db809a",
+                "employment": 0,
+                "mvr": false,
+                "education": 0,
+                "professional_license": 0,
+                "all_county_criminal_search": false,
+                "county_criminal_search": 0,
+                "civil_court": 0,
+                "package_id": null,
+                "professional_reference": null,
+                "employee_invite_group": {
+                    "id": "ed072d66-d15e-457a-a083-58b732160410",
+                    "package": "bronze"
+                }
+            },
+            "employee_detail": {
+                "id": "002a931f-d422-4d02-9a62-e691eca2432f",
+                "address": "136 , Florence Drive",
+                "city": "Jupiter",
+                "state": "FL",
+                "zipcode": "33458",
+                "country": null,
+                "birthdate": "12-11-1980",
+                "phone": "1-4256894563",
+                "ssn": "2714"
+            },
+            "employee_verification": {
+                "id": "2e395ce2-0e97-4b93-9cb1-2adb6230bc42",
+                "verification_type": "id",
+                "address": null,
+                "city": null,
+                "state": null,
+                "zipcode": null,
+                "country": null,
+                "birthdate": null,
+                "global_watchlist_verified": null,
+                "is_report_checked": true,
+                "summary_of_rights_accepted": null,
+                "background_check_disclosure_accepted": true,
+                "id_manual_review": null,
+                "consent_link": "https://pdf-reports-springrole.s3.amazonaws.com/DocumentsDev/165435294.pdf",
+                "verified_id_type": "PASSPORT",
+                "id_status": "PENDING"
+            },
+            "s3_files": [
+                {
+                    "id": "d4692411-0e89-480f-aec8-1c48a1ab6e0f",
+                    "type": "ID",
+                    "sub_type": "FRONT",
+                    "link": "https://spring-verify-us.s3.amazonaws.com/env_localhost/employee-id/a13%40yopmail.com/05646cd7-1d1a-4cc1-b2ab-38f9009bf078-passport.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4SIBCNXYYJ4MUL76%2F20210903%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210903T082817Z&X-Amz-Expires=300&X-Amz-Signature=d60ddae954bd223f0cbe8f9cf3535a6ce5a3d522835ef3665390fd1dfded1843&X-Amz-SignedHeaders=host",
+                    "deleted_at": null,
+                    "file_name": "05646cd7-1d1a-4cc1-b2ab-38f9009bf078-passport.jpg",
+                    "id_type": "PASSPORT"
+                }
+            ],
+            "archived_by": null,
+            "bgv_form_progress": {
+                "total": 2,
+                "filled": 0
+            }
+        },
+        "adverse_action_pending_count": 0
+    }
+}
+```
+
+When the details of a specific candidate whose profile is already verified is to be retrieved, use this API. This API retrieves the details of the candidate that have been verified, as well as the pricing package in which the candidate's profile was verified, along with the date of the most recent verification.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+|id | `uuid` | Contains the unique ID of the candidate. |   
+
+<aside class="notice">
+NOTE: This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
+
+
+## Get employee actions
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/v2-api/company/employee/actions?email=pooja@recrosoft.com&limit=5&offset=0'' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+
+fetch("https://api.us.springverify.com/v2-api/company/employee/actions?email=pooja@recrosoft.com&limit=5&offset=0", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/v2-api/company/employee/actions?email=pooja@recrosoft.com&limit=5&offset=0',
+  'headers': {
+    'Authorization': "Bearer JWT_TOKEN"
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+```
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/employee/actions?email=pooja@recrosoft.com&limit=5&offset=0');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/v2-api/company/employee/actions?email=pooja@recrosoft.com&limit=5&offset=0"
+
+payload={}
+headers = {
+    'Authorization' => 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/v2-api/company/employee/actions?email=pooja@recrosoft.com&limit=5&offset=0")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "employee_name": "",
+            "action": "has successfully verified their identity. (using their driving license)",
+            "time": "2020-11-25T06:40:50.000Z",
+            "id": "e419511b-f7ea-47b8-b87b-b6997f494624",
+            "email": "pooja@recrosoft.com"
+        },
+        {
+            "employee_name": "",
+            "action": "has successfully verified their identity. (using their passport)",
+            "time": "2020-09-11T11:15:19.000Z",
+            "id": "e419511b-f7ea-47b8-b87b-b6997f494624",
+            "email": "pooja@recrosoft.com"
+        },
+        {
+            "employee_name": "",
+            "action": "has successfully verified their identity. (using their passport)",
+            "time": "2020-09-07T06:36:07.000Z",
+            "id": "e419511b-f7ea-47b8-b87b-b6997f494624",
+            "email": "pooja@recrosoft.com"
+        },
+        {
+            "employee_name": "",
+            "action": "has successfully verified their identity. (using their driving license)",
+            "time": "2020-09-07T05:49:08.000Z",
+            "id": "e419511b-f7ea-47b8-b87b-b6997f494624",
+            "email": "pooja@recrosoft.com"
+        },
+        {
+            "employee_name": "",
+            "action": "has successfully verified their identity. (using their driving license)",
+            "time": "2020-09-07T05:48:49.000Z",
+            "id": "e419511b-f7ea-47b8-b87b-b6997f494624",
+            "email": "pooja@recrosoft.com"
+        }
+    ]
+}
+```
+A company can check the actions status of candidates which are completed/In progress by employee
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| email | `string` | Email of the employee |
+| limit | `integer` | Set the limit to get data |
+| offset | `integer` | Set the offset as well |
+
+## Search Candidate
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/v2-api/company/employee/search?limit=5&offset=0&search=pooja' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/employee/search?limit=5&offset=0&search=pooja", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+    'method': 'GET',
+    'url': 'https://api.us.springverify.com/v2-api/company/employee/search?limit=5&offset=0&search=pooja',
+  'headers': {
+    'Authorization': "Bearer JWT_TOKEN"
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+```
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/employee/search?limit=5&offset=0&search=pooja');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/v2-api/company/employee/search?limit=5&offset=0&search=pooja"
+
+payload={}
+headers = {
+    'Authorization' => 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/v2-api/company/employee/search?limit=5&offset=0&search=pooja")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "8dbd6ad1-63c6-40e9-bb2d-3a659eda4023",
+            "email": "hammer@yopmail.com",
+            "first_name": "Pooja",
+            "middle_name": "P",
+            "last_name": "Gaur",
+            "status": "UNABLE_TO_VERIFY",
+            "employee_limit": {
+                "id": "e795ec96-3348-4db0-a478-fd786289e575",
+                "employee_invite_group": {
+                    "id": "789bd3c0-bdd3-4df1-98ed-2d9f194ae331",
+                    "package": "bronze"
+                }
+            }
+        },
+        {
+            "id": "8dfa288e-7a36-4bd6-aa7e-39e984f4f1a2",
+            "email": "pooja145@yopmail.com",
+            "first_name": "Jessica",
+            "middle_name": "",
+            "last_name": "MA",
+            "status": "AWAITING_INPUT",
+            "employee_limit": {
+                "id": "15a59ab0-696a-4554-a848-caef20b62d21",
+                "employee_invite_group": {
+                    "id": "c652e1f5-4385-44f5-9720-4aa9098f3c9f",
+                    "package": "bronze"
+                }
+            }
+        },
+        {
+            "id": "f434f529-dd6b-4511-bc85-d73d81bbbfbc",
+            "email": "pooja34@yopmail.com",
+            "first_name": null,
+            "middle_name": null,
+            "last_name": null,
+            "status": "AWAITING_INPUT",
+            "employee_limit": {
+                "id": "eb8961e8-86ba-487c-847f-bf178bae2c98",
+                "employee_invite_group": {
+                    "id": "3ba48668-9003-46aa-ac0b-f3aab6014e8e",
+                    "package": "bronze"
+                }
+            }
+        },
+        {
+            "id": "f24f138b-1fd0-4e39-afff-9b17a425c027",
+            "email": "pooja56@yopmail.com",
+            "first_name": null,
+            "middle_name": null,
+            "last_name": null,
+            "status": "AWAITING_INPUT",
+            "employee_limit": {
+                "id": "1595c49e-b994-43df-87a0-cc816beff12e",
+                "employee_invite_group": {
+                    "id": "04e06691-a835-482a-b9b0-c5370dbd2ffa",
+                    "package": "bronze"
+                }
+            }
+        },
+        {
+            "id": "0636d5fb-df9d-4535-8b77-e5f25b70740d",
+            "email": "pooja678@yopmail.com",
+            "first_name": "Steven",
+            "middle_name": "Brandon",
+            "last_name": "Ward",
+            "status": "VERIFIED",
+            "employee_limit": {
+                "id": "ef269645-493e-42fd-a427-2d9585597e17",
+                "employee_invite_group": {
+                    "id": "801cc61f-ccca-441e-a78d-c055f1485666",
+                    "package": "bronze"
+                }
+            }
+        }
+    ]
+}
+```
+This API searches and retrieves the profile of the candidates.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| search | `string` | name/email more then three char |
+| limit | `integer` | Set the limit to get data |
+| offset | `integer` | Set the offset as well |
+
+
+<aside class="notice">
+NOTE: This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
+
+## BGV progress
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/v2-api/company/employee/bgv-progress?id=d5639f49-243b-44a8-941e-64a410c2530e'\
+--header 'Authorization: Bearer JWT_TOKEN' \
+
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/employee/bgv-progress?id=d5639f49-243b-44a8-941e-64a410c2530e", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/v2-api/company/employee/bgv-progress?id=d5639f49-243b-44a8-941e-64a410c2530e',
+  'headers': {
+    'Authorization': "Bearer JWT_TOKEN"
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+```
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/employee/bgv-progress?id=d5639f49-243b-44a8-941e-64a410c2530e');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/v2-api/company/employee/bgv-progress?id=d5639f49-243b-44a8-941e-64a410c2530e"
+
+payload={}
+headers = {
+    'Authorization' => 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/v2-api/company/employee/bgv-progress?id=d5639f49-243b-44a8-941e-64a410c2530e")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "personal_details": {
+            "name": "personal_details",
+            "skip": false
+        },
+        "id_verification": {
+            "name": "id_verification",
+            "skip": false
+        }
+    }
+}
+```
+
+The company can check Backgroung Verification progress/status of the employee.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| ID | `string` | id of employee |
+
+
+## Demo Status
+
+```shell
+
+curl --location --request PATCH 'https://api.us.springverify.com/v2-api/company/admin/demo-status' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "is_demo_done": true
+}'
+
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "is_demo_done": true
+});
+
+var requestOptions = {
+  method: 'PATCH',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/v2-api/company/admin/demo-status", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'PATCH',
+  'url': 'https://api.us.springverify.com/v2-api/company/admin/demo-status',
+  'headers': {
+    'Authorization': "Bearer JWT_TOKEN",
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "is_demo_done": true
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+```php
+
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/v2-api/company/admin/demo-status');
+$request->setMethod('PATCH');
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN',
+  'Content-Type' => 'application/json'
+));
+$request->setBody('{
+\n    "is_demo_done": true
+\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+
+```
+
+```python
+
+import requests
+import json
+
+url = "https://api.us.springverify.com/v2-api/company/admin/demo-status"
+
+payload = json.dumps({
+  "is_demo_done": True
+})
+headers = {
+  'Authorization': 'Bearer JWT_TOKEN',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("PATCH", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+```ruby
+
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/v2-api/company/admin/demo-status")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Patch.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+request["Content-Type"] = "application/json"
+request.body = JSON.dump({
+  "is_demo_done": true
+})
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": [
+        1
+    ]
+}
+```
+
+A company admin can check the status of demo (given or not).
+
 ## Create Webhook
 
 ```shell
@@ -5041,8 +5833,7 @@ A company can delete a registered webhook using this API.
 ## Get Webhook Logs
 
 ```shell
-curl --location --request GET 'https://api.us.springverify.com/company/webhook/logs' \
---header 'Content-Type: application/json' \
+curl --location --request GET 'https://api.us.springverify.com/v2-api/company/webhook/logs' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
 
@@ -5050,7 +5841,6 @@ curl --location --request GET 'https://api.us.springverify.com/company/webhook/l
 // FETCH
 
 var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Authorization", "Bearer JWT_TOKEN");
 
 var requestOptions = {
@@ -5059,7 +5849,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("https://api.us.springverify.com/company/webhook/logs", requestOptions)
+fetch("https://api.us.springverify.com/v2-api/company/webhook/logs", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
@@ -5069,9 +5859,8 @@ fetch("https://api.us.springverify.com/company/webhook/logs", requestOptions)
 var request = require('request');
 var options = {
   'method': 'GET',
-  'url': 'https://api.us.springverify.com/company/webhook/logs',
+  'url': 'https://api.us.springverify.com/v2-api/company/webhook/logs',
   'headers': {
-    'Content-Type': 'application/json',
     'Authorization': 'Bearer JWT_TOKEN'
   }
 };
@@ -5083,16 +5872,16 @@ request(options, function (error, response) {
 ```
 
 ```php
+
 <?php
 require_once 'HTTP/Request2.php';
 $request = new HTTP_Request2();
-$request->setUrl('https://api.us.springverify.com/company/webhook/logs');
+$request->setUrl('https://api.us.springverify.com/v2-api/company/webhook/logs');
 $request->setMethod(HTTP_Request2::METHOD_GET);
 $request->setConfig(array(
   'follow_redirects' => TRUE
 ));
 $request->setHeader(array(
-  'Content-Type' => 'application/json',
   'Authorization' => 'Bearer JWT_TOKEN'
 ));
 try {
@@ -5108,17 +5897,15 @@ try {
 catch(HTTP_Request2_Exception $e) {
   echo 'Error: ' . $e->getMessage();
 }
-```
 
 ```python
-import requests
-import json
 
-url = "https://api.us.springverify.com/company/webhook/logs"
+import requests
+
+url = "https://api.us.springverify.com/v2-api/company/webhook/logs"
 
 payload={}
 headers = {
-  'Content-Type': 'application/json',
   'Authorization': 'Bearer JWT_TOKEN'
 }
 
@@ -5133,7 +5920,7 @@ require "uri"
 require "json"
 require "net/http"
 
-url = URI("https://api.us.springverify.com/company/webhook/logs")
+url = URI("https://api.us.springverify.com/v2-api/company/webhook/logs")
 
 http = Net::HTTP.new(url.host, url.port);
 request = Net::HTTP::Get.new(url)
@@ -5180,6 +5967,10 @@ A company can get the logs of a registered webhook using this API.
 | search | `string` | Search term which returns record after matching email of the candidate |
 | limit | `integer` | Page Limit |
 | offset | `integer` | Page Offset |
+
+<aside class="notice">
+NOTE: This is a new api (V2), for old api please visit "Old Apis" section below
+</aside>
 
 
 
@@ -9242,6 +10033,1548 @@ The password should be hashed using SHA256 beforehand.
 | role | `string` | The role of the user being logged in - in this case, `employee`. |
 
 ---
+
+# Old Apis
+
+All the old apis are documented here.
+
+## Get company profile
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/profile' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/profile', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/profile',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('https://api.us.springverify.com/profile', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('https://api.us.springverify.com/profile', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/profile")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "first_name": "John",
+        "last_name": "Wick",
+        "phone": "999999999",
+        "email": "john@wick.com",
+        "domain": "wick.com",
+        "stripe_id": null,
+        "company": {
+            "name": "SmartBrains",
+            "address": "901, Downtown Manhattan",
+            "city": "NY",
+            "state": "NY",
+            "zipcode": "91319",
+            "tax_id_number": "1234567890",
+            "s3_logo": "https://spring-verify-us.s3.amazonaws.com/company/wick.com/logo"
+        },
+        "count": [
+            {
+                "count": 0,
+                "type": null
+            },
+            {
+                "count": 0,
+                "type": "FAILED"
+            },
+            {
+                "count": 0,
+                "type": "PENDING"
+            },
+            {
+                "count": 0,
+                "type": "VERIFIED"
+            }
+        ]
+    }
+}
+```
+
+For a registered admin with a valid JWT, this API can be used to get the company's profile. This is different from the company details. A company's profile contains details of the company given during registration as well as the count of the candidates whose profiles were verified, failed, or is pending.
+
+## Get available packages
+
+```shell
+curl --location --request GET 'http://api-stage.us.springverify.com/company/package' \
+        --header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('http://api-stage.us.springverify.com/company/package', {
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'http://api-stage.us.springverify.com/company/package',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$response = Requests::get('http://api-stage.us.springverify.com/company/package', $headers);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+response = requests.get('http://api-stage.us.springverify.com/company/package', headers=headers)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("http://api-stage.us.springverify.com/company/package")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+> Success Response:
+
+```json
+{
+    "success": true,
+    "data": {
+        "package": [
+            {
+                "id": "1",
+                "name": "bronze",
+                "employment": null,
+                "education": "0",
+                "professional_license": "0",
+                "civil_court": "0",
+                "driving_license": "0",
+                "county_criminal_search": "0",
+                "all_county_criminal_search": false,
+                "national_criminal_search": "1",
+                "sex_offender_search": "1",
+                "ssn_trace": "1",
+                "global_watchlist": "1",
+                "price": "750",
+                "created_at": "2019-07-03T11:07:27.000Z",
+                "updated_at": "2019-11-11T11:53:38.000Z"
+            },
+            {
+                "id": "2",
+                "name": "silver",
+                "employment": null,
+                "education": "0",
+                "professional_license": "0",
+                "civil_court": "0",
+                "driving_license": "0",
+                "county_criminal_search": "0",
+                "all_county_criminal_search": false,
+                "national_criminal_search": "1",
+                "sex_offender_search": "1",
+                "ssn_trace": "1",
+                "global_watchlist": "1",
+                "price": "1500",
+                "created_at": "2019-07-03T11:07:27.000Z",
+                "updated_at": "2019-11-11T11:53:38.000Z"
+            },
+            {
+                "id": "3",
+                "name": "gold",
+                "employment": null,
+                "education": "0",
+                "professional_license": "0",
+                "civil_court": "0",
+                "driving_license": "0",
+                "county_criminal_search": "1",
+                "all_county_criminal_search": false,
+                "national_criminal_search": "1",
+                "sex_offender_search": "1",
+                "ssn_trace": "1",
+                "global_watchlist": "1",
+                "price": "2000",
+                "created_at": "2019-07-03T11:07:27.000Z",
+                "updated_at": "2019-11-11T11:53:39.000Z"
+            },
+            {
+                "id": "4",
+                "name": "platinum",
+                "employment": null,
+                "education": "1",
+                "professional_license": "0",
+                "civil_court": "0",
+                "driving_license": "0",
+                "county_criminal_search": "0",
+                "all_county_criminal_search": true,
+                "national_criminal_search": "1",
+                "sex_offender_search": "1",
+                "ssn_trace": "1",
+                "global_watchlist": "1",
+                "price": "3000",
+                "created_at": "2019-07-03T11:07:27.000Z",
+                "updated_at": "2019-11-11T11:53:39.000Z"
+            },
+            {
+                "id": "5",
+                "name": "diamond",
+                "employment": null,
+                "education": "1",
+                "professional_license": "0",
+                "civil_court": "1",
+                "driving_license": "0",
+                "county_criminal_search": "0",
+                "all_county_criminal_search": true,
+                "national_criminal_search": "1",
+                "sex_offender_search": "1",
+                "ssn_trace": "1",
+                "global_watchlist": "1",
+                "price": "4000",
+                "created_at": "2019-07-03T11:07:27.000Z",
+                "updated_at": "2019-11-11T11:53:39.000Z"
+            }
+        ],
+        "prices": {
+            "id": "1",
+            "env": "development",
+            "passport": 200,
+            "driving_license": 200,
+            "enhanced_driving_license": 200,
+            "kba": 400,
+            "employment": 750,
+            "education": 750,
+            "professional_license": 500,
+            "civil_court": 1000,
+            "one_county_criminal_search": 1000,
+            "all_county_criminal_search": 1000,
+            "county_criminal_search": 1000,
+            "package": "",
+            "created_at": "2019-07-03T11:07:27.000Z",
+            "updated_at": "2019-09-18T13:27:52.000Z"
+        }
+    }
+}
+```
+This API is used to get the available pricing plans and packages.
+
+## Invite candidates
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/employee/invite' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--data-raw '{
+    "email_list": [
+        "venunath2@gmail.com"
+    ],
+    "employee_details": [
+        {
+            "email": "venunath2@gmail.com",
+            "first_name": "abcd",
+            "last_name": "xyc",
+            "middle_name": "zxcz",
+            "phone": "21321313",
+            "birthdate": "12-12-2012"
+        }
+    ],
+    "package": "bronze",
+    "addOns": {
+        "employment": 0,
+        "education": 0,
+        "license": 0,
+        "driving_license": 0,
+        "civil_court": 0,
+        "all_county_criminal_search": false,
+        "county_criminal_search": 0,
+        "MVR": false
+    }
+}'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var raw = JSON.stringify({"email_list":["venunath2@gmail.com"],"employee_details":[{"email":"venunath2@gmail.com","first_name":"abcd","last_name":"xyc","middle_name":"zxcz","phone":"21321313","birthdate":"12-12-2012"}],"package":"bronze","addOns":{"employment":0,"education":0,"license":0,"driving_license":0,"civil_court":0,"all_county_criminal_search":false,"county_criminal_search":0,"MVR":false}});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/invite", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/employee/invite',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  },
+  body: JSON.stringify({"email_list":["venunath2@gmail.com"],"employee_details":[{"email":"venunath2@gmail.com","first_name":"abcd","last_name":"xyc","middle_name":"zxcz","phone":"21321313","birthdate":"12-12-2012"}],"package":"bronze","addOns":{"employment":0,"education":0,"license":0,"driving_license":0,"civil_court":0,"all_county_criminal_search":false,"county_criminal_search":0,"MVR":false}})
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/invite');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+$request->setBody('{\n    "email_list": [\n        "venunath2@gmail.com"\n    ],\n    "employee_details": [\n        {\n            "email": "venunath2@gmail.com",\n            "first_name": "abcd",\n            "last_name": "xyc",\n            "middle_name": "zxcz",\n            "phone": "21321313",\n            "birthdate": "12-12-2012"\n        }\n    ],\n    "package": "bronze",\n    "addOns": {\n        "employment": 0,\n        "education": 0,\n        "license": 0,\n        "driving_license": 0,\n        "civil_court": 0,\n        "all_county_criminal_search": false,\n        "county_criminal_search": 0,\n        "MVR": false\n    }\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://api.us.springverify.com/employee/invite"
+
+payload="{\n    \"email_list\": [\n        \"venunath2@gmail.com\"\n    ],\n    \"employee_details\": [\n        {\n            \"email\": \"venunath2@gmail.com\",\n            \"first_name\": \"abcd\",\n            \"last_name\": \"xyc\",\n            \"middle_name\": \"zxcz\",\n            \"phone\": \"21321313\",\n            \"birthdate\": \"12-12-2012\"\n        }\n    ],\n    \"package\": \"bronze\",\n    \"addOns\": {\n        \"employment\": 0,\n        \"education\": 0,\n        \"license\": 0,\n        \"driving_license\": 0,\n        \"civil_court\": 0,\n        \"all_county_criminal_search\": false,\n        \"county_criminal_search\": 0,\n        \"MVR\": false\n    }\n}"
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/employee/invite")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+request.body = "{\n    \"email_list\": [\n        \"venunath2@gmail.com\"\n    ],\n    \"employee_details\": [\n        {\n            \"email\": \"venunath2@gmail.com\",\n            \"first_name\": \"abcd\",\n            \"last_name\": \"xyc\",\n            \"middle_name\": \"zxcz\",\n            \"phone\": \"21321313\",\n            \"birthdate\": \"12-12-2012\"\n        }\n    ],\n    \"package\": \"bronze\",\n    \"addOns\": {\n        \"employment\": 0,\n        \"education\": 0,\n        \"license\": 0,\n        \"driving_license\": 0,\n        \"civil_court\": 0,\n        \"all_county_criminal_search\": false,\n        \"county_criminal_search\": 0,\n        \"MVR\": false\n    }\n}"
+
+response = https.request(request)
+puts response.read_body
+
+```
+
+>Success Response:
+
+```json
+{
+    "success": true,
+    "data": {
+        "price": 750,
+        "id": "0aa10b4e-e4fc-460b-95dc-6f0ca80be061",
+        "count": 1,
+        "employees": [
+            {
+                "id": "48d18330-408e-40ff-b898-dac10cb32ce4",
+                "email": "venunath2@gmail.com"
+            }
+        ]
+    }
+}
+
+```
+This API is used to invite existing and/or prospective candidates to get their profiles verified. It can be used to invite candidates in bulk. However, emails will be sent to the candidates only once the payment is successfully completed.
+
+<aside class="notice">
+This API is to be used only after using the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API.
+</aside>
+
+<aside class="notice">
+Candidate will be getting email reminders for filling up the form.
+</aside>
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| email_list | `array` | Contains a list of the email addresses of the candidates to be contacted |
+| package | `string` | Name of the package as retrieved from the [Get available packages](https://docs.us.springverify.com/#get-available-packages) API |
+| employee_details | `object` | (Optional) Details of the candidate |
+| add_ons | `object` | To add additional services into the retrieved package |
+
+**Response Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| price | `number` | The price (in cents) that is to be paid |
+| id | `string` | The reference ID against which the payment is being made |
+| count | `number` | The total number of candidates that are being verified |
+| employees | `array` | Id and email id of invited candidates |
+
+
+## Get Webhook Logs
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/company/webhook/logs' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/company/webhook/logs", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://api.us.springverify.com/company/webhook/logs',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/company/webhook/logs');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/company/webhook/logs"
+
+payload={}
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+```ruby
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/company/webhook/logs")
+
+http = Net::HTTP.new(url.host, url.port);
+request = Net::HTTP::Get.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = http.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "logs": [
+            {
+                "email": "johndoe@gmail.com",
+                "event_type": "overall_status_update",
+                "response": {
+                    "code":200,
+                    "description":"OK"
+                    },
+                "response_code": 200,
+                "curl": "curl \"https://webhook.site/be9bcd8c-c819-4b5a-9652-0984e6dfa282\" \\n-H \"cache-control: no-cache\" \\n-H \"content-type: application/json\" \\n-H \"secret-token: null\" \\n-H \"authorization: Bearer JWT_TOKEN\" \\n-H \"accept: application/json\" \\n--data-binary \"{\"\"data\"\":{\"\"employee_email\"\":\"\"johndoe@gmail.com\"\",\"\"overall_status\"\":\"\"PENDING\"\"},\"\"event_type\"\":\"\"overall_status_update\"\",\"\"company_id\"\":126}\" --compressed",
+                "id": "61026a761e331e43541d7925",
+                "created_at": "2021-07-29T08:44:38.242Z"
+            }
+        ],
+        "count": 1
+    }
+}
+```
+
+A company can get the logs of a registered webhook using this API.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| status | `string` | ALL/SUCCESS/ERROR |
+| search | `string` | Search term which returns record after matching email of the candidate |
+| limit | `integer` | Page Limit |
+| offset | `integer` | Page Offset |
+
+
+
+---
+
+
+For a registered admin with a valid JWT, this API can be used to get the company's profile. This is different from the company details. A company's profile contains details of the company given during registration as well as the count of the candidates whose profiles were verified, failed, or is pending.
+
+## Payment For Invites
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/payment/charge-user' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--data-raw '{
+    "id": "2612d112-5827-4b1c-a177-03a85eabd03d",
+    "send_email": true,
+    "coupon_code": ""
+}'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/payment/charge-user', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/payment/charge-user',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }';
+$response = Requests::post('https://api.us.springverify.com/payment/charge-user', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "id": "2612d112-5827-4b1c-a177-03a85eabd03d", "send_email": true, "coupon_code": "" }'
+
+response = requests.post('https://api.us.springverify.com/payment/charge-user', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/payment/charge-user")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+>Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "id": "ch_1HJdvnFq1aDrrzKzZE6729eZ",
+        "object": "charge",
+        "amount": 9999,
+        "amount_refunded": 0,
+        "application": null,
+        "application_fee": null,
+        "application_fee_amount": null,
+        "balance_transaction": "txn_1HJdvnFq1aDrrzKzbZXCgvAO",
+        "billing_details": {
+            "address": {
+                "city": null,
+                "country": null,
+                "line1": null,
+                "line2": null,
+                "postal_code": "42424",
+                "state": null
+            },
+            "email": null,
+            "name": "johndoe@gmail.com",
+            "phone": null
+        },
+        "calculated_statement_descriptor": "SPRINGVERIFY.COM",
+        "captured": true,
+        "created": 1598268823,
+        "currency": "usd",
+        "customer": "cus_HjgWvwfPN7bKob",
+        "description": null,
+        "destination": null,
+        "dispute": null,
+        "disputed": false,
+        "failure_code": null,
+        "failure_message": null,
+        "fraud_details": {},
+        "invoice": null,
+        "livemode": false,
+        "metadata": {},
+        "on_behalf_of": null,
+        "order": null,
+        "outcome": {
+            "network_status": "approved_by_network",
+            "reason": null,
+            "risk_level": "normal",
+            "risk_score": 28,
+            "seller_message": "Payment complete.",
+            "type": "authorized"
+        },
+        "paid": true,
+        "payment_intent": null,
+        "payment_method": "card_1HAD9gFq1aDrrzKzPZUtu418",
+        "payment_method_details": {
+            "card": {
+                "brand": "visa",
+                "checks": {
+                    "address_line1_check": null,
+                    "address_postal_code_check": "pass",
+                    "cvc_check": null
+                },
+                "country": "US",
+                "exp_month": 4,
+                "exp_year": 2024,
+                "fingerprint": "IpgpMeLB1qGPPEnT",
+                "funding": "credit",
+                "installments": null,
+                "last4": "4242",
+                "network": "visa",
+                "three_d_secure": null,
+                "wallet": null
+            },
+            "type": "card"
+        },
+        "receipt_email": "johndoe@gmail.com",
+        "receipt_number": null,
+        "receipt_url": "receipt_url_link",
+        "refunded": false,
+        "refunds": {
+            "object": "list",
+            "data": [],
+            "has_more": false,
+            "total_count": 0,
+            "url": "/v1/charges/ch_1HJdvnFq1aDrrzKzZE6729eZ/refunds"
+        },
+        "review": null,
+        "shipping": null,
+        "source": {
+            "id": "card_1HAD9gFq1aDrrzKzPZUtu418",
+            "object": "card",
+            "address_city": null,
+            "address_country": null,
+            "address_line1": null,
+            "address_line1_check": null,
+            "address_line2": null,
+            "address_state": null,
+            "address_zip": "42424",
+            "address_zip_check": "pass",
+            "brand": "Visa",
+            "country": "US",
+            "customer": "cus_HjgWvwfPN7bKob",
+            "cvc_check": null,
+            "dynamic_last4": null,
+            "exp_month": 4,
+            "exp_year": 2024,
+            "fingerprint": "IygpMeLB1qGPPEnT",
+            "funding": "credit",
+            "last4": "4242",
+            "metadata": {},
+            "name": "johndoe@gmail.com",
+            "tokenization_method": null
+        },
+        "source_transfer": null,
+        "statement_descriptor": null,
+        "statement_descriptor_suffix": null,
+        "status": "succeeded",
+        "transfer_data": null,
+        "transfer_group": null
+    }
+}
+```
+
+Once a candidate has been invited to get themselves verified, the verification must be paid for. This API is used for the payment purpose and must be called immediately after the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. Payments will be processed using the details from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments) API. The reference ID retrieved from the "Invite Candidates" API is used here. Emails to candidates requesting verification will be sent only after the payment is successful. 
+
+If the `send_email` field is set to `false`, the API will return the verification links of the candidates in the response.
+
+If you have a coupon code you can enter it here.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `string` | The reference ID retrieved from the [Invite Candidates](https://docs.us.springverify.com/#invite-candidates) API. |
+| send_email | `boolean` | `true` -- sends emails to the candidates. |
+| | | `false` -- returns the verifications links of the candidates. |
+| coupon_code | `string` | (Optional) Any coupon code that the admin has for discounted pricing |
+
+
+## Save payment info
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/payment/save-card' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--data-raw '{
+	"source":"tok_1EkXOa4wweuFtc0nQd0eOOhs"
+}'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/payment/save-card', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer JWT_TOKEN'
+    },
+    body: JSON.stringify({ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var dataString = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/payment/save-card',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }';
+$response = Requests::post('https://api.us.springverify.com/payment/save-card', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+data = '{ "source":"tok_1EkXOa4wweuFtc0nQd0eOOhs" }'
+
+response = requests.post('https://api.us.springverify.com/payment/save-card', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/payment/save-card")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": "card saved for the specified user"
+}
+```
+
+To save the token received from the [Save Credit Card in Stripe for Payments](https://docs.us.springverify.com/#save-credit-card-in-stripe-for-payments), use this API.
+
+
+## Search Candidate
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/company/employee/search' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "search":"johndoe@gmail.com"
+}'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/employee/search', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "search":"johndoe@gmail.com" })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "search":"johndoe@gmail.com" }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company/employee/search',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "search":"johndoe@gmail.com" }';
+$response = Requests::post('https://api.us.springverify.com/company/employee/search', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "search":"johndoe@gmail.com" }'
+
+response = requests.post('https://api.us.springverify.com/company/employee/search', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/employee/search")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "478543b4-43b0-45bd-82db-dc4ce0ff193c",
+            "email": "a13@yopmail.com",
+            "first_name": "Steven",
+            "middle_name": "Brandon",
+            "last_name": "Ward",
+            "status": "PENDING",
+            "employee_limit": {
+                "id": "63d34d43-794f-49c6-8de9-327935156076",
+                "employee_invite_group": {
+                    "id": "c35d4851-8f23-4779-9310-a913bda6b1af",
+                    "package": "bronze"
+                }
+            }
+        },
+        {
+            "id": "f29aebee-df87-4cae-8779-7e6c48345d1d",
+            "email": "testdata1@yopmail.com",
+            "first_name": "Steven",
+            "middle_name": "Brandon",
+            "last_name": "Ward",
+            "status": null,
+            "employee_limit": {
+                "id": "149913a5-8bf1-4ca5-ba5b-3fb412cd68fa",
+                "employee_invite_group": {
+                    "id": "f33cc6ab-c8d1-4535-b80a-b9f2cd45a319",
+                    "package": "diamond"
+                }
+            }
+        }
+    ]
+}
+
+```
+
+This API searches and retrieves the profile of a specific candidate that is already verified.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| search | `string`| Search term which returns record after matching first name, middle name, last name or email |
+
+## Get Single Candidate
+
+```shell
+curl --location --request GET 'https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--data-raw ''
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN'
+    }
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN'
+};
+
+var options = {
+    url: 'https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID',
+    method: 'POST',
+    headers: headers
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN'
+);
+$data = array(
+
+);
+$response = Requests::post('https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+}
+
+params = (
+    ('id', 'EMPLOYEE_ID'),
+)
+
+response = requests.post('https://api.us.springverify.com/company/employee', headers=headers, params=params)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/employee?id=EMPLOYEE_ID")
+request = Net::HTTP::Get.new(uri)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": {
+        "employee": {
+            "id": "6d6d81f5-6f00-4a38-a7d7-249cc2127ab6",
+            "access_id": null,
+            "email": "johndoe@gmail.com",
+            "password_hash": null,
+            "first_name": null,
+            "middle_name": null,
+            "last_name": null,
+            "name_verified": null,
+            "created_at": "2020-08-24T10:57:01.000Z",
+            "updated_at": "2020-08-24T10:57:01.000Z",
+            "employer_id": "fd725660-58f7-4a97-b626-5a4588e4ca31",
+            "payment_id": "0e9a7695-91bd-4e60-aefc-ba47f80ab0f0",
+            "email_sent": true,
+            "payment": false,
+            "status": null,
+            "flow_completed": null,
+            "company_created_by": "john@wick.com",
+            "employee_limit_id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
+            "kbaqna": null,
+            "employments": [],
+            "education": [],
+            "professional_licenses": [],
+            "employee_limit": {
+                "id": "bd95351f-fc2a-4ff9-8652-88abbfe67bdd",
+                "employment": 2,
+                "education": 1,
+                "professional_license": 0,
+                "all_county_criminal_search": true,
+                "county_criminal_search": 0,
+                "civil_court": 1,
+                "driving_license": 0,
+                "package_id": null,
+                "created_at": "2020-08-24T10:57:01.000Z",
+                "updated_at": "2020-08-24T10:57:01.000Z",
+                "employee_invite_group_id": "4153a150-4157-48ab-b258-9a9b47a05fc2",
+                "employee_invite_group": {
+                    "id": "4153a150-4157-48ab-b258-9a9b47a05fc2",
+                    "package": "diamond",
+                    "active": true,
+                    "created_at": "2020-08-24T10:57:00.000Z",
+                    "updated_at": "2020-08-24T10:57:00.000Z",
+                    "company_created_by": "john@wick.com",
+                    "package_id": "5"
+                }
+            },
+            "employee_detail": null,
+            "employee_verification": null,
+            "s3_files": [],
+            "criminal_statuses": [],
+            "cic_criminal_records": [],
+            "sjv_criminal_reports": []
+        },
+        "review": [],
+        "criminal_status": {
+            "national_criminal": "PENDING",
+            "sex_offender": "PENDING",
+            "global_watchlist": "PENDING",
+            "county_criminal_search": "PENDING",
+            "civil_court": "PENDING",
+            "overall_criminal_status": "PENDING"
+        }
+    }
+}
+```
+
+When the details of a specific candidate whose profile is already verified is to be retrieved, use this API. This API retrieves the details of the candidate that have been verified, as well as the pricing package in which the candidate's profile was verified, along with the date of the most recent verification.
+
+**URL Parameters**
+
+| Parameter | Type | Description |  
+| --- | --- | --- |
+|id | `uuid` | Contains the unique ID of the candidate. |
+
+## Get company action
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/company/actions' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "limit":10,
+    "offset":0
+}'
+```
+
+```javascript
+// FETCH
+
+var fetch = require('node-fetch');
+
+fetch('https://api.us.springverify.com/company/actions', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer JWT_TOKEN',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "limit":10, "offset":0 })
+});
+
+// REQUEST
+
+var request = require('request');
+
+var headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json'
+};
+
+var dataString = '{ "limit":10, "offset":0 }';
+
+var options = {
+    url: 'https://api.us.springverify.com/company/actions',
+    method: 'POST',
+    headers: headers,
+    body: dataString
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+```
+
+```php
+<?php
+include('vendor/rmccue/requests/library/Requests.php');
+Requests::register_autoloader();
+$headers = array(
+    'Authorization' => 'Bearer JWT_TOKEN',
+    'Content-Type' => 'application/json'
+);
+$data = '{ "limit":10, "offset":0 }';
+$response = Requests::post('https://api.us.springverify.com/company/actions', $headers, $data);
+```
+
+```python
+import requests
+
+headers = {
+    'Authorization': 'Bearer JWT_TOKEN',
+    'Content-Type': 'application/json',
+}
+
+data = '{ "limit":10, "offset":0 }'
+
+response = requests.post('https://api.us.springverify.com/company/actions', headers=headers, data=data)
+```
+
+```ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse("https://api.us.springverify.com/company/actions")
+request = Net::HTTP::Post.new(uri)
+request.content_type = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+req_options = {
+  use_ssl: uri.scheme == "https",
+}
+
+response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+  http.request(request)
+end
+
+# response.code
+# response.body
+```
+
+> Success Response
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "string": "identity verification failed. (using their driving license)",
+      "time": "2020-08-27T05:59:02.000Z",
+      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "identity verification failed. (using their driving license)",
+      "time": "2020-08-27T05:59:02.000Z",
+      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "identity verification failed. (using their driving license)",
+      "time": "2020-08-27T05:59:02.000Z",
+      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "has successfully verified their identity. (using their driving license)",
+      "time": "2020-08-27T05:57:03.000Z",
+      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "has uploaded their driving license.",
+      "time": "2020-08-27T05:56:44.000Z",
+      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "has entered personal details.",
+      "time": "2020-08-27T05:55:40.000Z",
+      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "has been added as a candidate and invited to enter his information.",
+      "time": "2020-08-27T05:54:24.000Z",
+      "id": "9282698a-72ac-49df-a750-85c169bfe08e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "identity verification failed. (using their driving license)",
+      "time": "2020-08-27T04:29:02.000Z",
+      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "identity verification failed. (using their driving license)",
+      "time": "2020-08-27T04:29:02.000Z",
+      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    },
+    {
+      "string": "identity verification failed. (using their driving license)",
+      "time": "2020-08-27T04:29:02.000Z",
+      "id": "8bf63c9a-b89c-4dff-a03c-0d571dc4c47e",
+      "first_name": "John",
+      "middle_name": "Mark",
+      "last_name": "Smith",
+      "email": "johndoe@gmail.com"
+    }
+  ]
+}
+```
+
+This API informs an admin/s of the activities of a specific candidate in the following scenarios:
+
+* The candidate has been invited to provide their information to initiate the verification.
+* The candidate has entered their personal information.
+* The candidate has successfully uploaded their driver's license.
+* The candidate has successfully verified their identity using their driver's license.
+* The candidate has failed to verify their identity using their driver's license.
 
 # Changelog
 
