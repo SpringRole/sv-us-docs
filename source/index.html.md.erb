@@ -5343,13 +5343,6 @@ Using this API, a company can opt to rerun the criminal check on a candidate.
 ## Delete / Archive candidate
 
 ```shell
-curl --location --request POST 'https://api.us.springverify.com/employee/criminal-report-run' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer JWT_TOKEN' \
---data-raw '{
-    "id":"cd5f75ac-69d4-423f-8919-8ddc49a65163"
-}'
-
 curl --location --request DELETE 'https://api.us.springverify.com/company/employee?employee_id=71b5d6e8-c20d-4aa3-acf8-aefd9cad9f7c' \
 --header 'Authorization: Bearer JWT_TOKEN'
 ```
