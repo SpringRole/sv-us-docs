@@ -5481,6 +5481,122 @@ Using this API, a company can opt to delete/archive a candidate. If the candidat
 
 ---
 
+## Download PDF report
+
+```shell
+curl --location --request GET 'https://us.springverify.com/api/company/common/report/download?report_url=/candidate-report/8cc38377-602e-4db7-9dfc-cd74585e275b?cAdminToken=JWT_TOKEN' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://us.springverify.com/api/company/common/report/download?report_url=/candidate-report/8cc38377-602e-4db7-9dfc-cd74585e275b?cAdminToken=JWT_TOKEN", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://us.springverify.com/api/company/common/report/download?report_url=/candidate-report/8cc38377-602e-4db7-9dfc-cd74585e275b?cAdminToken=JWT_TOKEN',
+  'headers': {
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://us.springverify.com/api/company/common/report/download?report_url=/candidate-report/8cc38377-602e-4db7-9dfc-cd74585e275b?cAdminToken=JWT_TOKEN');
+$request->setMethod(HTTP_Request2::METHOD_GET);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+
+url = "https://us.springverify.com/api/company/common/report/download?report_url=/candidate-report/8cc38377-602e-4db7-9dfc-cd74585e275b?cAdminToken=JWT_TOKEN"
+
+payload={}
+headers = {
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://us.springverify.com/api/company/common/report/download?report_url=/candidate-report/8cc38377-602e-4db7-9dfc-cd74585e275b?cAdminToken=JWT_TOKEN")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = https.request(request)
+puts response.read_body
+
+```
+
+> Success Response
+
+```PDF
+PDF file
+```
+Download PDF report for the candidate
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| report_url | `string` | Report url of the candidate |
+
+---
+
 # Candidate
 
 This section covers the API details available for users logged in as candidates i.e., users who wish to get background verification checks performed on their profiles.
@@ -8598,6 +8714,279 @@ If the candidate doesn't call the <b>Create Password</b> API after calling the a
 | run_mock | `boolean` | (Optional) Run mock api |
 | fail_check | `boolean` | (Optional) Whether the education check should fail or not |
 
+## Add Motor Vehicle Record
+
+```shell
+curl --location --request POST 'https://api.us.springverify.com/employee/mvr' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN' \
+--data-raw '{
+    "license_number": "LH4782920",
+    "state": "CA"
+}'
+```
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": "Data updated successfully."
+}
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var raw = JSON.stringify({
+  "license_number": "LH4782920",
+  "state": "CA"
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/mvr", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://api.us.springverify.com/employee/mvr',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  },
+  body: JSON.stringify({
+    "license_number": "LH4782920",
+    "state": "CA"
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/mvr');
+$request->setMethod(HTTP_Request2::METHOD_POST);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+$request->setBody('{\n    "license_number": "LH4782920",\n    "state": "CA"\n}');
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/employee/mvr"
+
+payload = json.dumps({
+  "license_number": "LH4782920",
+  "state": "CA"
+})
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/employee/mvr")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+request.body = JSON.dump({
+  "license_number": "LH4782920",
+  "state": "CA"
+})
+
+response = https.request(request)
+puts response.read_body
+```
+
+This API will be used to submit the motor vehicle record of the candidate. This endpoint can be called again to update the license number or state.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| license_number | `string` | License number |
+| state | `string` | A 2-letter and 2-digit codes from the ANSI standard INCITS 38:2009 |
+
+## Delete Motor Vehicle Record
+
+```shell
+curl --location --request DELETE 'https://api.us.springverify.com/employee/mvr/3f605433-7654-4d81-8a03-2fadd5e5140a' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer JWT_TOKEN'
+```
+> Success Response
+
+```json
+{
+    "success": true,
+    "data": "MVR record deleted successfully."
+}
+```
+
+```javascript
+// FETCH
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer JWT_TOKEN");
+
+var requestOptions = {
+  method: 'DELETE',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.us.springverify.com/employee/mvr/3f605433-7654-4d81-8a03-2fadd5e5140a", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// REQUEST
+
+var request = require('request');
+var options = {
+  'method': 'DELETE',
+  'url': 'https://api.us.springverify.com/employee/mvr/3f605433-7654-4d81-8a03-2fadd5e5140a',
+  'headers': {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer JWT_TOKEN'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
+
+```php
+<?php
+require_once 'HTTP/Request2.php';
+$request = new HTTP_Request2();
+$request->setUrl('https://api.us.springverify.com/employee/mvr/3f605433-7654-4d81-8a03-2fadd5e5140a');
+$request->setMethod(HTTP_Request2::METHOD_DELETE);
+$request->setConfig(array(
+  'follow_redirects' => TRUE
+));
+$request->setHeader(array(
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer JWT_TOKEN'
+));
+try {
+  $response = $request->send();
+  if ($response->getStatus() == 200) {
+    echo $response->getBody();
+  }
+  else {
+    echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .
+    $response->getReasonPhrase();
+  }
+}
+catch(HTTP_Request2_Exception $e) {
+  echo 'Error: ' . $e->getMessage();
+}
+```
+
+```python
+import requests
+import json
+
+url = "https://api.us.springverify.com/employee/mvr/3f605433-7654-4d81-8a03-2fadd5e5140a"
+
+payload={}
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer JWT_TOKEN'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+```ruby
+
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://api.us.springverify.com/employee/mvr/3f605433-7654-4d81-8a03-2fadd5e5140a")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Delete.new(url)
+request["Content-Type"] = "application/json"
+request["Authorization"] = "Bearer JWT_TOKEN"
+
+response = https.request(request)
+puts response.read_body
+
+```
+
+This API is used to delete the motor vehicle record entry submitted in the previous API before it goes for verification.
+
+**URL Parameters**
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| id | `uuid` | UUID of MVR entry |
+
 ## Create Password
 
 ```shell
@@ -10755,6 +11144,15 @@ To save the token received from the [Save Credit Card in Stripe for Payments](ht
 # Changelog
 
 All notable changes to the docs will be documented here.
+
+## Version 0.0.6
+
+Date: *July 29, 2022*
+
+### Added
+- Candidate | Add motor vehicle record API
+- Candidate | Remove motor vehicle record API
+- Company | Download PDF report API
 
 ## Version 0.0.5
 
